@@ -34,6 +34,7 @@ const callsToAction = [
 ]
 
 export default function Example({ pages, slug } : { pages: string[], slug: string }) {
+  console.log('🚀 || Example || slug:', slug)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
