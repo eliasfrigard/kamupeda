@@ -34,7 +34,12 @@ const callsToAction = [
 ]
 
 export default function Example({ pages, slug } : { pages: string[], slug: string }) {
-  console.log('🚀 || Example || slug:', slug)
+  const isActive = (page: string) => {
+    const normalizedPageSlug = normalizeSlug(page)
+    return normalizedPageSlug === slug
+  }
+  console.log('🚀 || isActive || isActive:', isActive)
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (

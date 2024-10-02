@@ -4,17 +4,44 @@ import { ForwardRefExoticComponent, RefAttributes, SVGProps } from 'react';
 type IconType = ForwardRefExoticComponent<Omit<SVGProps<SVGSVGElement>, 'ref'> & {
   title?: string;
   titleId?: string;
-} & RefAttributes<SVGSVGElement>>;
+} & RefAttributes<SVGSVGElement>>
+
+export type TextBlockSkeleton = {
+  contentTypeId: 'textBlock',
+  sys: {
+    id: string,
+    contentType: {
+      sys: {
+        id: 'textBlock',
+      },
+    },
+  },
+  fields: {
+    title: string,
+    textContent: Contentful.EntryFieldTypes.RichText,
+  },
+};
 
 export type PageSkeleton = {
-  contentTypeId: "page",
+  contentTypeId: 'page',
   sys: {
-    id: string
-  }
+    id: string,
+  },
   fields: {
-    title: Contentful.EntryFieldTypes.Text
-  }
-}
+    title: string,
+    // Should support more content types in the future.
+    content: Contentful.EntryFieldTypes.Array<
+      Contentful.EntryFieldTypes.EntryLink<TextBlockSkeleton>
+    >,
+  },
+};
+
+// Define other potential content types here
+export type OtherContentTypeSkeleton = {
+  contentTypeId: 'otherContentType',
+  // Add other fields as needed
+};
+
 
 export type Product = {
   name: string;
