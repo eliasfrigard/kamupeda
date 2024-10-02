@@ -1,32 +1,5 @@
-import { createClient } from 'contentful'
-import * as Contentful from 'contentful'
-
-const space = process.env.SPACE_ID || ''
-const accessToken = process.env.ACCESS_TOKEN || ''
-
-type PageSkeleton = {
-  contentTypeId: "page",
-  sys: {
-    id: string
-  }
-  fields: {
-    title: Contentful.EntryFieldTypes.Text
-  }
-}
-
-const normalizeSlug = (title: string): string => {
-  return title.toLowerCase().replace(/\s+/g, '-')
-}
-
-const getPageData = async () => {
-  const client = createClient({ space, accessToken })
-
-  const pageRes = await client.getEntries<PageSkeleton>({
-    content_type: 'page'
-  })
-
-  return pageRes.items
-}
+import { normalizeSlug } from "@/utils/normalizeSlug"
+import { getPageData } from "@/utils/contentful"
 
 export async function generateStaticParams() {
   const pages = await getPageData()

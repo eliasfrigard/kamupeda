@@ -2,8 +2,6 @@ import type { Metadata } from "next"
 import { Inter, Playpen_Sans } from "next/font/google"
 import "./globals.css"
 
-import Header from "../components/Header"
-
 const inter = Inter({ subsets: ["latin"] })
 const pacifico = Playpen_Sans({ weight: "400", subsets: ["latin"], variable: "--font-pacifico" })
 
@@ -20,9 +18,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} ${pacifico.variable}`}>
-        <Header />
         {children}
-        </body>
+      </body>
     </html>
   )
 }
