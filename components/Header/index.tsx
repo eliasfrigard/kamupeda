@@ -21,6 +21,7 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
+import { normalizeSlug } from '../../utils/normalizeSlug';
 
 const products = [
   { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
@@ -34,13 +35,8 @@ const callsToAction = [
   { name: 'Contact sales', href: '#', icon: PhoneIcon },
 ]
 
-const links = [
-  { name: 'Features', href: '#' },
-  { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '#' },
-]
-
-export default function Example() {
+export default function Example({ pages, slug } : { pages: string[], slug: string }) {
+  console.log('🚀 || Example || slug:', slug)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
@@ -107,15 +103,21 @@ export default function Example() {
             </PopoverPanel>
           </Popover>
 
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Features
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Marketplace
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Company
-          </a>
+          {
+            pages.map((page) => {
+              const normalizedPageSlug = normalizeSlug(page)
+
+              return (
+                <a
+                  key={normalizedPageSlug}
+                  href={normalizedPageSlug}
+                  className="text-sm font-semibold leading-6 text-gray-900"
+                >
+                  {page}
+                </a>
+              )
+            })
+          }
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
@@ -148,17 +150,20 @@ export default function Example() {
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
                 <DisclosureButtonComponent products={products} callsToAction={callsToAction} />
-
                 {
-                  links.map((link) => (
-                    <a
-                      key={link.name}
-                      href={link.href}
-                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                    >
-                      link.name
-                    </a>
-                  ))
+                  pages.map((page) => {
+                    const normalizedPageSlug = normalizeSlug(page)
+
+                    return (
+                      <a
+                        key={normalizedPageSlug}
+                        href={normalizedPageSlug}
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                      >
+                        {page}
+                      </a>
+                    )
+                  })
                 }
               </div>
               <div className="py-6">
