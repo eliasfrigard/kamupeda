@@ -20,7 +20,25 @@ export type TextBlockSkeleton = {
     title: string,
     textContent: Contentful.EntryFieldTypes.RichText,
   },
-};
+}
+
+export type VideoSkeleton = {
+  contentTypeId: 'video',
+  sys: {
+    id: string,
+    contentType: {
+      sys: {
+        id: 'video',
+      },
+    },
+  },
+  fields: {
+    title: string,
+    youTubeLink: string,
+  },
+}
+
+export type PageContent = TextBlockSkeleton | VideoSkeleton
 
 export type PageSkeleton = {
   contentTypeId: 'page',
@@ -31,7 +49,7 @@ export type PageSkeleton = {
     title: string,
     // Should support more content types in the future.
     content: Contentful.EntryFieldTypes.Array<
-      Contentful.EntryFieldTypes.EntryLink<TextBlockSkeleton>
+      Contentful.EntryFieldTypes.EntryLink<PageContent>
     >,
   },
 };

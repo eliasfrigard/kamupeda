@@ -25,3 +25,12 @@ body {
     text-wrap: balance;
   }
 }
+
+@layer components {
+  .video {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    border-radius: 0.25rem;
+    box-shadow: theme('boxShadow.xl');
+  }
+}

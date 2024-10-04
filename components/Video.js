@@ -1,10 +1,10 @@
 import React from 'react'
 import getYoutubeID from 'get-youtube-id'
-import AnimateIn from './AnimateIn'
+// import AnimateIn from './AnimateIn'
 
 const Video = ({ title, link, prominent = false, className }) => {
   return (
-    <AnimateIn className={`w-full centerContent flex-col ${className}`}>
+    <div className={`w-full centerContent flex-col ${className}`}>
       <iframe
         title={title}
         src={`https://www.youtube.com/embed/${getYoutubeID(link)}`}
@@ -14,7 +14,7 @@ const Video = ({ title, link, prominent = false, className }) => {
         loading='lazy'
         allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
       ></iframe>
-    </AnimateIn>
+    </div>
   )
 }
 
