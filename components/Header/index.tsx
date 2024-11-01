@@ -33,12 +33,27 @@ const callsToAction = [
   { name: 'Contact sales', href: '#', icon: PhoneIcon },
 ]
 
-export default function Example({ pages, slug } : { pages: string[], slug: string }) {
+type Page = {
+  title: string
+  children: { 
+    icon: string,
+    title: string,
+    description: string
+  }[]
+}
+
+export default function Example({ 
+  pages, 
+  slug
+} : { 
+  pages: Page[],
+  slug: string
+}) {
+  console.log('🚀 || pages:', pages[0].children)
   const isActive = (page: string) => {
     const normalizedPageSlug = normalizeSlug(page)
     return normalizedPageSlug === slug
   }
-  console.log('🚀 || isActive || isActive:', isActive)
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -62,10 +77,16 @@ export default function Example({ pages, slug } : { pages: string[], slug: strin
           </button>
         </div>
         <PopoverGroup className="hidden lg:flex lg:gap-x-12">
-          <PopoverItem title="Popover Title" products={products} callsToAction={callsToAction} />
           {
             pages.map((page) => {
-              const normalizedPageSlug = normalizeSlug(page)
+              console.log('🚀 || pages.map || page:', page)
+              const normalizedPageSlug = normalizeSlug(page.title)
+
+              if (page.children.length) {
+                return (
+                  <PopoverItem key={normalizedPageSlug} title={page.title} pages={page.children} callsToAction={callsToAction} />
+                )
+              }
 
               return (
                 <a
@@ -73,7 +94,7 @@ export default function Example({ pages, slug } : { pages: string[], slug: strin
                   href={normalizedPageSlug}
                   className="text-sm font-semibold leading-6 text-gray-900"
                 >
-                  {page}
+                  {page.title}
                 </a>
               )
             })
@@ -112,7 +133,7 @@ export default function Example({ pages, slug } : { pages: string[], slug: strin
                 <DisclosureButtonComponent products={products} callsToAction={callsToAction} />
                 {
                   pages.map((page) => {
-                    const normalizedPageSlug = normalizeSlug(page)
+                    const normalizedPageSlug = normalizeSlug(page.title)
 
                     return (
                       <a
@@ -120,7 +141,7 @@ export default function Example({ pages, slug } : { pages: string[], slug: strin
                         href={normalizedPageSlug}
                         className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                       >
-                        {page}
+                        {page.title}
                       </a>
                     )
                   })

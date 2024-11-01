@@ -1,10 +1,20 @@
 import { normalizeSlug } from "@/utils/normalizeSlug"
-import { getPageData } from "@/utils/contentful"
-import type { PageSkeleton, PageContent, TextBlockSkeleton, VideoSkeleton } from "@/types"
+import { getPageData, getPageBySlug } from "@/utils/contentful"
+
+// import Hero from '@/components/Hero'
+import Hero from '@/components/ImageHero'
 import TextLayout from '@/components/TextLayout'
 import Video from '@/components/Video'
 
-export async function generateStaticParams() {
+import type { 
+  PageSkeleton, 
+  PageContent, 
+  TextBlockSkeleton, 
+  VideoSkeleton,
+  HeroSkeleton
+} from "@/types"
+
+export const generateStaticParams = async () => {
   const pages = await getPageData()
 
   return pages.map((page) => ({
@@ -15,9 +25,7 @@ export async function generateStaticParams() {
 export default async function Page({ params }: { params: { slug: string } }) {
   const normalizedSlug = params.slug
 
-  // @ts-expect-error TODO: Don't know how to handle yet.
-  const pages: PageSkeleton[] = await getPageData()
-  const page = pages.find((p) => normalizeSlug(p.fields.title) === normalizedSlug)
+  const page = await getPageBySlug(normalizedSlug) as PageSkeleton
 
   if (!page) {
     return <div>Page not found</div>
@@ -40,13 +48,40 @@ export default async function Page({ params }: { params: { slug: string } }) {
           
           if (contentTypeId === 'video') {
             const contentBlock = block as VideoSkeleton
-
+            
             return (
               <Video
-                key={contentBlock.fields.title}
-                className="w-full aspect-video"
-                title={contentBlock.fields.title}
-                link={contentBlock.fields.youTubeLink}
+              key={contentBlock.fields.title}
+              className="w-full aspect-video"
+              title={contentBlock.fields.title}
+              link={contentBlock.fields.youTubeLink}
+              />
+            )
+          }
+          
+          if (contentTypeId === 'hero') {
+            const contentBlock = block as HeroSkeleton
+
+            const hero = {
+              desktopImg: {
+                url: 'https:' + contentBlock.fields.hero.fields.file.url,
+                altText: contentBlock.fields.hero.fields.title,
+              },
+              mobileImg: {
+                url: 'https:' + contentBlock.fields.mobileHero.fields.file.url,
+                altText: contentBlock.fields.mobileHero.fields.title,
+              },
+            }
+
+            return (
+              // <Hero 
+              //   spaced={false}
+              //   desktopImg={hero.desktopImg}
+              //   mobileImg={hero.mobileImg}
+              // />
+              <Hero 
+                key={contentBlock.sys.id}
+                desktopImg={hero.desktopImg}
               />
             )
           }

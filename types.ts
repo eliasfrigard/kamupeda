@@ -38,7 +38,24 @@ export type VideoSkeleton = {
   },
 }
 
-export type PageContent = TextBlockSkeleton | VideoSkeleton
+export type HeroSkeleton = {
+  contentTypeId: 'hero',
+  sys: {
+    id: string,
+    contentType: {
+      sys: {
+        id: 'hero',
+      },
+    },
+  },
+  fields: {
+    title: string,
+    hero: Contentful.EntryFieldTypes.Asset,
+    mobileHero: Contentful.EntryFieldTypes.Asset,
+  },
+}
+
+export type PageContent = TextBlockSkeleton | VideoSkeleton | HeroSkeleton
 
 export type PageSkeleton = {
   contentTypeId: 'page',
@@ -46,7 +63,12 @@ export type PageSkeleton = {
     id: string,
   },
   fields: {
+    icon: IconType,
     title: string,
+    description: string,
+    pageChildren: Contentful.EntryFieldTypes.Array<
+      Contentful.EntryFieldTypes.EntryLink<PageSkeleton>
+    >,
     // Should support more content types in the future.
     content: Contentful.EntryFieldTypes.Array<
       Contentful.EntryFieldTypes.EntryLink<PageContent>
