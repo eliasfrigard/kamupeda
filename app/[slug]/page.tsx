@@ -32,12 +32,12 @@ export default async function Page({ params }: { params: { slug: string } }) {
   }
 
   // @ts-expect-error TODO: Don't know how to handle yet.
-  const pageContent = page.fields.content as PageContent[]
+  const pageContent = page.fields.content as PageContent[] | undefined
 
   return (
     <div className='container mx-auto w-full min-h-screen flex flex-col justify-center items-center gap-8 mb-16 text-black'>
       {
-        pageContent.map((block) => {
+        pageContent?.map((block) => {
           const contentTypeId = block.sys.contentType.sys.id
           
           if (contentTypeId === 'textBlock') {

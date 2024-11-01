@@ -26,7 +26,6 @@ const DisclosureButtonComponent = ({
   pages: PageChild[],
   callsToAction: CallToAction[]
 }) => {
-  console.log('🚀 || pages:', pages[0].icon.fields.file.url)
   return (
     <Popover className="relative">
       <PopoverButton className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">

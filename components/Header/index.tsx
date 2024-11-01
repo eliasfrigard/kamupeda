@@ -49,7 +49,6 @@ export default function Example({
   pages: Page[],
   slug: string
 }) {
-  console.log('🚀 || pages:', pages[0].children)
   const isActive = (page: string) => {
     const normalizedPageSlug = normalizeSlug(page)
     return normalizedPageSlug === slug
@@ -79,7 +78,6 @@ export default function Example({
         <PopoverGroup className="hidden lg:flex lg:gap-x-12">
           {
             pages.map((page) => {
-              console.log('🚀 || pages.map || page:', page)
               const normalizedPageSlug = normalizeSlug(page.title)
 
               if (page.children.length) {
