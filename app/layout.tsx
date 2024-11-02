@@ -2,11 +2,11 @@ import React from "react"
 import type { Metadata } from "next"
 import type { Page } from '@/types'
 
-import "../globals.css"
+import "./globals.css"
 import { getPages } from "@/utils/contentful"
 import { Inter, Playpen_Sans } from "next/font/google"
 
-import Header from "../../components/Header"
+import Header from "../components/Header"
 
 const inter = Inter({ subsets: ["latin"] })
 const pacifico = Playpen_Sans({ weight: "400", subsets: ["latin"], variable: "--font-pacifico" })

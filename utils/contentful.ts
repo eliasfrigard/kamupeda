@@ -18,11 +18,28 @@ export const getPageData = async () => {
   return pageRes.items
 }
 
+export const getBlogPostData = async () => {
+  const client = createClient({ space, accessToken, host })
+
+  const pageRes = await client.getEntries<PageSkeleton>({
+    content_type: 'blogPost',
+  })
+
+  return pageRes.items
+}
+
 export const getPageBySlug = async (slug: string) => {
   // @ts-expect-error TODO: Don't know how to handle yet.
   const pages: PageSkeleton[] = await getPageData()
 
   return pages.find((p) => normalizeSlug(p.fields.title) === normalizeSlug(slug))
+}
+
+export const getPostById = async (id: string) => {
+  // @ts-expect-error TODO: Don't know how to handle yet.
+  const pages: PageSkeleton[] = await getBlogPostData()
+
+  return pages.find((p) => normalizeSlug(p.sys.id) === normalizeSlug(id))
 }
 
 export const getPages = async (): Promise<Page[]> => {
