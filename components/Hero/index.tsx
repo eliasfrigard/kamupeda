@@ -1,8 +1,10 @@
 'use client'
+
 import React from 'react'
-import AnimateIn from '../AnimateIn'
 import HeroImage from './HeroImage'
 import HeroImageParallax from './HeroImageParallax'
+
+import type { HeroImageType } from '@/types'
 
 const Hero = ({
   children,
@@ -10,20 +12,11 @@ const Hero = ({
   mobileImg,
   overlay = true,
   spaced = false,
-  parallaxSpeed,
   imagePosition = 'center',
 } : {
   children?: React.ReactNode
-  desktopImg: {
-    url: string
-    altText: string
-    blur?: string
-  }
-  mobileImg: {
-    url: string
-    altText: string
-    blur?: string
-  }
+  desktopImg: HeroImageType
+  mobileImg: HeroImageType
   overlay?: boolean
   spaced: boolean
   parallaxSpeed?: number
@@ -35,7 +28,7 @@ const Hero = ({
     if (!overlay) return null
 
     // Use fragment because AnimateIn requires children.
-    return <div delay={1000} className={`absolute w-full h-full ${overlayClasses}`}><></></div>
+    return <div className={`absolute w-full h-full ${overlayClasses}`}><></></div>
   }
 
   // Spaced and default classes.

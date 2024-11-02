@@ -3,6 +3,8 @@
 import DisclosureButtonComponent from './DisclosureButton'
 import PopoverItem from './PopoverItem'
 
+import type { Page } from "@/types"
+
 import { useState } from 'react'
 import {
   Dialog,
@@ -33,17 +35,8 @@ const callsToAction = [
   { name: 'Contact sales', href: '#', icon: PhoneIcon },
 ]
 
-type Page = {
-  title: string
-  children: { 
-    icon: string,
-    title: string,
-    description: string
-  }[]
-}
-
 export default function Example({ 
-  pages, 
+  pages,
   slug
 } : { 
   pages: Page[],
@@ -53,6 +46,7 @@ export default function Example({
     const normalizedPageSlug = normalizeSlug(page)
     return normalizedPageSlug === slug
   }
+  isActive('Koti')
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -60,7 +54,7 @@ export default function Example({
     <header className="bg-white text-black">
       <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
+          <a href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
             <img alt="" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Tailwind_CSS_Logo.svg/1024px-Tailwind_CSS_Logo.svg.png?20230715030042" className="h-8 w-auto" />
           </a>

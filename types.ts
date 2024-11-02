@@ -1,97 +1,70 @@
-import * as Contentful from 'contentful'
-import { ForwardRefExoticComponent, RefAttributes, SVGProps } from 'react';
+import { Asset, EntryFieldTypes } from 'contentful'
+import { ForwardRefExoticComponent, RefAttributes, SVGProps } from 'react'
 
 type IconType = ForwardRefExoticComponent<Omit<SVGProps<SVGSVGElement>, 'ref'> & {
-  title?: string;
-  titleId?: string;
+  title?: string
+  titleId?: string
 } & RefAttributes<SVGSVGElement>>
 
-export type TextBlockSkeleton = {
-  contentTypeId: 'textBlock',
-  sys: {
-    id: string,
-    contentType: {
-      sys: {
-        id: 'textBlock',
-      },
-    },
-  },
-  fields: {
-    title: string,
-    textContent: Contentful.EntryFieldTypes.RichText,
-  },
+export type Sys<T extends string> = {
+  id: string
+  contentType: {
+    sys: {
+      id: T
+    }
+  }
 }
 
-export type VideoSkeleton = {
-  contentTypeId: 'video',
-  sys: {
-    id: string,
-    contentType: {
-      sys: {
-        id: 'video',
-      },
-    },
-  },
-  fields: {
-    title: string,
-    youTubeLink: string,
-  },
+export type BaseSkeleton<T extends string, F> = {
+  contentTypeId: T
+  sys: Sys<T>
+  fields: F
 }
 
-export type HeroSkeleton = {
-  contentTypeId: 'hero',
-  sys: {
-    id: string,
-    contentType: {
-      sys: {
-        id: 'hero',
-      },
-    },
-  },
-  fields: {
-    title: string,
-    hero: Contentful.EntryFieldTypes.Asset,
-    mobileHero: Contentful.EntryFieldTypes.Asset,
-  },
+export type TextBlockFields = {
+  title: string
+  textContent: EntryFieldTypes.RichText
 }
+
+export type VideoFields = {
+  title: string
+  youTubeLink: string
+}
+
+export type HeroFields = {
+  title: string
+  hero: Asset
+  mobileHero: Asset
+}
+
+export type TextBlockSkeleton = BaseSkeleton<'textBlock', TextBlockFields>
+export type VideoSkeleton = BaseSkeleton<'video', VideoFields>
+export type HeroSkeleton = BaseSkeleton<'hero', HeroFields>
 
 export type PageContent = TextBlockSkeleton | VideoSkeleton | HeroSkeleton
-
-export type PageSkeleton = {
-  contentTypeId: 'page',
-  sys: {
-    id: string,
-  },
-  fields: {
-    icon: IconType,
-    title: string,
-    description: string,
-    pageChildren: Contentful.EntryFieldTypes.Array<
-      Contentful.EntryFieldTypes.EntryLink<PageSkeleton>
-    >,
-    // Should support more content types in the future.
-    content: Contentful.EntryFieldTypes.Array<
-      Contentful.EntryFieldTypes.EntryLink<PageContent>
-    >,
-  },
-};
-
-// Define other potential content types here
-export type OtherContentTypeSkeleton = {
-  contentTypeId: 'otherContentType',
-  // Add other fields as needed
-};
-
-
-export type Product = {
-  name: string;
-  description: string;
-  href: string;
-  icon: IconType;
+export type PageSkeleton = BaseSkeleton<'page', PageFields>
+export type PageFields = {
+  icon: IconType
+  title: string
+  description: string
+  pageChildren: EntryFieldTypes.Array<
+    EntryFieldTypes.EntryLink<PageSkeleton>
+  >
+  content: EntryFieldTypes.Array<
+    EntryFieldTypes.EntryLink<PageContent>
+  >
 }
 
-export type CallToAction = {
-  name: string;
-  href: string;
-  icon: IconType;
+export type Page = {
+  id: string
+  icon: string
+  title: string
+  description: string
+  children: Page[]
+}
+
+export type HeroImageType = {
+  url: string
+  altText: string
+  blur?: string
 }
