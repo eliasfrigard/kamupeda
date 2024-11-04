@@ -2,6 +2,7 @@
 
 import DisclosureButtonComponent from './DisclosureButton'
 import PopoverItem from './PopoverItem'
+import Link from 'next/link'
 
 import type { Page } from "@/types"
 
@@ -73,6 +74,7 @@ export default function Example({
           {
             pages.map((page) => {
               const normalizedPageSlug = normalizeSlug(page.title)
+              console.log('🚀 || pages.map || normalizedPageSlug:', normalizedPageSlug)
 
               if (page.children.length) {
                 return (
@@ -81,13 +83,13 @@ export default function Example({
               }
 
               return (
-                <a
+                <Link
                   key={normalizedPageSlug}
                   href={normalizedPageSlug}
                   className="text-sm font-semibold leading-6 text-gray-900"
                 >
                   {page.title}
-                </a>
+                </Link>
               )
             })
           }
@@ -102,14 +104,14 @@ export default function Example({
         <div className="fixed inset-0 z-10" />
         <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
+            <Link href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
               <img
                 alt=""
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Tailwind_CSS_Logo.svg/1024px-Tailwind_CSS_Logo.svg.png?20230715030042"
                 className="h-8 w-auto"
               />
-            </a>
+            </Link>
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
