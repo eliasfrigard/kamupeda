@@ -23,13 +23,26 @@ export default async function RootLayout({
   children: React.ReactNode
   params: { slug: string }
 }>) {
+  const HEADER_HEIGHT = 84
+  const FOOTER_HEIGHT = 84
+
   const pages: Page[] = await getPages()
 
   return (
     <html lang="en">
       <body className={`${inter.className} ${pacifico.variable}`}>
-        <Header pages={pages} slug={params.slug} />
-        {children}
+        <Header pages={pages} slug={params.slug} height={HEADER_HEIGHT} />
+        <div style={{ paddingTop: HEADER_HEIGHT + 'px', minHeight: `calc(100vh - ${FOOTER_HEIGHT}px)` }}>
+          <div className="py-4 lg:py-6">
+            {children}
+          </div>
+        </div>
+        <div style={{ height: FOOTER_HEIGHT + 'px' }}>
+          <div className="container mx-auto h-full flex flex-col items-center justify-center text-black opacity-50 gap-1">
+            <p className="text-sm">Copyright © 2024 Kamupeda</p>
+            <p className="text-xs">Website by Elias Frigård</p>
+          </div>
+        </div>
       </body>
     </html>
   )

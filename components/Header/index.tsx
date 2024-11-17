@@ -38,10 +38,12 @@ const callsToAction = [
 
 export default function Example({ 
   pages,
-  slug
+  slug,
+  height
 } : { 
   pages: Page[],
   slug: string
+  height: number
 }) {
   const isActive = (page: string) => {
     const normalizedPageSlug = normalizeSlug(page)
@@ -52,8 +54,11 @@ export default function Example({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="bg-white text-black">
-      <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
+    <header
+      className={`bg-white text-black w-full fixed z-20`}
+      style={{ height: height + 'px' }}
+    >
+        <nav aria-label="Global" className="mx-auto h-full flex max-w-7xl items-center justify-between p-6 lg:px-8">
         <div className="flex lg:flex-1">
           <a href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>

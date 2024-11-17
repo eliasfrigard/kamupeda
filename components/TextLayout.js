@@ -34,7 +34,7 @@ const options = {
   },
 }
 
-const TextLayout = ({ text, type = 'dynamic', className }) => {
+const TextLayout = ({ text, type = 'dynamic' }) => {
   let textLength = 0
 
   text?.content.forEach((t) => {
@@ -62,14 +62,13 @@ const TextLayout = ({ text, type = 'dynamic', className }) => {
 
   // Determine layout and alignment classes conditionally
   const layoutClasses = textLength < maxLengthForTwoColumns || type === 'single'
-    ? 'prose py-0 my-0 max-w-4xl space-y-4 px-4 lg:px-0 flex flex-col'
+    ? 'prose py-0 my-0 max-w-3xl space-y-4 px-4 lg:px-0 flex flex-col leading-loose gap-2'
     : 'prose max-w-7xl lg:columns-2 gap-10 leading-loose'
 
-  const alignmentClasses = className || 'items-center justify-center'
+  // const alignmentClasses = className || 'items-center justify-center'
 
   return (
-    <div
-      className={`${layoutClasses} ${alignmentClasses} prose-img:rounded prose-img:shadow-md text-center prose-headings:font-sans prose-a:text-accent-500 prose-li:list-none`}
+    <div className={`${layoutClasses} prose-img:rounded prose-headings:m-0 prose-img:shadow-md prose-headings:font-sans prose-a:text-blue-500`}
     >
       {documentToReactComponents(textDocument, options)}
     </div>

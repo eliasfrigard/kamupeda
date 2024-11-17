@@ -23,6 +23,32 @@ export const getBlogPostData = async () => {
 
   const pageRes = await client.getEntries<PageSkeleton>({
     content_type: 'blogPost',
+    order: '-sys.createdAt',
+  })
+
+  return pageRes.items
+}
+
+export const getMaterialData = async () => {
+  const client = createClient({ space, accessToken, host })
+  
+  const pageRes = await client.getEntries<PageSkeleton>({
+    content_type: 'material',
+    order: '-sys.createdAt',
+  })
+  
+  return pageRes.items
+}
+
+export const searchMaterialData = async (query: string) => {
+  const space = process.env.SPACE_ID || 'nqeymplwbzvw'
+  const accessToken = process.env.ACCESS_TOKEN || 'a3H-O1EdPtVNSixPuUvIpu-pXFWOkzvCtvuA11TA5-4'
+  const host = process.env.CONTENTFUL_API || 'cdn.contentful.com'
+  const client = createClient({ space, accessToken, host })
+
+  const pageRes = await client.getEntries<PageSkeleton>({
+    content_type: 'material',
+    query,
   })
 
   return pageRes.items

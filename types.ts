@@ -37,9 +37,19 @@ export type HeroFields = {
   mobileHero: Asset
 }
 
+export type MaterialFields = {
+  title: string
+  files: Asset[]
+  instrument: string
+  difficulty: string
+  danceStyle: string
+  forEnsemble: boolean
+}
+
 export type TextBlockSkeleton = BaseSkeleton<'textBlock', TextBlockFields>
 export type VideoSkeleton = BaseSkeleton<'video', VideoFields>
 export type HeroSkeleton = BaseSkeleton<'hero', HeroFields>
+export type MaterialSkeleton = BaseSkeleton<'material', MaterialFields>
 
 export type PageContent = TextBlockSkeleton | VideoSkeleton | HeroSkeleton
 export type PageSkeleton = BaseSkeleton<'page', PageFields>
