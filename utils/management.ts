@@ -8,7 +8,7 @@ export const getContentType = async (contentType: string) => {
   });
 
   // Fetch the space and environment
-  const space = await client.getSpace(process.env.SPACE_ID || 'nqeymplwbzvw')
+  const space = await client.getSpace(process.env.SPACE_ID || '')
   const environment = await space.getEnvironment('master')
 
   // Get the content type definition
