@@ -1,6 +1,6 @@
 import { createClient } from 'contentful-management';
 
-const managementAccessToken = process.env.MANAGEMENT_ACCESS_TOKEN || 'CFPAT-19q3uNnnCedAhrDpd3v8OFFTwSiLmUB9-dOgxE4rVu8';
+const managementAccessToken = process.env.MANAGEMENT_ACCESS_TOKEN || '';
 
 export const getContentType = async (contentType: string) => {
   const client = createClient({

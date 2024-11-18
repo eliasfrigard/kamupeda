@@ -5,7 +5,9 @@ import Material from './material'
 import { searchMaterialData } from '@/utils/contentful'
 import { getContentType } from '@/utils/management'
 import { IoFilterSharp } from "react-icons/io5"
+import { FaRegTrashAlt } from "react-icons/fa";
 import Select from '@/components/Select'
+import IconButton from '@/components/IconButton'
 
 const materialInfo = (m) => ({
   id: m.sys.id,
@@ -33,6 +35,8 @@ export default function Blog() {
   const [styleValues, setStyleValues] = useState([])
   const [originValues, setOriginValues] = useState([])
 
+  const [filterIsSelected, setFilterIsSelected] = useState(false)
+
   // Filters state
   const [filters, setFilters] = useState({
     key: '',
@@ -45,10 +49,14 @@ export default function Blog() {
   })
 
   useEffect(() => {
+    const hasFilter = Object.values(filters).some((filter) => !!filter)
+    setFilterIsSelected(hasFilter || !!query)
+  }, [filters, query])
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getContentType('material')
-        console.log('🚀 || fetchData || data:', data.fields)
 
         const keyField = data.fields.find((field) => field.id === 'key')
         const modeField = data.fields.find((field) => field.id === 'mode')
@@ -58,12 +66,12 @@ export default function Blog() {
         const styleField = data.fields.find((field) => field.id === 'style')
         const originField = data.fields.find((field) => field.id === 'origin')
 
-        setKeyValues(keyField.validations[0].in)
-        setModeValues(modeField.validations[0].in)
-        setDifficultyValues(difficultyField.validations[0].in)
-        setInstrumentValues(instrumentField.validations[0].in)
-        setOriginValues(originField.validations[0].in)
-        setStyleValues(styleField.validations[0].in)
+        setKeyValues(keyField?.validations[0]?.in)
+        setModeValues(modeField?.validations[0]?.in)
+        setDifficultyValues(difficultyField?.validations[0]?.in)
+        setInstrumentValues(instrumentField?.validations[0]?.in)
+        setOriginValues(originField?.validations[0]?.in)
+        setStyleValues(styleField?.validations[0]?.in)
       } catch (error) {
         console.error('Error fetching material data:', error)
       }
@@ -75,7 +83,7 @@ export default function Blog() {
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedQuery(query)
-    }, 300)
+    }, 500)
 
     return () => clearTimeout(handler)
   }, [query])
@@ -100,81 +108,97 @@ export default function Blog() {
     fetchData()
   }, [debouncedQuery, filters])
 
-  const handleFilterChange = (filterKey, value) => {
+  const handleFilterChange = (filterKey: string, value: string) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
       [filterKey]: value,
     }))
   }
 
+  const resetSearch = () => {
+    setQuery('')
+    setFilters({
+      key: '',
+      mode: '',
+      difficulty: '',
+      instrument: '',
+      style: '',
+      origin: '',
+      forEnsemble: '',
+    })
+  }
+
   return (
     <div className='container mx-auto flex flex-col gap-8 px-6 lg:px-0'>
       <div className='flex flex-col'>
-        <div className="relative flex items-center gap-4">
+        <div className="relative flex items-center gap-2">
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search for material..."
-            className="border p-2 rounded-md w-full h-12"
+            placeholder="Hae materiaalia..."
+            className="border text-black p-3 px-4 rounded-md w-full h-12"
           />
-          <div 
+          <IconButton 
+            icon={<IoFilterSharp />} 
+            className='bg-blue-500'
             onClick={() => setFiltersOpen(!filtersOpen)} 
-            className="h-12 aspect-square rounded-md border text-black bg-blue-500 flex justify-center items-center"
-          >
-            <IoFilterSharp className="text-2xl" />
-          </div>
+          />
+          <IconButton 
+            icon={<FaRegTrashAlt />} 
+            className='bg-red-500'
+            onClick={() => resetSearch()}
+            disabled={!filterIsSelected}
+          />
         </div>
         
         {/* Filter options */}
+
         <div
-          className={`transition-all duration-200 ease-in-out ${filtersOpen ? 'max-h-screen opacity-100 mt-6' : 'max-h-0 opacity-0'}`}
+          className={`grid grid-cols-2 gap-3 bg-gray-100 rounded-md shadow transition-all duration-200 ease-in-out ${filtersOpen ? 'max-h-screen opacity-100 mt-6 p-6' : 'max-h-0 opacity-0 overflow-hidden'}`}
         >
-          <div className="bg-gray-100 shadow-md rounded-md gap-3 p-6 grid grid-cols-2">
-            {/* Filters */}
-            <Select
-              selected={filters.key}
-              setSelected={(value) => handleFilterChange('key', value)}
-              options={keyValues}
-              placeholder='Valitse Perussävel'
-            />
-            <Select
-              selected={filters.mode}
-              setSelected={(value) => handleFilterChange('mode', value)}
-              options={modeValues}
-              placeholder='Valitse Asteikko'
-            />
-            <Select
-              selected={filters.difficulty}
-              setSelected={(value) => handleFilterChange('difficulty', value)}
-              options={difficultyValues}
-              placeholder='Valitse Vaikeustaso'
-            />
-            <Select
-              selected={filters.instrument}
-              setSelected={(value) => handleFilterChange('instrument', value)}
-              options={instrumentValues}
-              placeholder='Valitse Soitin'
-            />
-            <Select
-              selected={filters.style}
-              setSelected={(value) => handleFilterChange('style', value)}
-              options={styleValues}
-              placeholder='Valitse Tyyli'
-            />
-            <Select
-              selected={filters.origin}
-              setSelected={(value) => handleFilterChange('origin', value)}
-              options={originValues}
-              placeholder='Valitse Alkuperämaa'
-            />
-            <Select
-              selected={filters.forEnsemble}
-              setSelected={(value) => handleFilterChange('forEnsemble', value)}
-              options={['Kyllä', 'Ei']}
-              placeholder='Yhteissoittoon'
-            />
-          </div>
+          <Select
+            selected={filters.key}
+            setSelected={(value) => handleFilterChange('key', value)}
+            options={keyValues}
+            placeholder='Valitse Perussävel'
+          />
+          <Select
+            selected={filters.mode}
+            setSelected={(value) => handleFilterChange('mode', value)}
+            options={modeValues}
+            placeholder='Valitse Asteikko'
+          />
+          <Select
+            selected={filters.difficulty}
+            setSelected={(value) => handleFilterChange('difficulty', value)}
+            options={difficultyValues}
+            placeholder='Valitse Vaikeustaso'
+          />
+          <Select
+            selected={filters.instrument}
+            setSelected={(value) => handleFilterChange('instrument', value)}
+            options={instrumentValues}
+            placeholder='Valitse Soitin'
+          />
+          <Select
+            selected={filters.style}
+            setSelected={(value) => handleFilterChange('style', value)}
+            options={styleValues}
+            placeholder='Valitse Tyyli'
+          />
+          <Select
+            selected={filters.origin}
+            setSelected={(value) => handleFilterChange('origin', value)}
+            options={originValues}
+            placeholder='Valitse Alkuperämaa'
+          />
+          <Select
+            selected={filters.forEnsemble}
+            setSelected={(value) => handleFilterChange('forEnsemble', value)}
+            options={['Kyllä', 'Ei']}
+            placeholder='Yhteissoittoon'
+          />
         </div>
       </div>
 

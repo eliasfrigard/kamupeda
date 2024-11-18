@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import React from 'react'
-import { GiChiliPepper } from "react-icons/gi"
 import { BsMusicNoteList } from "react-icons/bs"
 
 // Chip Component
@@ -50,7 +49,7 @@ const difficultyToHuman = (difficulty: number) => {
 const Material = ({ materialWithInfo, loading }) => {
   if (loading) {
     return (
-      <div className="container mx-auto grid lg:grid-cols-3 gap-4 lg:gap-8 items-start">
+      <div className="container mx-auto grid lg:grid-cols-3 gap-4 lg:gap-4 items-start">
         {Array.from({ length: 3 }).map((_, index) => (
           <SkeletonCard key={index} />
         ))}
@@ -59,7 +58,7 @@ const Material = ({ materialWithInfo, loading }) => {
   }
 
   return (
-    <div className="container mx-auto grid lg:grid-cols-3 gap-6 lg:gap-12 items-start">
+    <div className="container mx-auto grid lg:grid-cols-3 gap-6 items-start">
       {materialWithInfo.map((m) => (
         <Link
           href={`/material/${m.id}`}
@@ -70,14 +69,6 @@ const Material = ({ materialWithInfo, loading }) => {
             <BsMusicNoteList className="text-xl" />
             <h3 className="text-xl font-semibold">{m.title}</h3>
           </div>
-          {/* <div className="flex gap-1">
-            {Array.from({ length: 5 }).map((_, index) => (
-              <GiChiliPepper
-                key={index}
-                className={index < m.difficulty ? "text-red-500" : "text-gray-300"}
-              />
-            ))}
-          </div> */}
           <div className="h-[1px] bg-black bg-opacity-20 w-2/3 rounded-full" />
           <div className="flex flex-wrap gap-3 justify-center items-center">
             <Chip>{difficultyToHuman(m.difficulty)}</Chip>

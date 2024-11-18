@@ -63,7 +63,7 @@ export const searchMaterialData = async ({
     query.query = searchQuery;
   }
 
-  if (filters.forEnsemble !== undefined) {
+  if (filters.forEnsemble !== undefined && filters.forEnsemble !== '') {
     query['fields.forEnsemble'] = filters.forEnsemble === 'Kyllä'
   }
 
