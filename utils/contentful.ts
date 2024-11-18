@@ -85,6 +85,13 @@ export const getPostById = async (id: string) => {
   return pages.find((p) => normalizeSlug(p.sys.id) === normalizeSlug(id))
 }
 
+export const getMaterialById = async (id: string) => {
+  // @ts-expect-error TODO: Don't know how to handle yet.
+  const pages: PageSkeleton[] = await getMaterialData()
+
+  return pages.find((p) => normalizeSlug(p.sys.id) === normalizeSlug(id))
+}
+
 export const getPages = async (): Promise<Page[]> => {
   const client = createClient({ space, accessToken, host })
   

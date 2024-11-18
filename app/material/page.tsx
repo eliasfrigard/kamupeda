@@ -137,7 +137,7 @@ export default function Blog() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Hae materiaalia..."
-            className="border text-black p-3 px-4 rounded-md w-full h-12"
+            className="border text-black p-3 px-4 rounded-md shadow w-full h-12"
           />
           <IconButton 
             icon={<IoFilterSharp />} 
