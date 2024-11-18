@@ -17,32 +17,36 @@ const materialInfo = (m) => ({
 });
 
 export default function Blog() {
-  const [query, setQuery] = useState('');
-  const [material, setMaterial] = useState([]);
-  const [debouncedQuery, setDebouncedQuery] = useState(query);
+  const [query, setQuery] = useState('')
+  const [material, setMaterial] = useState([])
+  const [debouncedQuery, setDebouncedQuery] = useState(query)
+  const [loading, setLoading] = useState(true)
 
-  // Debounce logic
   useEffect(() => {
     const handler = setTimeout(() => {
-      setDebouncedQuery(query);
-    }, 300); // Adjust delay as needed
+      setDebouncedQuery(query)
+    }, 300)
 
-    return () => clearTimeout(handler); // Cleanup on query change
-  }, [query]);
+    return () => clearTimeout(handler)
+  }, [query])
 
-  // Fetch data on first render and when debouncedQuery changes
   useEffect(() => {
+    setLoading(true)
+    
     const fetchData = async () => {
       try {
-        const data = await searchMaterialData(debouncedQuery.trim());
-        setMaterial(data.map(materialInfo));
-      } catch (error) {
-        console.error('Error fetching material data:', error);
-      }
-    };
+        const data = await searchMaterialData(debouncedQuery.trim())
+        setMaterial(data.map(materialInfo))
 
-    fetchData();
-  }, [debouncedQuery]);
+      } catch (error) {
+        console.error('Error fetching material data:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [debouncedQuery])
 
   return (
     <div className='container mx-auto flex flex-col gap-8'>
@@ -54,7 +58,7 @@ export default function Blog() {
         className="border p-2 rounded-md w-full"
       />
 
-      <Material materialWithInfo={material} />
+      <Material loading={loading} materialWithInfo={material} />
     </div>
   );
 }
