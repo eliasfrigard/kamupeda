@@ -25,7 +25,7 @@ const FileSelector: React.FC<FileSelectorProps> = ({ files }) => {
 
   return (
     <div className='container mx-auto flex flex-col justify-center items-center gap-8'>
-      <div className="w-full max-w-[600px]">
+      <div className="w-full">
         <Select
           options={options}
           selected={selectedFile.fields.file.fileName}
@@ -41,7 +41,7 @@ const FileSelector: React.FC<FileSelectorProps> = ({ files }) => {
 
       {
         selectedFile.fields.file.contentType.startsWith('image') && (
-          <div className="w-full h-[500px] relative">
+          <div className="w-full rounded-md shadow-md overflow-hidden relative" style={{ paddingBottom: `${(selectedFile.fields.file.details.image.height / selectedFile.fields.file.details.image.width) * 100}%` }}>
             <Image
               src={`https://${selectedFile.fields.file.url}`}
               alt={selectedFile.fields.file.fileName}

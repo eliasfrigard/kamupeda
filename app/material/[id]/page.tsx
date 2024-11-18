@@ -33,7 +33,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <div className="w-screen">
-      <div className="container mx-auto text-black flex flex-col justify-center items-center gap-6 px-6">
+      <div className="container mx-auto text-black flex flex-col justify-center items-center gap-6 px-6 max-w-4xl">
         <h1 className="text-3xl lg:text-4xl font-semibold text-pretty">{page.fields.title}</h1>
         <div className="h-[1px] w-2/3 bg-black bg-opacity-20" />
 
