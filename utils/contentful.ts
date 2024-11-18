@@ -4,8 +4,8 @@ import { normalizeSlug } from './normalizeSlug'
 // Types.
 import type { PageSkeleton, Page } from "@/types"
 
-const space = process.env.SPACE_ID || ''
-const accessToken = process.env.ACCESS_TOKEN || ''
+const space = process.env.SPACE_ID || 'nqeymplwbzvw'
+const accessToken = process.env.ACCESS_TOKEN || 'a3H-O1EdPtVNSixPuUvIpu-pXFWOkzvCtvuA11TA5-4'
 const host = process.env.CONTENTFUL_API || 'cdn.contentful.com'
 
 export const getPageData = async () => {
@@ -40,18 +40,35 @@ export const getMaterialData = async () => {
   return pageRes.items
 }
 
-export const searchMaterialData = async (query: string) => {
-  const space = process.env.SPACE_ID || 'nqeymplwbzvw'
-  const accessToken = process.env.ACCESS_TOKEN || 'a3H-O1EdPtVNSixPuUvIpu-pXFWOkzvCtvuA11TA5-4'
-  const host = process.env.CONTENTFUL_API || 'cdn.contentful.com'
+export const searchMaterialData = async ({
+  searchQuery,
+  filters,
+} : {
+  searchQuery: string
+  filters: Record<string, string>
+}) => {
   const client = createClient({ space, accessToken, host })
 
-  const pageRes = await client.getEntries<PageSkeleton>({
+  const query: Record<string, any> = {
     content_type: 'material',
-    query,
-  })
+    'fields.key': filters.key,
+    'fields.mode': filters.mode,
+    'fields.difficulty': filters.difficulty,
+    'fields.instrument': filters.instrument,
+    'fields.style': filters.style,
+    'fields.origin': filters.origin,
+  }
 
-  return pageRes.items
+  if (searchQuery) {
+    query.query = searchQuery;
+  }
+
+  if (filters.forEnsemble !== undefined) {
+    query['fields.forEnsemble'] = filters.forEnsemble === 'Kyllä'
+  }
+
+  const { items } = await client.getEntries<PageSkeleton>(query)
+  return items
 }
 
 export const getPageBySlug = async (slug: string) => {
