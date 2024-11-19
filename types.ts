@@ -6,8 +6,27 @@ type IconType = ForwardRefExoticComponent<Omit<SVGProps<SVGSVGElement>, 'ref'> &
   titleId?: string
 } & RefAttributes<SVGSVGElement>>
 
+export type Material = {
+  title: string
+  files: Asset[]
+  key: string
+  mode: string
+  instrument: string
+  difficulty: string
+  style: string
+  forEnsemble: boolean
+  origin: string
+}
+
+export type BlogPost = {
+  title: string
+  content: EntryFieldTypes.RichText
+}
+
 export type Sys<T extends string> = {
   id: string
+  createdAt: string
+  updatedAt: string
   contentType: {
     sys: {
       id: T
@@ -37,21 +56,13 @@ export type HeroFields = {
   mobileHero: Asset
 }
 
-export type MaterialFields = {
-  title: string
-  files: Asset[]
-  instrument: string
-  difficulty: string
-  danceStyle: string
-  forEnsemble: boolean
-}
-
 export type TextBlockSkeleton = BaseSkeleton<'textBlock', TextBlockFields>
 export type VideoSkeleton = BaseSkeleton<'video', VideoFields>
 export type HeroSkeleton = BaseSkeleton<'hero', HeroFields>
-export type MaterialSkeleton = BaseSkeleton<'material', MaterialFields>
+export type MaterialSkeleton = BaseSkeleton<'material', Material>
+export type BlogPostSkeleton = BaseSkeleton<'blogPost', BlogPost>
 
-export type PageContent = TextBlockSkeleton | VideoSkeleton | HeroSkeleton
+export type PageContent = TextBlockSkeleton | VideoSkeleton | HeroSkeleton | MaterialSkeleton
 export type PageSkeleton = BaseSkeleton<'page', PageFields>
 export type PageFields = {
   icon: IconType

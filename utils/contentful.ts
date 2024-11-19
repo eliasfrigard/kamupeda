@@ -1,15 +1,23 @@
+import type { Entry } from 'contentful'
 import { createClient } from 'contentful'
 import { normalizeSlug } from './normalizeSlug'
 
-// Types.
-import type { PageSkeleton, Page } from "@/types"
+import type { 
+  Page, 
+  PageSkeleton, 
+  MaterialSkeleton, 
+  BlogPostSkeleton 
+} from "@/types"
 
-const space = process.env.SPACE_ID || 'nqeymplwbzvw'
-const accessToken = process.env.ACCESS_TOKEN || 'a3H-O1EdPtVNSixPuUvIpu-pXFWOkzvCtvuA11TA5-4'
-const host = process.env.CONTENTFUL_API || 'cdn.contentful.com'
+export const getContentfulClient = () =>
+  createClient({
+    space: process.env.CONTENTFUL_SPACE_ID || 'nqeymplwbzvw',
+    accessToken: process.env.CONTENTFUL_ACCESS_TOKEN || 'a3H-O1EdPtVNSixPuUvIpu-pXFWOkzvCtvuA11TA5-4',
+    host: process.env.CONTENTFUL_HOST || 'cdn.contentful.com',
+  })
 
 export const getPageData = async () => {
-  const client = createClient({ space, accessToken, host })
+  const client = getContentfulClient()
 
   const pageRes = await client.getEntries<PageSkeleton>({
     content_type: 'page',
@@ -18,56 +26,71 @@ export const getPageData = async () => {
   return pageRes.items
 }
 
-export const getBlogPostData = async () => {
-  const client = createClient({ space, accessToken, host })
+export const getBlogPostData = async (): Promise<Entry<BlogPostSkeleton>[]> => {
+  const client = getContentfulClient()
 
-  const pageRes = await client.getEntries<PageSkeleton>({
+  const pageRes = await client.getEntries<BlogPostSkeleton>({
     content_type: 'blogPost',
+    // @ts-expect-error TODO: Don't know how to handle yet.
     order: '-sys.createdAt',
   })
 
   return pageRes.items
 }
 
-export const getMaterialData = async () => {
-  const client = createClient({ space, accessToken, host })
-  
-  const pageRes = await client.getEntries<PageSkeleton>({
+export const getMaterialData = async (): Promise<Entry<MaterialSkeleton>[]> => {
+  const client = getContentfulClient()
+
+  const response = await client.getEntries<MaterialSkeleton>({
     content_type: 'material',
+    // @ts-expect-error TODO: Don't know how to handle yet.
     order: '-sys.createdAt',
   })
-  
-  return pageRes.items
+
+  return response.items
 }
 
 export const searchMaterialData = async ({
   searchQuery,
   filters,
-} : {
+}: {
   searchQuery: string
   filters: Record<string, string>
-}) => {
-  const client = createClient({ space, accessToken, host })
+}): Promise<Entry<MaterialSkeleton>[]> => {
+  const client = getContentfulClient()
 
-  const query: Record<string, any> = {
+  const query: Record<string, unknown> = {
     content_type: 'material',
-    'fields.key': filters.key,
-    'fields.mode': filters.mode,
-    'fields.difficulty': filters.difficulty,
-    'fields.instrument': filters.instrument,
-    'fields.style': filters.style,
-    'fields.origin': filters.origin,
   }
 
-  if (searchQuery) {
-    query.query = searchQuery;
+  if (filters.key) {
+    query['fields.key'] = filters.key
   }
-
+  if (filters.mode) {
+    query['fields.mode'] = filters.mode
+  }
+  if (filters.difficulty) {
+    query['fields.difficulty'] = filters.difficulty
+  }
+  if (filters.instrument) {
+    query['fields.instrument'] = filters.instrument
+  }
+  if (filters.style) {
+    query['fields.style'] = filters.style
+  }
+  if (filters.origin) {
+    query['fields.origin'] = filters.origin
+  }
+  
   if (filters.forEnsemble !== undefined && filters.forEnsemble !== '') {
     query['fields.forEnsemble'] = filters.forEnsemble === 'Kyllä'
   }
 
-  const { items } = await client.getEntries<PageSkeleton>(query)
+  if (searchQuery) {
+    query.query = searchQuery
+  }
+
+  const { items } = await client.getEntries<MaterialSkeleton>(query)
   return items
 }
 
@@ -93,7 +116,7 @@ export const getMaterialById = async (id: string) => {
 }
 
 export const getPages = async (): Promise<Page[]> => {
-  const client = createClient({ space, accessToken, host })
+  const client = getContentfulClient()
   
   const pageRes = await client.getEntries<PageSkeleton>({
     content_type: 'page',
