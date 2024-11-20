@@ -29,7 +29,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         <div className="h-[1px] w-2/3 bg-black bg-opacity-20" />
 
         <InfoContainer items={[
-          { title: "Vaikeusaste", value: page.fields.difficulty },
+          { title: "Vaikeusaste", value: page.fields.difficulty.toString() },
           { title: "Tyyli", value: page.fields.style },
           { title: "Moodi", value: page.fields.mode },
           { title: "Soitin", value: page.fields.instrument },
