@@ -103,7 +103,7 @@ export const getPageBySlug = async (slug: string) => {
 
 export const getPostById = async (id: string) => {
   // @ts-expect-error TODO: Don't know how to handle yet.
-  const pages: PageSkeleton[] = await getBlogPostData()
+  const pages: BlogPostSkeleton[] = await getBlogPostData()
 
   return pages.find((p) => normalizeSlug(p.sys.id) === normalizeSlug(id))
 }

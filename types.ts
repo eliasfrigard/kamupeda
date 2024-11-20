@@ -20,7 +20,9 @@ export type Material = {
 
 export type BlogPost = {
   title: string
-  content: EntryFieldTypes.RichText
+  textContent: EntryFieldTypes.RichText
+  previewDescription: string
+  previewImage: Asset
 }
 
 export type Sys<T extends string> = {
