@@ -16,7 +16,7 @@ export const generateStaticParams = async () => {
 }
 
 export default async function Page({ params }: { params: { postId: string } }) {
-  const normalizedId = normalizeSlug(params.postId || ''); // Assuming postId is now a string
+  const normalizedId = normalizeSlug(params.postId || '')
 
   const page = await getPostById(normalizedId) as BlogPostSkeleton
 

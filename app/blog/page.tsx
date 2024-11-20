@@ -2,22 +2,35 @@ import { getBlogPostData } from "@/utils/contentful"
 import Link from "next/link"
 import Image from 'next/image'
 
-function truncateText(text, maxLength) {
+function truncateText(text: string, maxLength: number) {
   return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const mapBlogPost = (post: any) => {
+  return {
+    sys: post.sys,
+    fields: {
+      title: post.fields.title,
+      previewDescription: post.fields.previewDescription,
+      previewImage: post.fields.previewImage,
+    }
+  }
 }
 
 export default async function Blog() {
   const blogPosts = await getBlogPostData()
+  const mappedPosts = blogPosts.map(mapBlogPost)
 
   return (
     <div className="container mx-auto grid lg:grid-cols-3 gap-4 lg:gap-8 px-4">
       {
-        blogPosts.length && blogPosts.map((post) => (
+        mappedPosts.length && mappedPosts.map((post) => (
           <Link key={post.sys.id} href={`/blog/${post.sys.id}`} className="hover:scale-105 duration-200">
             <div className="relative w-full aspect-square overflow-hidden rounded-xl shadow">
               <Image
-                alt={post.fields.previewImage.fields.file.fileName} 
-                src={`http:${post.fields.previewImage.fields.file.url}`}
+                alt={post?.fields?.previewImage?.fields?.file?.fileName} 
+                src={`http:${post?.fields?.previewImage?.fields?.file.url}`}
                 fill
                 className="object-cover"
               />
