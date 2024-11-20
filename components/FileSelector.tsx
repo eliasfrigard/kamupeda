@@ -1,9 +1,12 @@
 'use client'
 
 import React from 'react'
-import PdfViewer from './PdfViewer'
+import dynamic from 'next/dynamic'
 import Select from './Select'
 import Image from 'next/image'
+
+const PdfViewer = dynamic(() => import("./PdfViewer"), { ssr: false, });
+
 
 interface FileSelectorProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
