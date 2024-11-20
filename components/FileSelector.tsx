@@ -6,10 +6,12 @@ import Select from './Select'
 import Image from 'next/image'
 
 interface FileSelectorProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   files: any[]
 }
 
 const FileSelector: React.FC<FileSelectorProps> = ({ files }) => {
+  console.log('🚀 || files:', files)
   const [selectedFile, setSelectedFile] = React.useState(files[0])
 
   const options = files.map((file) => file.fields.file.fileName)

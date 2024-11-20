@@ -15,7 +15,7 @@ function PdfViewer({
   url: string
 }) {
   const [page, setPage] = React.useState<number>(1)
-  const [pages, setPages] = React.useState<number | null>(null)
+  const [pages, setPages] = React.useState<number>(1)
 
   const onDocumentLoadSuccess = (document: PDFDocumentProxy) => {
     const { numPages } = document

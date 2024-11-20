@@ -2,10 +2,30 @@
 
 import Link from 'next/link'
 import React from 'react'
+import type { ReactNode } from 'react'
 import { BsMusicNoteList } from "react-icons/bs"
+import type { Material, MaterialSkeleton } from '@/types'
+import type { Entry } from 'contentful'
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+const SkeletonToMaterial = (skeleton: any) => {
+  const m: Material = {
+    title: skeleton.fields.title,
+    files: [],
+    key: skeleton.fields.key,
+    mode: skeleton.fields.mode,
+    instrument: skeleton.fields.instrument,
+    difficulty: skeleton.fields.difficulty,
+    style: skeleton.fields.style,
+    forEnsemble: false,
+    origin: skeleton.fields.origin,
+  }
+
+  return m
+}
 
 // Chip Component
-const Chip = ({ children }) => {
+const Chip = ({ children } : { children: ReactNode }) => {
   if (!children) return null
 
   return (
@@ -46,7 +66,13 @@ const difficultyToHuman = (difficulty: number) => {
   }
 }
 
-const Material = ({ materialWithInfo, loading }) => {
+const Material = ({ 
+  materialWithInfo, 
+  loading 
+} : {
+  materialWithInfo: Entry<MaterialSkeleton>[],
+  loading: boolean
+}) => {
   if (loading) {
     return (
       <div className="container mx-auto grid lg:grid-cols-3 gap-4 lg:gap-4 items-start">
@@ -59,27 +85,31 @@ const Material = ({ materialWithInfo, loading }) => {
 
   return (
     <div className="container mx-auto grid lg:grid-cols-3 gap-6 items-start">
-      {materialWithInfo.map((m) => (
-        <Link
-          href={`/material/${m.id}`}
-          key={m.id}
-          className="bg-gray-100 px-6 py-7 shadow-md rounded-md flex flex-col text-black items-center gap-4 hover:scale-105 duration-300"
-        >
-          <div className='flex gap-3 justify-center items-center'>
-            <BsMusicNoteList className="text-xl" />
-            <h3 className="text-xl font-semibold">{m.title}</h3>
-          </div>
-          <div className="h-[1px] bg-black bg-opacity-20 w-2/3 rounded-full" />
-          <div className="flex flex-wrap gap-3 justify-center items-center">
-            <Chip>{difficultyToHuman(m.difficulty)}</Chip>
-            <Chip>{m.instrument}</Chip>
-            <Chip>{m.key}</Chip>
-            <Chip>{m.mode}</Chip>
-            <Chip>{m.style}</Chip>
-            <Chip>{m.origin}</Chip>
-          </div>
-        </Link>
-      ))}
+      {materialWithInfo.map((m) => {
+        const material = SkeletonToMaterial(m)
+
+        return (
+          <Link
+            key={m.sys.id}
+            href={`/material/${m.sys.id}`}
+            className="bg-gray-100 px-6 py-7 shadow-md rounded-md flex flex-col text-black items-center gap-4 hover:scale-105 duration-300"
+          >
+            <div className='flex gap-3 justify-center items-center'>
+              <BsMusicNoteList className="text-xl" />
+              <h3 className="text-xl font-semibold">{material.title}</h3>
+            </div>
+            <div className="h-[1px] bg-black bg-opacity-20 w-2/3 rounded-full" />
+            <div className="flex flex-wrap gap-3 justify-center items-center">
+              <Chip>{difficultyToHuman(material.difficulty)}</Chip>
+              <Chip>{material.instrument}</Chip>
+              <Chip>{material.key}</Chip>
+              <Chip>{material.mode}</Chip>
+              <Chip>{material.style}</Chip>
+              <Chip>{material.origin}</Chip>
+            </div>
+          </Link>
+        )
+      })}
     </div>
   )
 }

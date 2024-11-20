@@ -9,9 +9,9 @@ export default function Select({
   setSelected,
   placeholder = 'Select an option', // Placeholder prop with default text
 }: {
-  options: any[],
-  selected: any,
-  setSelected: (value: any) => void, // Added type for setSelected
+  options: string[],
+  selected: string,
+  setSelected: (value: string) => void, // Added type for setSelected
   placeholder?: string, // Optional placeholder text
 }) {
   return (

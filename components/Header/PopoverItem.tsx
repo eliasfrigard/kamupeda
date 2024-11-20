@@ -9,9 +9,9 @@ import {
 } from '@headlessui/react'
 
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import type { CallToAction } from '@/types'
 
 type PageChild = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   icon: any,
   title: string,
   description: string,
@@ -24,7 +24,8 @@ const DisclosureButtonComponent = ({
 } : {
   title: string,
   pages: PageChild[],
-  callsToAction: CallToAction[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  callsToAction: any[]
 }) => {
   return (
     <Popover className="relative">

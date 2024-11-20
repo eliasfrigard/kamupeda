@@ -14,7 +14,7 @@ interface ImageHeroProps {
   }
 }
 
-const ImageHero: React.FC<ImageHeroProps> = ({ desktopImg, mobileImg }) => {
+const ImageHero: React.FC<ImageHeroProps> = ({ desktopImg }) => {
   return (
     <div className="w-screen h-24 relative">
       <Image

@@ -12,7 +12,7 @@ export type Material = {
   key: string
   mode: string
   instrument: string
-  difficulty: string
+  difficulty: number
   style: string
   forEnsemble: boolean
   origin: string

@@ -2,28 +2,18 @@
 
 import React, { useState, useEffect } from 'react'
 import Material from './material'
+import type { Entry } from 'contentful'
+import type { MaterialSkeleton } from '@/types'
 import { searchMaterialData } from '@/utils/contentful'
 import { getContentType } from '@/utils/management'
 import { IoFilterSharp } from "react-icons/io5"
-import { FaRegTrashAlt } from "react-icons/fa";
+import { FaRegTrashAlt } from "react-icons/fa"
 import Select from '@/components/Select'
 import IconButton from '@/components/IconButton'
 
-const materialInfo = (m) => ({
-  id: m.sys.id,
-  title: m.fields.title,
-  difficulty: parseInt(m.fields.difficulty),
-  instrument: m.fields.instrument,
-  key: m.fields.key,
-  mode: m.fields.mode,
-  style: m.fields.style,
-  origin: m.fields.origin,
-  forEnsemble: m.fields.forEnsemble,
-})
-
 export default function Blog() {
   const [query, setQuery] = useState('')
-  const [material, setMaterial] = useState([])
+  const [material, setMaterial] = useState<Entry<MaterialSkeleton>[]>([])
   const [debouncedQuery, setDebouncedQuery] = useState(query)
   const [loading, setLoading] = useState(true)
   const [filtersOpen, setFiltersOpen] = useState(false)
@@ -66,11 +56,17 @@ export default function Blog() {
         const styleField = data.fields.find((field) => field.id === 'style')
         const originField = data.fields.find((field) => field.id === 'origin')
 
+        // @ts-expect-error TODO: Need to fix.
         setKeyValues(keyField?.validations[0]?.in)
+        // @ts-expect-error TODO: Need to fix.
         setModeValues(modeField?.validations[0]?.in)
+        // @ts-expect-error TODO: Need to fix.
         setDifficultyValues(difficultyField?.validations[0]?.in)
+        // @ts-expect-error TODO: Need to fix.
         setInstrumentValues(instrumentField?.validations[0]?.in)
+        // @ts-expect-error TODO: Need to fix.
         setOriginValues(originField?.validations[0]?.in)
+        // @ts-expect-error TODO: Need to fix.
         setStyleValues(styleField?.validations[0]?.in)
       } catch (error) {
         console.error('Error fetching material data:', error)
@@ -97,7 +93,7 @@ export default function Blog() {
           searchQuery: debouncedQuery.trim(),
           filters,
         })
-        setMaterial(data.map(materialInfo))
+        setMaterial(data)
       } catch (error) {
         console.error('Error fetching material data:', error)
       } finally {

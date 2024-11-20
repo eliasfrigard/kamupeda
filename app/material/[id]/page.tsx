@@ -1,9 +1,10 @@
 import { normalizeSlug } from "@/utils/normalizeSlug"
 import { getMaterialData, getMaterialById } from "@/utils/contentful"
 import FileSelector from "@/components/FileSelector"
+import InfoContainer from "@/components/InfoContainer"
 
 import type { 
-  PageSkeleton,
+  MaterialSkeleton,
 } from "@/types"
 
 export const generateStaticParams = async () => {
@@ -14,18 +15,8 @@ export const generateStaticParams = async () => {
   }))
 }
 
-function InfoItem({ title, content } : { title: string, content: string }) {
-  if (!content) return null
-  return (
-    <div className="flex flex-col leading-loose opacity-80">
-      <h2 className="opacity-30 text-sm font-medium">{title}</h2>
-      <p className="font-medium">{content}</p>
-    </div>
-  );
-}
-
 export default async function Page({ params }: { params: { id: string } }) {
-  const page = await getMaterialById(params.id) as PageSkeleton
+  const page = await getMaterialById(params.id) as MaterialSkeleton
 
   if (!page) {
     return (<div>BLOG POST not found</div>)
@@ -37,16 +28,15 @@ export default async function Page({ params }: { params: { id: string } }) {
         <h1 className="text-3xl lg:text-4xl font-semibold text-pretty">{page.fields.title}</h1>
         <div className="h-[1px] w-2/3 bg-black bg-opacity-20" />
 
-        <FileSelector files={page.fields.files} />
+        <InfoContainer items={[
+          { title: "Vaikeusaste", value: page.fields.difficulty },
+          { title: "Tyyli", value: page.fields.style },
+          { title: "Moodi", value: page.fields.mode },
+          { title: "Soitin", value: page.fields.instrument },
+          { title: "Alkuperä", value: page.fields.origin },
+        ]} />
 
-        {/* INFO */}
-        <div className="bg-gray-50 w-full pt-8 pb-6 px-8 rounded-md shadow-md gap-4 grid lg:grid-cols-2">
-          <InfoItem title="Vaikeusaste" content={page.fields.difficulty} />
-          <InfoItem title="Tyyli" content={page.fields.style} />
-          <InfoItem title="Moodi" content={page.fields.mode} />
-          <InfoItem title="Soitin" content={page.fields.instrument} />
-          <InfoItem title="Alkuperä" content={page.fields.origin} />
-        </div>
+        <FileSelector files={page.fields.files} />
       </div>
     </div>
   )

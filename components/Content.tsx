@@ -25,7 +25,7 @@ const Content: React.FC<PageContentProps> = ({ pageContent }) => {
           
           if (contentTypeId === 'textBlock') {
             const contentBlock = block as TextBlockSkeleton
-            return <TextLayout key={contentBlock.sys.id} className="" text={contentBlock.fields.textContent} />
+            return <TextLayout key={contentBlock.sys.id} text={contentBlock.fields.textContent} />
           }
           
           if (contentTypeId === 'video') {

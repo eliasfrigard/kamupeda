@@ -110,7 +110,7 @@ export const getPostById = async (id: string) => {
 
 export const getMaterialById = async (id: string) => {
   // @ts-expect-error TODO: Don't know how to handle yet.
-  const pages: PageSkeleton[] = await getMaterialData()
+  const pages: MaterialSkeleton[] = await getMaterialData()
 
   return pages.find((p) => normalizeSlug(p.sys.id) === normalizeSlug(id))
 }
