@@ -20,7 +20,7 @@ const Content: React.FC<PageContentProps> = ({ pageContent }) => {
   return (
     <div className='container mx-auto w-full min-h-screen flex flex-col justify-center items-center gap-8 mb-16 text-black'>
       {
-        pageContent.map((block) => {
+        pageContent.map((block, index) => {
           const contentTypeId = block.sys.contentType.sys.id
           
           if (contentTypeId === 'textBlock') {
@@ -44,23 +44,24 @@ const Content: React.FC<PageContentProps> = ({ pageContent }) => {
             const contentBlock = block as HeroSkeleton
 
             const desktopFields = contentBlock.fields.hero.fields
-            const mobileFields = contentBlock.fields.mobileHero.fields
+            // const mobileFields = contentBlock.fields.mobileHero.fields
 
             const desktopHero: HeroImageType = {
               url: 'https:' + desktopFields?.file?.url,
               altText: typeof desktopFields?.title === 'string' ? desktopFields.title : '',
             }
             
-            const mobileHero: HeroImageType = {
-              url: 'https:' + mobileFields?.file?.url,
-              altText: typeof mobileFields?.title === 'string' ? mobileFields.title : '',
-            }
+            // const mobileHero: HeroImageType = {
+            //   url: 'https:' + mobileFields?.file?.url,
+            //   altText: typeof mobileFields?.title === 'string' ? mobileFields.title : '',
+            // }
 
             return (
-              <Hero 
+              <Hero
+                isFirstElement={index === 0}
                 key={contentBlock.sys.id}
-                mobileImg={desktopHero}
-                desktopImg={mobileHero}
+                // mobileImg={desktopHero}
+                desktopImg={desktopHero}
               />
             )
           }

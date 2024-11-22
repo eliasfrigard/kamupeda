@@ -29,7 +29,7 @@ const Chip = ({ children } : { children: ReactNode }) => {
   if (!children) return null
 
   return (
-    <div className="bg-white opacity-80 p-2 text-gray-800 text-xs rounded-full shadow">
+    <div className="bg-primary-50 opacity-80 p-2 text-primary-900 text-xs rounded-full shadow">
       {children}
     </div>
   )
@@ -84,7 +84,7 @@ const Material = ({
   }
 
   return (
-    <div className="container mx-auto grid lg:grid-cols-3 gap-6 items-start">
+    <div className="container mx-auto grid lg:grid-cols-3 gap-6 items-stretch">
       {materialWithInfo.map((m) => {
         const material = SkeletonToMaterial(m)
 
@@ -92,14 +92,14 @@ const Material = ({
           <Link
             key={m.sys.id}
             href={`/material/${m.sys.id}`}
-            className="bg-gray-100 px-6 py-7 shadow-md rounded-md flex flex-col text-black items-center gap-4 hover:scale-105 duration-300"
+            className="bg-primary-800 focus:outline-accent-500 px-6 py-7 shadow-md rounded-md flex flex-col text-white items-center gap-5 hover:scale-105 duration-300"
           >
             <div className='flex gap-3 justify-center items-center'>
               <BsMusicNoteList className="text-xl" />
-              <h3 className="text-xl font-semibold">{material.title}</h3>
+              <h3 className="text-xl font-semibold text-center">{material.title}</h3>
             </div>
-            <div className="h-[1px] bg-black bg-opacity-20 w-2/3 rounded-full" />
-            <div className="flex flex-wrap gap-3 justify-center items-center">
+            <div className="h-[1px] bg-primary-50 bg-opacity-20 w-2/3 rounded-full mb-1" />
+            <div className="flex flex-wrap gap-3 justify-center items-center px-4">
               <Chip>{difficultyToHuman(material.difficulty)}</Chip>
               <Chip>{material.instrument}</Chip>
               <Chip>{material.key}</Chip>

@@ -68,7 +68,7 @@ const Hero = ({
 
             {overlayElement()}
 
-            <div className='z-30 mt-85 centerContent px-4 w-screen h-full'>
+            <div className='z-30 centerContent px-4 w-screen h-full'>
               {children}
             </div>
           </div>

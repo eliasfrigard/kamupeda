@@ -137,21 +137,20 @@ export default function Blog() {
           />
           <IconButton 
             icon={<IoFilterSharp />} 
-            className='bg-blue-500'
+            className='bg-primary-500'
             onClick={() => setFiltersOpen(!filtersOpen)} 
           />
           <IconButton 
             icon={<FaRegTrashAlt />} 
-            className='bg-red-500'
+            className='bg-accent-500'
             onClick={() => resetSearch()}
-            disabled={!filterIsSelected}
           />
         </div>
         
         {/* Filter options */}
 
         <div
-          className={`grid grid-cols-2 gap-3 bg-gray-100 rounded-md shadow transition-all duration-200 ease-in-out ${filtersOpen ? 'max-h-screen opacity-100 mt-6 p-6' : 'max-h-0 opacity-0 overflow-hidden'}`}
+          className={`grid grid-cols-2 gap-4 bg-accent-800 bg-opacity-80 rounded-md shadow-md transition-all duration-200 ease-in-out ${filtersOpen ? 'max-h-screen opacity-100 mt-4 pt-7 pb-10 px-8' : 'max-h-0 opacity-0 overflow-hidden'}`}
         >
           <Select
             selected={filters.key}

@@ -1,13 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   webpack: (config) => {
-    config.resolve.alias.canvas = false;
+    config.resolve.alias.canvas = false
 
-    return config;
+    return config
   },
   reactStrictMode: true,
   images: {
-    domains: ['images.ctfassets.net', 'assets.ctfassets.net'],
+    remotePatterns: [{
+      protocol: 'https',
+      hostname: 'images.ctfassets.net'
+    }, {
+      protocol: 'https',
+      hostname: 'assets.ctfassets.net'
+    }],
   },
   async redirects() {
     return [
@@ -16,8 +22,8 @@ const nextConfig = {
         destination: '/koti',
         permanent: true, // This indicates it's a 301 redirect
       },
-    ];
+    ]
   },
-};
+}
 
 export default nextConfig;

@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Disclosure from './Disclosure'
 
 interface InfoContainerProps {
   items: {
@@ -9,38 +10,28 @@ interface InfoContainerProps {
   }[]
 }
 
-function InfoItem({ title, content } : { title: string, content: string }) {
-  if (!content) return null
-  return (
-    <div className="flex flex-col leading-loose opacity-80">
+const InfoItem = ({ title, content }: { title: string, content: string }) => (
+  content ? (
+    <div className="flex flex-col leading-loose">
       <h2 className="opacity-30 text-sm font-medium">{title}</h2>
       <p className="font-medium">{content}</p>
     </div>
-  );
-}
+  ) : null
+);
 
 const InfoContainer: React.FC<InfoContainerProps> = ({ items }) => {
-  const [infoOpen, setInfoOpen] = React.useState(false)
-
-  if (!infoOpen) {
-    return (
-      <div className="bg-gray-50 w-full h-10 rounded-md shadow-md gap-4 grid lg:grid-cols-2">
-      </div>
-    )
-  }
-
   return (
-    <div onClick={() => setInfoOpen(!infoOpen)} className="bg-gray-50 w-full pt-8 pb-6 px-8 rounded-md shadow-md gap-4 grid lg:grid-cols-2">
-      {
-        items.map((item) => {
-          if (!item.value) return null
-          return (
+    <Disclosure title="Material Details">
+      <div className="grid gap-4 lg:grid-cols-2">
+        {items
+          .filter(item => item.value) // Filter out empty values
+          .map(item => (
             <InfoItem key={item.title} title={item.title} content={item.value} />
-          )
-        })
-      }
-    </div>
-  )
-}
+          ))}
+      </div>
+    </Disclosure>
+  );
+};
 
-export default InfoContainer
+
+export default InfoContainer;
