@@ -2,6 +2,9 @@
 
 import DisclosureButtonComponent from './DisclosureButton'
 import PopoverItem from './PopoverItem'
+import Link from 'next/link'
+
+import type { Page } from "@/types"
 
 import { useState } from 'react'
 import {
@@ -33,17 +36,32 @@ const callsToAction = [
   { name: 'Contact sales', href: '#', icon: PhoneIcon },
 ]
 
-export default function Example({ pages, slug } : { pages: string[], slug: string }) {
-  console.log('🚀 || Example || slug:', slug)
+export default function Example({ 
+  pages,
+  slug,
+  height
+} : { 
+  pages: Page[],
+  slug: string
+  height: number
+}) {
+  const isActive = (page: string) => {
+    const normalizedPageSlug = normalizeSlug(page)
+    return normalizedPageSlug === slug
+  }
+  isActive('Koti')
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="bg-white text-black">
-      <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
+    <header
+      className={`bg-primary-800 text-white backdrop-blur-lg w-full fixed z-20`}
+      style={{ height: height + 'px' }}
+    >
+        <nav aria-label="Global" className="mx-auto h-full flex max-w-7xl items-center justify-between p-6 lg:px-8">
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
-            <img alt="" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Tailwind_CSS_Logo.svg/1024px-Tailwind_CSS_Logo.svg.png?20230715030042" className="h-8 w-auto" />
+          <a href="/" className="-m-1.5 p-1.5">
+            <span className="text-2xl font-mont">KamuPeda</span>
           </a>
         </div>
         <div className="flex lg:hidden">
@@ -57,19 +75,24 @@ export default function Example({ pages, slug } : { pages: string[], slug: strin
           </button>
         </div>
         <PopoverGroup className="hidden lg:flex lg:gap-x-12">
-          <PopoverItem title="Popover Title" products={products} callsToAction={callsToAction} />
           {
             pages.map((page) => {
-              const normalizedPageSlug = normalizeSlug(page)
+              const normalizedPageSlug = normalizeSlug(page.title)
+
+              if (page.children.length) {
+                return (
+                  <PopoverItem key={normalizedPageSlug} title={page.title} pages={page.children} callsToAction={callsToAction} />
+                )
+              }
 
               return (
-                <a
+                <Link
                   key={normalizedPageSlug}
                   href={normalizedPageSlug}
                   className="text-sm font-semibold leading-6 text-gray-900"
                 >
-                  {page}
-                </a>
+                  {page.title}
+                </Link>
               )
             })
           }
@@ -84,14 +107,14 @@ export default function Example({ pages, slug } : { pages: string[], slug: strin
         <div className="fixed inset-0 z-10" />
         <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
+            <Link href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
               <img
                 alt=""
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Tailwind_CSS_Logo.svg/1024px-Tailwind_CSS_Logo.svg.png?20230715030042"
                 className="h-8 w-auto"
               />
-            </a>
+            </Link>
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
@@ -107,7 +130,7 @@ export default function Example({ pages, slug } : { pages: string[], slug: strin
                 <DisclosureButtonComponent products={products} callsToAction={callsToAction} />
                 {
                   pages.map((page) => {
-                    const normalizedPageSlug = normalizeSlug(page)
+                    const normalizedPageSlug = normalizeSlug(page.title)
 
                     return (
                       <a
@@ -115,7 +138,7 @@ export default function Example({ pages, slug } : { pages: string[], slug: strin
                         href={normalizedPageSlug}
                         className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                       >
-                        {page}
+                        {page.title}
                       </a>
                     )
                   })
