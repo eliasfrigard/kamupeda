@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { pdfjs, Document, Page } from 'react-pdf'
+import Button from './Button'
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.mjs`
 
@@ -41,12 +42,12 @@ function PdfViewer({
         </Document>
       </div>
       <div className='flex justify-between mt-4 gap-14'>
-        <button className='w-32 text-white py-3 rounded bg-primary-500 hover:bg-accent-500 hover:scale-105 duration-100 cursor-pointer' onClick={() => setPage(page - 1)} disabled={page <= 1}>Previous</button>
+        <Button onClick={() => setPage(page - 1)} disabled={page <= 1}>Edellinen</Button>
         <div className='flex justify-center items-center gap-2 '>
-          <p>{page}</p>
+          <p className='font-semibold'>{page}</p>
           <p className='text-xs opacity-60 mt-[1px]'>({pages})</p>
         </div>
-        <button className='w-32 text-white py-3 rounded bg-primary-500 hover:bg-accent-500 hover:scale-105 duration-100 cursor-pointer' onClick={() => setPage(page + 1)} disabled={page >= pages}>Next</button>
+        <Button onClick={() => setPage(page + 1)} disabled={page >= pages}>Seuraava</Button>
       </div>
     </>
   )
