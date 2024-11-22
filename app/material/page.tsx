@@ -26,6 +26,7 @@ export default function Blog() {
   const [originValues, setOriginValues] = useState([])
 
   const [filterIsSelected, setFilterIsSelected] = useState(false)
+  console.log('🚀 || Blog || filterIsSelected:', filterIsSelected)
 
   // Filters state
   const [filters, setFilters] = useState({

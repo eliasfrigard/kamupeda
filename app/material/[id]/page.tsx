@@ -28,15 +28,17 @@ export default async function Page({ params }: { params: { id: string } }) {
         <h1 className="text-3xl lg:text-4xl font-semibold text-pretty">{page.fields.title}</h1>
         <div className="h-[1px] w-2/3 bg-black bg-opacity-20" />
 
-        <InfoContainer items={[
-          { title: "Vaikeusaste", value: page.fields.difficulty.toString() },
-          { title: "Tyyli", value: page.fields.style },
-          { title: "Moodi", value: page.fields.mode },
-          { title: "Soitin", value: page.fields.instrument },
-          { title: "Alkuperä", value: page.fields.origin },
-        ]} />
+        <div className="flex flex-col gap-3 w-full">
+          <InfoContainer items={[
+            { title: "Vaikeusaste", value: page.fields.difficulty.toString() },
+            { title: "Tyyli", value: page.fields.style },
+            { title: "Moodi", value: page.fields.mode },
+            { title: "Soitin", value: page.fields.instrument },
+            { title: "Alkuperä", value: page.fields.origin },
+          ]} />
 
-        <FileSelector files={page.fields.files} />
+          <FileSelector files={page.fields.files} />
+        </div>
       </div>
     </div>
   )

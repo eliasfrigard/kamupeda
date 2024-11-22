@@ -29,7 +29,7 @@ const FileSelector: React.FC<FileSelectorProps> = ({ files }) => {
   }
 
   return (
-    <div className='container mx-auto flex flex-col justify-center items-center gap-8'>
+    <div className='container mx-auto flex flex-col justify-center items-center gap-6'>
       <div className="w-full">
         <Select
           options={options}
