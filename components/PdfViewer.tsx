@@ -25,7 +25,7 @@ function PdfViewer({
 
   return (
     <>
-      <div className='border rounded-md shadow-md p-12'>
+      <div className='border rounded-md shadow-md p-12 max-w-full'>
         <Document
           file={url}
           onLoadSuccess={onDocumentLoadSuccess}

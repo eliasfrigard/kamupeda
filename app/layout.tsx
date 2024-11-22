@@ -49,7 +49,7 @@ export default async function RootLayout({
       <body className={`${inter.className} ${mont.className} font-mont`}>
         <Header pages={pages} slug={params.slug} height={HEADER_HEIGHT} />
         <div style={{ paddingTop: HEADER_HEIGHT + 'px', minHeight: `calc(100vh - ${FOOTER_HEIGHT}px)` }}>
-          <div className="py-4 lg:py-6 overflow-x-hidden">
+          <div className="py-8 lg:py-10 overflow-x-hidden">
             {children}
           </div>
         </div>
