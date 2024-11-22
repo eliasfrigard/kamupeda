@@ -92,8 +92,8 @@ const Material = ({
           <Link
             key={m.sys.id}
             href={`/material/${m.sys.id}`}
-            className="bg-primary-800 focus:outline-accent-500 px-6 py-7 shadow-md rounded-md flex flex-col text-white items-center gap-5 hover:scale-105 duration-300"
-          >
+            className="bg-primary-800 focus:outline-accent-500 md:active:scale-100 px-6 py-7 shadow-md rounded-md flex flex-col text-white items-center gap-5 hover:scale-105 duration-300"
+            >
             <div className='flex gap-3 justify-center items-center'>
               <BsMusicNoteList className="text-xl" />
               <h3 className="text-xl font-semibold text-center">{material.title}</h3>
