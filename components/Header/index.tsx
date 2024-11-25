@@ -5,6 +5,7 @@ import PopoverItem from './PopoverItem'
 import Link from 'next/link'
 
 import type { Page } from "@/types"
+import { navMap } from '../NavMap'
 
 import { useState } from 'react'
 import {
@@ -37,11 +38,9 @@ const callsToAction = [
 ]
 
 export default function Example({ 
-  pages,
   slug,
   height
 } : { 
-  pages: Page[],
   slug: string
   height: number
 }) {
@@ -55,7 +54,7 @@ export default function Example({
 
   return (
     <header
-      className={`bg-primary-800 text-white backdrop-blur-lg w-full fixed z-20`}
+      className={`bg-primary-800 text-white backdrop-blur-lg w-full fixed z-20 shadow-lg bg-opacity-95`}
       style={{ height: height + 'px' }}
     >
         <nav aria-label="Global" className="mx-auto h-full flex max-w-7xl items-center justify-between p-6 lg:px-8">
@@ -68,7 +67,7 @@ export default function Example({
           <button
             type="button"
             onClick={() => setMobileMenuOpen(true)}
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5"
           >
             <span className="sr-only">Open main menu</span>
             <Bars3Icon aria-hidden="true" className="h-6 w-6" />
@@ -76,12 +75,12 @@ export default function Example({
         </div>
         <PopoverGroup className="hidden lg:flex lg:gap-x-12">
           {
-            pages.map((page) => {
+            navMap.map((page) => {
               const normalizedPageSlug = normalizeSlug(page.title)
 
-              if (page.children.length) {
+              if (page?.children?.length) {
                 return (
-                  <PopoverItem key={normalizedPageSlug} title={page.title} pages={page.children} callsToAction={callsToAction} />
+                  <PopoverItem key={normalizedPageSlug} title={page.title} pages={page.children} parent={normalizedPageSlug} callsToAction={callsToAction} />
                 )
               }
 
@@ -89,7 +88,7 @@ export default function Example({
                 <Link
                   key={normalizedPageSlug}
                   href={normalizedPageSlug}
-                  className="text-sm font-semibold leading-6 text-gray-900"
+                  className="text-sm font-semibold leading-6"
                 >
                   {page.title}
                 </Link>
@@ -129,17 +128,17 @@ export default function Example({
               <div className="space-y-2 py-6">
                 <DisclosureButtonComponent products={products} callsToAction={callsToAction} />
                 {
-                  pages.map((page) => {
+                  navMap.map((page) => {
                     const normalizedPageSlug = normalizeSlug(page.title)
 
                     return (
-                      <a
+                      <Link
                         key={normalizedPageSlug}
                         href={normalizedPageSlug}
                         className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                       >
                         {page.title}
-                      </a>
+                      </Link>
                     )
                   })
                 }

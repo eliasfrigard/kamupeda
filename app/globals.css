@@ -72,4 +72,8 @@ body {
   .list-stacked {
     counter-reset: item;
   }
+
+  .content-height {
+    min-height: calc(100vh - 168px);
+  }
 }

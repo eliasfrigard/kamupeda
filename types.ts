@@ -70,9 +70,9 @@ export type PageFields = {
   icon: IconType
   title: string
   description: string
-  pageChildren: EntryFieldTypes.Array<
-    EntryFieldTypes.EntryLink<PageSkeleton>
-  >
+  // pageChildren: EntryFieldTypes.Array<
+  //   EntryFieldTypes.EntryLink<PageSkeleton>
+  // >
   content: EntryFieldTypes.Array<
     EntryFieldTypes.EntryLink<PageContent>
   >

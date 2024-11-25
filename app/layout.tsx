@@ -1,9 +1,8 @@
 import React from "react"
 import type { Metadata } from "next"
-import type { Page } from '@/types'
 
 import "./globals.css"
-import { getPages } from "@/utils/contentful"
+// import { getPages } from "@/utils/contentful"
 import { Montserrat, Inter } from "next/font/google"
 
 import Header from "../components/Header"
@@ -42,14 +41,14 @@ export default async function RootLayout({
   const HEADER_HEIGHT = 84
   const FOOTER_HEIGHT = 84
 
-  const pages: Page[] = await getPages()
+  // const pages: Page[] = await getPages()
 
   return (
     <html lang="en">
       <body className={`${inter.className} ${mont.className} font-mont`}>
-        <Header pages={pages} slug={params.slug} height={HEADER_HEIGHT} />
+        <Header slug={params.slug} height={HEADER_HEIGHT} />
         <div style={{ paddingTop: HEADER_HEIGHT + 'px', minHeight: `calc(100vh - ${FOOTER_HEIGHT}px)` }}>
-          <div className="py-8 lg:py-10 overflow-x-hidden">
+          <div className="py-8 lg:py-10 overflow-x-hidden content-height flex flex-col">
             {children}
           </div>
         </div>

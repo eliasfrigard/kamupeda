@@ -115,41 +115,41 @@ export const getMaterialById = async (id: string) => {
   return pages.find((p) => normalizeSlug(p.sys.id) === normalizeSlug(id))
 }
 
-export const getPages = async (): Promise<Page[]> => {
-  const client = getContentfulClient()
+// export const getPages = async (): Promise<Page[]> => {
+//   const client = getContentfulClient()
   
-  const pageRes = await client.getEntries<PageSkeleton>({
-    content_type: 'page',
-    select: ['fields.icon', 'fields.title', 'fields.description', 'fields.pageChildren']
-  })
+//   const pageRes = await client.getEntries<PageSkeleton>({
+//     content_type: 'page',
+//     select: ['fields.icon', 'fields.title', 'fields.description']
+//   })
 
-  const pages = pageRes.items.map((item) => ({
-    id: item.sys.id,
-    icon: item.fields.icon,
-    title: item.fields.title,
-    description: item.fields.description,
-    children: item.fields.pageChildren?.map(child => child.sys.id) || []
-  }))
+//   const pages = pageRes.items.map((item) => ({
+//     id: item.sys.id,
+//     icon: item.fields.icon,
+//     title: item.fields.title,
+//     description: item.fields.description,
+//     children: item.fields.pageChildren?.map(child => child.sys.id) || []
+//   }))
 
-  const childIds = new Set(pages.flatMap(page => page.children))
-  const topLevelPages = pages.filter(page => !childIds.has(page.id))
+//   const childIds = new Set(pages.flatMap(page => page.children))
+//   const topLevelPages = pages.filter(page => !childIds.has(page.id))
 
-  const buildHierarchy = (page: { 
-    id: string
-    icon: string 
-    title: string
-    description: string 
-    children: string[] 
-  }): Page => ({
-    id: page.id,
-    icon: page.icon,
-    title: page.title,
-    description: page.description,
-    children: page.children.map(childId => {
-      const childPage = pages.find(p => p.id === childId)
-      return childPage ? buildHierarchy(childPage) : null
-    }).filter(child => child !== null)
-  })
+//   const buildHierarchy = (page: { 
+//     id: string
+//     icon: string 
+//     title: string
+//     description: string 
+//     children: string[] 
+//   }): Page => ({
+//     id: page.id,
+//     icon: page.icon,
+//     title: page.title,
+//     description: page.description,
+//     children: page.children.map(childId => {
+//       const childPage = pages.find(p => p.id === childId)
+//       return childPage ? buildHierarchy(childPage) : null
+//     }).filter(child => child !== null)
+//   })
 
-  return topLevelPages.map(buildHierarchy)
-}
+//   return topLevelPages.map(buildHierarchy)
+// }
