@@ -23,9 +23,9 @@ export default async function Page({ params }: { params: { slug?: string[] } }) 
 
   if (!page) {
     return (
-      <div className="container h-full font-extrabold opacity-80 text-black mx-auto px-8 flex flex-col gap-8 justify-center items-center flex-1">
+      <div className="container h-full font-extrabold text-primary-800 mx-auto px-8 flex flex-col gap-8 justify-center items-center flex-1">
         <h1 className="text-9xl">404</h1>
-        <div className="w-2/3 rounded-full h-[1px] opacity-20 bg-black" />
+        <div className="w-2/3 rounded-full h-[1px] opacity-20 bg-primary-800" />
         <h1 className="text-4xl">Page Not Found</h1>
       </div>
     )

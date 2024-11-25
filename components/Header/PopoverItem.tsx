@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Asset } from 'contentful';
 
 import {
   Popover,
@@ -13,16 +14,21 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import type { NavItem } from '../NavMap';
 import { normalizeSlug } from '../../utils/normalizeSlug';
 
-type PageChild = {
-  icon: any;
-  title: string;
-  description: string;
-};
+export type PageChild = {
+  icon: Asset | undefined
+  title: string
+  description: string
+}
+
+export type CallToAction = {
+  name: string
+  href: string
+}
 
 // Helper function to transform `NavItem` to `PageChild`
 const pagesToItems = (pages: NavItem[]): PageChild[] => {
   return pages.map((page) => ({
-    icon: '', // Update this logic to fetch icons if necessary
+    icon: undefined, // Update this logic to fetch icons if necessary
     title: page.title,
     description: '', // Placeholder or fetched description
   }));
@@ -34,13 +40,12 @@ const DisclosureButtonComponent = ({
   parent,
   callsToAction,
 }: {
-  title: string;
-  pages: NavItem[];
-  parent: string;
-  callsToAction: any[];
+  title: string
+  pages: NavItem[]
+  parent: string
+  callsToAction: CallToAction[]
 }) => {
-  const [items, setItems] = useState<PageChild[]>([]);
-  console.log('🚀 || items:', items)
+  const [items, setItems] = useState<PageChild[]>([])
 
   useEffect(() => {
     // Simulate fetching or transforming data
@@ -72,7 +77,7 @@ const DisclosureButtonComponent = ({
                 {page.icon?.fields?.file?.url && (
                   <Image
                     src={`https:${page.icon.fields.file.url}`}
-                    alt={page.icon.fields.title}
+                    alt="call to action" // TODO: Use icon text.
                     width={44}
                     height={44}
                   />

@@ -14,12 +14,13 @@ const nextConfig = {
       protocol: 'https',
       hostname: 'assets.ctfassets.net'
     }],
+    domains: ['images.ctfassets.net', 'assets.ctfassets.net'],
   },
   async redirects() {
     return [
       {
         source: '/',
-        destination: '/koti',
+        destination: '/etusivu',
         permanent: true, // This indicates it's a 301 redirect
       },
     ]

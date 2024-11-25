@@ -26,7 +26,7 @@ export default async function Blog() {
     <div className="container mx-auto grid lg:grid-cols-3 gap-4 lg:gap-8 px-4">
       {
         mappedPosts.length && mappedPosts.map((post) => (
-          <Link key={post.sys.id} href={`/blog/${post.sys.id}`} className="hover:scale-105 duration-200">
+          <Link key={post.sys.id} href={`/blogi/${post.sys.id}`} className="hover:scale-105 duration-200">
             <div className="relative w-full aspect-square overflow-hidden rounded-xl shadow">
               <Image
                 alt={post?.fields?.previewImage?.fields?.file?.fileName} 
