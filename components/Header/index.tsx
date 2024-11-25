@@ -73,7 +73,7 @@ export default function Example({
             <Bars3Icon aria-hidden="true" className="h-6 w-6" />
           </button>
         </div>
-        <PopoverGroup className="hidden lg:flex lg:gap-x-12">
+        <PopoverGroup className="hidden lg:flex lg:gap-x-10">
           {
             navMap.map((page) => {
               const normalizedPageSlug = normalizeSlug(page.title)
@@ -87,7 +87,7 @@ export default function Example({
               return (
                 <Link
                   key={normalizedPageSlug}
-                  href={normalizedPageSlug}
+                  href={'/' + normalizedPageSlug}
                   className="text-sm font-semibold leading-6"
                 >
                   {page.title}

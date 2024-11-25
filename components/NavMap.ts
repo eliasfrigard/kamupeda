@@ -6,67 +6,67 @@ export type NavItem = {
 
 export const navMap: NavItem[] = [
   {
-    title: 'etusivu',
+    title: 'Etusivu',
     href: '',
   },
   {
-    title: 'pedagogiikka',
+    title: 'Pedagogiikka',
     href: '',
     children: [
       {
-        title: 'kamupeda',
+        title: 'Kamupeda',
         href: '',
       },
       {
-        title: 'kansanmusiikkipedagogiikka',
+        title: 'Kansanmusiikkipedagogiikka',
         href: '',
       },
       {
-        title: 'harjoituksia',
+        title: 'Harjoituksia',
         href: '',
       },
       {
-        title: 'musiikin hahmotusaineet',
+        title: 'Musiikin Hahmotusaineet',
         href: '',
       },
     ]
   },
   {
-    title: 'materiaalit',
+    title: 'Materiaalit',
     href: '/blog',
     children: [
       {
-        title: 'kamutaito-1',
+        title: 'Kamutaito 1',
         href: '',
       },
       {
-        title: 'instrumentit',
+        title: 'Instrumentit',
         href: '',
       },
       {
-        title: 'yhteismusisointi',
+        title: 'Yhteismusisointi',
         href: '',
       },
       {
-        title: 'tanssi',
+        title: 'Tanssi',
         href: '',
       },
     ]
   },
   {
-    title: 'blogi',
+    title: 'Blogi',
     href: '',
   },
   {
-    title: 'linkit',
+    title: 'Linkit',
     href: '',
   },
   {
-    title: 'yhteystiedot',
+    title: 'Yhteystiedot',
     href: '',
   },
   {
-    title: 'in english',
+    title: 'In English',
     href: '',
   }
 ]

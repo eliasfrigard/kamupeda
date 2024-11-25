@@ -9,9 +9,6 @@ import Content from "@/components/Content"
 
 export const generateStaticParams = async () => {
   const pages = await getPageData()
-  pages.forEach((page) => {
-    console.log(normalizeSlug(page.fields.title))
-  })
 
   return pages.map((page) => ({
     slug: [normalizeSlug(page.fields.title)]

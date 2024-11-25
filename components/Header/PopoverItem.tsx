@@ -11,6 +11,7 @@ import {
 } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import type { NavItem } from '../NavMap';
+import { normalizeSlug } from '../../utils/normalizeSlug';
 
 type PageChild = {
   icon: any;
@@ -39,6 +40,7 @@ const DisclosureButtonComponent = ({
   callsToAction: any[];
 }) => {
   const [items, setItems] = useState<PageChild[]>([]);
+  console.log('🚀 || items:', items)
 
   useEffect(() => {
     // Simulate fetching or transforming data
@@ -58,7 +60,7 @@ const DisclosureButtonComponent = ({
       </PopoverButton>
 
       <PopoverPanel
-        className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5"
+        className="absolute -left-16 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5"
       >
         <div className="p-4">
           {items.map((page) => (
@@ -77,7 +79,7 @@ const DisclosureButtonComponent = ({
                 )}
               </div>
               <div className="flex-auto">
-                <Link href={`/${parent}/${page.title}`} className="block font-semibold text-gray-900">
+                <Link href={`/${parent}/${normalizeSlug(page.title)}`} className="block font-semibold text-gray-900">
                   {page.title}
                   <span className="absolute inset-0" />
                 </Link>

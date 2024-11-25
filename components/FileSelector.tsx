@@ -14,7 +14,6 @@ interface FileSelectorProps {
 }
 
 const FileSelector: React.FC<FileSelectorProps> = ({ files }) => {
-  console.log('🚀 || files:', files)
   const [selectedFile, setSelectedFile] = React.useState(files[0])
 
   const options = files.map((file) => file.fields.file.fileName)
@@ -22,10 +21,6 @@ const FileSelector: React.FC<FileSelectorProps> = ({ files }) => {
   const handleSetSelected = (value: string) => {
     const selected = files.find((file) => file.fields.file.fileName === value)
     setSelectedFile(selected)
-  }
-
-  for (const file of files) {
-    console.log(file.fields.file.contentType)
   }
 
   return (

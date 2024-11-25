@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import Material from './material'
+import Material from '../material'
 import type { Entry } from 'contentful'
 import type { MaterialSkeleton } from '@/types'
 import { searchMaterialData } from '@/utils/contentful'
@@ -26,7 +26,6 @@ export default function Blog() {
   const [originValues, setOriginValues] = useState([])
 
   const [filterIsSelected, setFilterIsSelected] = useState(false)
-  console.log('🚀 || Blog || filterIsSelected:', filterIsSelected)
 
   // Filters state
   const [filters, setFilters] = useState({
