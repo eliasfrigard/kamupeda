@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-import typography from "@tailwindcss/typography"
+import typography from "@tailwindcss/typography";
 
 const config: Config = {
   content: [
@@ -49,10 +49,20 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      typography: () => ({
+        DEFAULT: {
+          css: {
+            'li p': {
+              margin: '0', // Removes margin for p inside li
+            },
+          },
+        },
+      }),
     },
   },
   plugins: [
     typography,
   ],
 };
+
 export default config;

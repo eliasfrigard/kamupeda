@@ -5,7 +5,6 @@ import Video from './Video'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { BLOCKS } from '@contentful/rich-text-types'
 
-// Render options for Contentful rich text
 const options = {
   renderNode: {
     [BLOCKS.EMBEDDED_ENTRY]: (node) => {
@@ -34,7 +33,7 @@ const options = {
   },
 }
 
-const TextLayout = ({ text, type = 'dynamic' }) => {
+const TextLayout = ({ text, type = 'dynamic', className }) => {
   let textLength = 0
 
   text?.content.forEach((t) => {
@@ -42,6 +41,7 @@ const TextLayout = ({ text, type = 'dynamic' }) => {
 
     t.content.forEach((v) => {
       const value = v?.value?.length
+
       if (typeof value === 'number') {
         textLength = textLength + value
       }
@@ -50,6 +50,7 @@ const TextLayout = ({ text, type = 'dynamic' }) => {
 
   const textContent = text.content.filter((v) => {
     if (v.nodeType !== 'paragraph') return true
+
     return v.content[0].value.length > 0
   })
 
@@ -60,15 +61,20 @@ const TextLayout = ({ text, type = 'dynamic' }) => {
 
   const maxLengthForTwoColumns = 1500
 
-  // Determine layout and alignment classes conditionally
-  const layoutClasses = textLength < maxLengthForTwoColumns || type === 'single'
-    ? 'prose py-0 my-0 max-w-3xl space-y-4 px-4 lg:px-0 flex flex-col leading-loose gap-2'
-    : 'prose max-w-7xl lg:columns-2 gap-10 leading-loose'
-
-  // const alignmentClasses = className || 'items-center justify-center'
+  // if (textLength < maxLengthForTwoColumns || type === 'single') {
+  if (true) {
+    return (
+      <div
+        className={`prose py-0 my-0 max-w-4xl gap-4 prose-img:roundedShadow prose-img:shadow-md leading-[2.1rem] tracking-wide font-sans prose-headings:font-khorla prose-blockquote:border-accent-500 prose-blockquote:border-l-[3px] prose-blockquote:border-opacity-50 prose-blockquote:rounded-sm prose-a:text-accent-600 flex flex-col prose-blockquote:my-0 prose-p:my-0 prose-headings:my-0 space-y-4 px-4 lg:px-0 text-pretty ${className}`}
+      >
+        {documentToReactComponents(textDocument, options)}
+      </div>
+    )
+  }
 
   return (
-    <div className={`${layoutClasses} prose-img:rounded prose-headings:m-0 prose-img:shadow-md prose-headings:font-sans prose-a:text-blue-500`}
+    <div
+      className={`prose max-w-7xl lg:columns-2 gap-10 prose-img:rounded prose-img:shadow-md leading-loose md:text-justify prose-headings:underline prose-a:text-accent-500 prose-headings:text-left text-pretty ${className}`}
     >
       {documentToReactComponents(textDocument, options)}
     </div>
