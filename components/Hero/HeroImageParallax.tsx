@@ -1,13 +1,14 @@
-'use client'
-
 import React from 'react'
-import Image from 'next/image'
+import { useParallax } from "react-scroll-parallax"
 
 const HeroImageParallax = ({
+  Image, // Next.js Image component
   image,
   isMobile = false,
   imageClasses,
+  parallaxSpeed = -50,
 }: {
+  Image: any
   image: {
     url: string
     altText: string
@@ -15,10 +16,13 @@ const HeroImageParallax = ({
   }
   isMobile?: boolean
   imageClasses?: string
+  parallaxSpeed?: number
 }) => {
+  const parallax = useParallax({ speed: parallaxSpeed })
 
   return (
     <Image
+      ref={parallax.ref}
       alt={image.altText}
       src={`${image.url}${isMobile ? '?w=800' : '?w=1920'}`}
       fill

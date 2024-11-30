@@ -18,7 +18,7 @@ interface PageContentProps {
 
 const Content: React.FC<PageContentProps> = ({ pageContent }) => {
   return (
-    <div className='container mx-auto w-full min-h-screen flex flex-col justify-center items-center gap-8 mb-16 text-black'>
+    <div className='container mx-auto w-full min-h-screen flex flex-col justify-center items-center gap-8 md:gap-12 text-black px-6 lg:px-4'>
       {
         pageContent.map((block, index) => {
           const contentTypeId = block.sys.contentType.sys.id
@@ -58,6 +58,7 @@ const Content: React.FC<PageContentProps> = ({ pageContent }) => {
 
             return (
               <Hero
+                offset={40 + 84}
                 isFirstElement={index === 0}
                 key={contentBlock.sys.id}
                 // mobileImg={desktopHero}

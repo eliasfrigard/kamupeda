@@ -1,26 +1,40 @@
 'use client'
 
 import React from 'react'
+import AnimateIn from '../AnimateIn'
 import HeroImage from './HeroImage'
 import HeroImageParallax from './HeroImageParallax'
 
-import type { HeroImageType } from '@/types'
-
 const Hero = ({
+  Image,
   children,
   desktopImg,
   mobileImg,
   overlay = true,
   spaced = false,
+  fallback = false,
+  parallaxSpeed,
   imagePosition = 'center',
+  overlayClasses,
 } : {
+  Image: any
   children?: React.ReactNode
-  desktopImg: HeroImageType
-  mobileImg: HeroImageType
+  desktopImg: {
+    url: string
+    altText: string
+    blur?: string
+  }
+  mobileImg: {
+    url: string
+    altText: string
+    blur?: string
+  }
   overlay?: boolean
   spaced: boolean
+  fallback?: boolean
   parallaxSpeed?: number
   imagePosition?: string
+  overlayClasses?: string
 }) => {
   const overlayElement = () => {
     const overlayClasses = `absolute w-full h-screen bg-primary-950 bg-opacity-20 backdrop-blur`
@@ -28,22 +42,23 @@ const Hero = ({
     if (!overlay) return null
 
     // Use fragment because AnimateIn requires children.
-    return <div className={`absolute w-full h-full ${overlayClasses}`}><></></div>
+    return <AnimateIn delay={1000} className={`absolute w-full h-full ${overlayClasses}`}><></></AnimateIn>
   }
 
   // Spaced and default classes.
   const defaultClasses = `h-screen w-full -mt-[85px] flex justify-center items-center shadow-lg overflow-hidden object-${imagePosition}`
-  const spacedClasses = `relative w-full aspect-[9/16] md:aspect-video hidden md:block object-${imagePosition}`
+  const spacedClasses = `relative w-full aspect-[9/16] md:aspect-video object-${imagePosition}`
 
   // Desktop and mobile classes.
-  const desktopClasses = `relative hidden md:block ${spaced ? spacedClasses : defaultClasses}`
-  const mobileClasses = `relative block md:hidden ${spaced ? spacedClasses : defaultClasses}`
+  const desktopClasses = `relative ${spaced ? spacedClasses : defaultClasses} ${fallback && !mobileImg?.url ? 'block' : 'hidden md:block'}`
+  const mobileClasses = `relative ${spaced ? spacedClasses : defaultClasses} ${fallback && !mobileImg?.url ? 'hidden' : 'block md:hidden'}`
 
   const renderImage = (isMobile: boolean) => {
     if (spaced) {
       return (
         <HeroImage
           imageClasses={`object-${imagePosition}`}
+          Image={Image}
           image={isMobile ? mobileImg : desktopImg}
           isMobile={isMobile}
         />
@@ -52,8 +67,10 @@ const Hero = ({
       return (
         <HeroImageParallax
           imageClasses={`object-${imagePosition}`}
+          Image={Image}
           image={isMobile ? mobileImg : desktopImg}
           isMobile={isMobile}
+          parallaxSpeed={parallaxSpeed}
         />
       )
     }
@@ -63,21 +80,21 @@ const Hero = ({
     <>
       {
         desktopImg.url && (
-          <div className={desktopClasses}>
+          <AnimateIn className={desktopClasses}>
             {renderImage(false)}
 
             {overlayElement()}
 
-            <div className='z-30 centerContent px-4 w-screen h-full'>
+            <div className='z-30 mt-85 centerContent px-4 w-full h-full'>
               {children}
             </div>
-          </div>
+          </AnimateIn>
         )
       }
 
       {
         mobileImg.url && (
-          <div className={mobileClasses}>
+          <AnimateIn className={mobileClasses}>
             {renderImage(true)}
 
             {overlayElement()}
@@ -85,7 +102,7 @@ const Hero = ({
             <div className='z-30 mt-85 centerContent px-4 w-full h-full'>
               {children}
             </div>
-          </div>
+          </AnimateIn>
         )
       }
     </>

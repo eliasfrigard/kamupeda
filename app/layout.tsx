@@ -48,7 +48,7 @@ export default async function RootLayout({
       <body className={`${inter.className} ${mont.className} font-mont`}>
         <Header slug={params.slug} height={HEADER_HEIGHT} />
         <div style={{ paddingTop: HEADER_HEIGHT + 'px', minHeight: `calc(100vh - ${FOOTER_HEIGHT}px)` }}>
-          <div className="py-8 lg:py-10 overflow-x-hidden content-height flex flex-col bg-gray-100">
+          <div className="py-8 lg:py-12 overflow-x-hidden content-height flex flex-col bg-gray-100">
             {children}
           </div>
         </div>

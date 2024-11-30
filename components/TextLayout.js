@@ -65,7 +65,7 @@ const TextLayout = ({ text, type = 'dynamic', className }) => {
   if (true) {
     return (
       <div
-        className={`prose py-0 my-0 max-w-4xl gap-4 prose-img:roundedShadow prose-img:shadow-md leading-[2.1rem] tracking-wide font-sans prose-headings:font-khorla prose-blockquote:border-accent-500 prose-blockquote:border-l-[3px] prose-blockquote:border-opacity-50 prose-blockquote:rounded-sm prose-a:text-accent-600 flex flex-col prose-blockquote:my-0 prose-p:my-0 prose-headings:my-0 space-y-4 px-4 lg:px-0 text-pretty ${className}`}
+        className={`prose py-0 my-0 max-w-4xl gap-4 prose-img:roundedShadow prose-img:shadow-md leading-[2.1rem] tracking-wide font-sans prose-headings:font-khorla prose-blockquote:border-accent-500 prose-blockquote:border-l-[3px] prose-blockquote:border-opacity-50 prose-blockquote:rounded-sm prose-a:text-accent-600 flex flex-col prose-blockquote:my-0 prose-p:my-0 prose-headings:my-0 space-y-4 text-pretty ${className}`}
       >
         {documentToReactComponents(textDocument, options)}
       </div>

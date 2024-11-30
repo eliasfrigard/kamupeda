@@ -13,26 +13,27 @@ interface ImageHeroProps {
     blur?: string
   }
   isFirstElement: boolean
+  offset: number
 }
 
 const ImageHero: React.FC<ImageHeroProps> = ({ desktopImg, isFirstElement }) => {
   if (isFirstElement) {
     return (
       <>
-        {/* Container for the header and image */}
-        {/* The image will be absolutely positioned */}
-        <div className={`w-full absolute top-0 left-0 h-screen`}>
+        <div 
+          className="relative w-screen h-[calc(100vh-84px)] -mt-[32px] lg:-mt-[48px] aspect-video"
+          >
           <Image
-            src={desktopImg.url}
+            src={desktopImg.url} 
             alt={desktopImg.altText}
             fill
-            className={`object-cover`}
+            className="absolute object-cover w-full h-full"
           />
         </div>
-        <div className="relative h-screen w-full" />
       </>
-    )
-  }
+    );
+  }  
+
 
   return (
     <div className={`w-screen relative aspect-video`}>
