@@ -17,6 +17,26 @@ function PdfViewer({
 }) {
   const [page, setPage] = React.useState<number>(1)
   const [pages, setPages] = React.useState<number>(1)
+  const [divWidth, setDivWidth] = React.useState<number>(window.innerWidth)
+
+  const documentRef = React.useRef<HTMLDivElement>(null)
+
+  React.useLayoutEffect(() => {
+    setDivWidth(documentRef.current?.clientWidth || window.innerWidth)
+  }, [])
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      setDivWidth(documentRef.current?.clientWidth || window.innerWidth)
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize
+      )
+    }
+  }, [documentRef])
 
   const onDocumentLoadSuccess = (document: PDFDocumentProxy) => {
     const { numPages } = document
@@ -25,7 +45,10 @@ function PdfViewer({
 
   return (
     <>
-      <div className='border rounded-md shadow-md p-12 max-w-full'>
+      <div 
+        ref={documentRef}
+        className='border max-w-full w-full'
+      >
         <Document
           file={url}
           onLoadSuccess={onDocumentLoadSuccess}
@@ -35,6 +58,7 @@ function PdfViewer({
           }}
         >
           <Page
+            width={divWidth}
             pageNumber={page}
             renderTextLayer={false} // Disable the text layer
             renderAnnotationLayer={false} // Disable the annotation layer

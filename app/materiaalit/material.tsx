@@ -91,7 +91,7 @@ const Material = ({
         return (
           <Link
             key={m.sys.id}
-            href={`/material/${m.sys.id}`}
+            href={`/materiaalit/${m.sys.id}`}
             className="bg-primary-800 focus:outline-accent-500 md:active:scale-100 px-6 py-7 shadow-md rounded-md flex flex-col text-white items-center gap-5 hover:scale-105 duration-300"
             >
             <div className='flex gap-3 justify-center items-center'>

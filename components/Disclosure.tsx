@@ -3,14 +3,16 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
 export default function Example({ 
   title,
-  children
+  children,
+  defaultOpen = true
 } : {
   title: string,
   children: React.ReactNode
+  defaultOpen?: boolean
 }) {
   return (
     <div className="mx-auto overflow-hidden w-full divide-y divide-black/5 rounded-xl bg-black/5 text-white">
-      <Disclosure as="div" defaultOpen={true}>
+      <Disclosure as="div" defaultOpen={defaultOpen}>
         <DisclosureButton className="p-4 group flex w-full items-center justify-between hover:bg-primary-600 bg-primary-500 duration-100">
           <span className="text-sm/6 font-semibold tracking-wide">
             {title}

@@ -21,7 +21,7 @@ const InfoItem = ({ title, content }: { title: string, content: string }) => (
 
 const InfoContainer: React.FC<InfoContainerProps> = ({ items }) => {
   return (
-    <Disclosure title="Material Details">
+    <Disclosure title="Tiedot" defaultOpen={false}>
       <div className="grid gap-4 lg:grid-cols-2">
         {items
           .filter(item => item.value) // Filter out empty values
