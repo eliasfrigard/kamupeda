@@ -9,6 +9,7 @@ const AnimateIn = ({
   animationType = 'fade',
   slideDirection = 'left',
   disabled = false,
+  delay = 0,
   ...rest
 }) => {
   const [ref, inView] = useInView({ threshold, triggerOnce })
