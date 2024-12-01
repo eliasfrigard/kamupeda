@@ -2,12 +2,13 @@ import type { Entry } from 'contentful'
 import { createClient } from 'contentful'
 import { normalizeSlug } from './normalizeSlug'
 
-import type { 
-  Page, 
+import type {
   PageSkeleton, 
   MaterialSkeleton, 
   BlogPostSkeleton, 
-  DisclosureSkeleton
+  DisclosureSkeleton,
+  DisclosureGroupSkeleton,
+  TextBlockSkeleton
 } from "@/types"
 
 export const getContentfulClient = () =>
@@ -99,6 +100,7 @@ const getDisclosures = async (disclosureIds: string[]) => {
   const client = getContentfulClient()
 
   const disclosures = await client.getEntries<DisclosureSkeleton>({
+    // @ts-expect-error
     'sys.id[in]': disclosureIds.join(','),
   })
 
@@ -112,13 +114,17 @@ export const getPageBySlug = async (slug: string) => {
   const page = pages.find((p) => normalizeSlug(p.fields.title) === normalizeSlug(slug))
   
   if (page?.fields.content) {
+    // @ts-expect-error
     for (const contentBlock of page.fields.content) {
       if (contentBlock.sys.contentType.sys.id === 'disclosureGroup') {
         const disclosureGroup = contentBlock as DisclosureGroupSkeleton
+
+        const disclosures = Array.isArray(disclosureGroup.fields.disclosures) ? disclosureGroup.fields.disclosures : []
         
         // Fetch disclosures asynchronously
-        const disclosureIds = disclosureGroup.fields.disclosures.map((disclosure) => disclosure.sys.id);
-        disclosureGroup.fields.disclosures = await getDisclosures(disclosureIds);
+        const disclosureIds = disclosures.map((disclosure: DisclosureSkeleton) => disclosure.sys.id)
+        // @ts-expect-error
+        disclosureGroup.fields.disclosures = await getDisclosures(disclosureIds)
       }
     }
   }
@@ -147,42 +153,3 @@ export const getMediaById = async (id: string) => {
 
   return media
 }
-
-// export const getPages = async (): Promise<Page[]> => {
-//   const client = getContentfulClient()
-  
-//   const pageRes = await client.getEntries<PageSkeleton>({
-//     content_type: 'page',
-//     select: ['fields.icon', 'fields.title', 'fields.description']
-//   })
-
-//   const pages = pageRes.items.map((item) => ({
-//     id: item.sys.id,
-//     icon: item.fields.icon,
-//     title: item.fields.title,
-//     description: item.fields.description,
-//     children: item.fields.pageChildren?.map(child => child.sys.id) || []
-//   }))
-
-//   const childIds = new Set(pages.flatMap(page => page.children))
-//   const topLevelPages = pages.filter(page => !childIds.has(page.id))
-
-//   const buildHierarchy = (page: { 
-//     id: string
-//     icon: string 
-//     title: string
-//     description: string 
-//     children: string[] 
-//   }): Page => ({
-//     id: page.id,
-//     icon: page.icon,
-//     title: page.title,
-//     description: page.description,
-//     children: page.children.map(childId => {
-//       const childPage = pages.find(p => p.id === childId)
-//       return childPage ? buildHierarchy(childPage) : null
-//     }).filter(child => child !== null)
-//   })
-
-//   return topLevelPages.map(buildHierarchy)
-// }

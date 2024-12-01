@@ -9,7 +9,7 @@ interface DisclosureGroupProps {
 
 const DisclosureGroup: React.FC<DisclosureGroupProps> = ({ disclosures }) => {
   return (
-    <div className='rounded-xl overflow-hidden flex flex-col'>
+    <div className='rounded-xl overflow-hidden flex flex-col shadow-lg'>
       {
         disclosures.map((disclosure, i) => {
           return (

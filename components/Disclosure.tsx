@@ -15,7 +15,7 @@ export default function Example({
   rounded?: boolean
 }) {
   return (
-    <div className={`mx-auto overflow-hidden w-full divide-y divide-black/5 bg-black/5 text-white ${className} ${rounded ? 'rounded-xl' : 'rounded-none'}`}>
+    <div className={`mx-auto overflow-hidden w-full divide-y divide-black/5 bg-primary-500/5 text-white shadow-md ${className} ${rounded ? 'rounded-xl' : 'rounded-none'}`}>
       <Disclosure as="div" defaultOpen={defaultOpen}>
         <DisclosureButton className="p-4 group flex w-full items-center justify-between hover:bg-primary-600 bg-primary-500 duration-100">
           <span className="text-sm/6 font-semibold tracking-wide">

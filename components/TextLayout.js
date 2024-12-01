@@ -7,18 +7,19 @@ import { BLOCKS } from '@contentful/rich-text-types'
 
 const options = {
   renderNode: {
-    [BLOCKS.EMBEDDED_ENTRY]: (node) => {
-      if (node.data.target.sys.contentType.sys.id === "video") {
-        return (
-          <Video
-            className="pt-0 pb-2 md:pt-4 md:pb-5"
-            key={node.data.target.fields.name}
-            title={node.data.target.fields.name}
-            link={node.data.target.fields.youTubeLink}
-          />
-        );
-      }
-    },
+    // [BLOCKS.EMBEDDED_ENTRY]: (node) => {
+    //   //TODO: What the fuck is going on?
+    //   if (node.data.target.sys.contentType.sys.id === "video") {
+    //     return (
+    //       <Video
+    //         className="pt-0 pb-2 md:pt-4 md:pb-5"
+    //         key={node.data.target.fields.name}
+    //         title={node.data.target.fields.name}
+    //         link={node.data.target.fields.youTubeLink}
+    //       />
+    //     );
+    //   }
+    // },
     [BLOCKS.EMBEDDED_ASSET]: (node) => {
       const { url, fileName } = node.data.target.fields.file
       return (
