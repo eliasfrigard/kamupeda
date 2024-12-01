@@ -5,15 +5,17 @@ export default function Example({
   title,
   children,
   defaultOpen = true,
-  className = ''
+  className = '',
+  rounded = true
 } : {
   title: string,
   children: React.ReactNode
   defaultOpen?: boolean
   className?: string
+  rounded?: boolean
 }) {
   return (
-    <div className={`mx-auto overflow-hidden w-full divide-y divide-black/5 rounded-xl bg-black/5 text-white ${className}`}>
+    <div className={`mx-auto overflow-hidden w-full divide-y divide-black/5 bg-black/5 text-white ${className} ${rounded ? 'rounded-xl' : 'rounded-none'}`}>
       <Disclosure as="div" defaultOpen={defaultOpen}>
         <DisclosureButton className="p-4 group flex w-full items-center justify-between hover:bg-primary-600 bg-primary-500 duration-100">
           <span className="text-sm/6 font-semibold tracking-wide">
@@ -21,7 +23,10 @@ export default function Example({
           </span>
           <ChevronDownIcon className="size-6 fill-white/60 group-data-[hover]:fill-white group-data-[open]:rotate-180" />
         </DisclosureButton>
-        <DisclosurePanel className="p-6 text-sm/5 text-black/50">
+        <DisclosurePanel
+          transition
+          className="p-6 text-sm/5 text-black/50 origin-top transition duration-200 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0"
+        >
           {children}
         </DisclosurePanel>
       </Disclosure>
