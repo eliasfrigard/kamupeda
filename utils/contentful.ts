@@ -6,7 +6,8 @@ import type {
   Page, 
   PageSkeleton, 
   MaterialSkeleton, 
-  BlogPostSkeleton 
+  BlogPostSkeleton, 
+  DisclosureSkeleton
 } from "@/types"
 
 export const getContentfulClient = () =>
@@ -94,11 +95,35 @@ export const searchMaterialData = async ({
   return items
 }
 
+const getDisclosures = async (disclosureIds: string[]) => {
+  const client = getContentfulClient()
+
+  const disclosures = await client.getEntries<DisclosureSkeleton>({
+    'sys.id[in]': disclosureIds.join(','),
+  })
+
+  return disclosures.items
+}
+
 export const getPageBySlug = async (slug: string) => {
   // @ts-expect-error TODO: Don't know how to handle yet.
   const pages: PageSkeleton[] = await getPageData()
+  
+  const page = pages.find((p) => normalizeSlug(p.fields.title) === normalizeSlug(slug))
+  
+  if (page?.fields.content) {
+    for (const contentBlock of page.fields.content) {
+      if (contentBlock.sys.contentType.sys.id === 'disclosureGroup') {
+        const disclosureGroup = contentBlock as DisclosureGroupSkeleton
+        
+        // Fetch disclosures asynchronously
+        const disclosureIds = disclosureGroup.fields.disclosures.map((disclosure) => disclosure.sys.id);
+        disclosureGroup.fields.disclosures = await getDisclosures(disclosureIds);
+      }
+    }
+  }
 
-  return pages.find((p) => normalizeSlug(p.fields.title) === normalizeSlug(slug))
+  return page
 }
 
 export const getPostById = async (id: string) => {
@@ -119,7 +144,6 @@ export const getMediaById = async (id: string) => {
   const client = getContentfulClient()
 
   const media = await client.getEntry(id)
-  console.log('🚀 || getMediaById || media:', media)
 
   return media
 }

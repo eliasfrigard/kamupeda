@@ -46,7 +46,7 @@ const ContentBlock: React.FC<{ block: PageContent, index: number }> = ({ block, 
     const contentBlock = block as DisclosureGroupSkeleton
 
     const disclosures: DisclosureSkeleton[] = Array.isArray(contentBlock.fields.disclosures)
-    ? contentBlock.fields.disclosures
+    ? [...contentBlock.fields.disclosures]
     : []
 
     return (
