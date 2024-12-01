@@ -16,6 +16,7 @@ export type Material = {
   style: string
   forEnsemble: boolean
   origin: string
+  description?: EntryFieldTypes.RichText
 }
 
 export type BlogPost = {
