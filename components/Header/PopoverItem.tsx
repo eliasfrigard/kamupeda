@@ -9,7 +9,6 @@ import {
   Popover,
   PopoverButton,
   PopoverPanel,
-  Transition
 } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import type { NavItem } from '../NavMap';

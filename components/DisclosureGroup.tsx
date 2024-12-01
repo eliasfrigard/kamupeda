@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { DisclosureSkeleton } from '@/types'
 import Disclosure from './Disclosure'
 import TextLayout from './TextLayout'

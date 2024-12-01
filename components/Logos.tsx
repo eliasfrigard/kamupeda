@@ -11,7 +11,7 @@ const Logos = ({
   return (
     <div className='max-w-4xl grid grid-cols-3 gap-3 px-6 lg:px-4 w-full bg-primary-800 p-8 rounded-xl shadow-xl'>
       {
-        logos.map((logo, i) => {
+        logos.map((logo) => {
           if (!logo.fields.file) return null
 
           return (
