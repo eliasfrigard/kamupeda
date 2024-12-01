@@ -47,6 +47,13 @@ export type TextBlockFields = {
   textContent: EntryFieldTypes.RichText
 }
 
+export type DisclosureGroupFields = {
+  title: string
+  disclosures: EntryFieldTypes.Array<
+    EntryFieldTypes.EntryLink<DisclosureSkeleton>
+  >
+}
+
 export type LogosFields = {
   title: string
   logos: Asset[]
@@ -64,13 +71,15 @@ export type HeroFields = {
 }
 
 export type TextBlockSkeleton = BaseSkeleton<'textBlock', TextBlockFields>
+export type DisclosureSkeleton = BaseSkeleton<'disclosure', TextBlockFields>
+export type DisclosureGroupSkeleton = BaseSkeleton<'disclosureGroup', DisclosureGroupFields>
 export type VideoSkeleton = BaseSkeleton<'video', VideoFields>
 export type HeroSkeleton = BaseSkeleton<'hero', HeroFields>
 export type MaterialSkeleton = BaseSkeleton<'material', Material>
 export type BlogPostSkeleton = BaseSkeleton<'blogPost', BlogPost>
 export type LogosSkeleton = BaseSkeleton<'logos', LogosFields>
 
-export type PageContent = TextBlockSkeleton | VideoSkeleton | HeroSkeleton | MaterialSkeleton | LogosSkeleton
+export type PageContent = TextBlockSkeleton | VideoSkeleton | HeroSkeleton | MaterialSkeleton | LogosSkeleton | DisclosureSkeleton | DisclosureGroupSkeleton
 export type PageSkeleton = BaseSkeleton<'page', PageFields>
 export type PageFields = {
   icon: IconType
