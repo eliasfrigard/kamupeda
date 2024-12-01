@@ -37,9 +37,9 @@ const TextLayout = ({ text, className }) => {
   let textLength = 0
 
   text?.content.forEach((t) => {
-    if (t.nodeType !== 'paragraph') return
+    if (t?.nodeType !== 'paragraph') return
 
-    t.content.forEach((v) => {
+    t?.content.forEach((v) => {
       const value = v?.value?.length
 
       if (typeof value === 'number') {
@@ -48,7 +48,7 @@ const TextLayout = ({ text, className }) => {
     })
   })
 
-  const textContent = text.content.filter((v) => {
+  const textContent = text?.content.filter((v) => {
     if (v.nodeType !== 'paragraph') return true
 
     return v.content[0].value.length > 0
