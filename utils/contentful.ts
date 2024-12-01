@@ -115,6 +115,15 @@ export const getMaterialById = async (id: string) => {
   return pages.find((p) => normalizeSlug(p.sys.id) === normalizeSlug(id))
 }
 
+export const getMediaById = async (id: string) => {
+  const client = getContentfulClient()
+
+  const media = await client.getEntry(id)
+  console.log('🚀 || getMediaById || media:', media)
+
+  return media
+}
+
 // export const getPages = async (): Promise<Page[]> => {
 //   const client = getContentfulClient()
   

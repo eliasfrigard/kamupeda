@@ -47,6 +47,11 @@ export type TextBlockFields = {
   textContent: EntryFieldTypes.RichText
 }
 
+export type LogosFields = {
+  title: string
+  logos: Asset[]
+}
+
 export type VideoFields = {
   title: string
   youTubeLink: string
@@ -63,8 +68,9 @@ export type VideoSkeleton = BaseSkeleton<'video', VideoFields>
 export type HeroSkeleton = BaseSkeleton<'hero', HeroFields>
 export type MaterialSkeleton = BaseSkeleton<'material', Material>
 export type BlogPostSkeleton = BaseSkeleton<'blogPost', BlogPost>
+export type LogosSkeleton = BaseSkeleton<'logos', LogosFields>
 
-export type PageContent = TextBlockSkeleton | VideoSkeleton | HeroSkeleton | MaterialSkeleton
+export type PageContent = TextBlockSkeleton | VideoSkeleton | HeroSkeleton | MaterialSkeleton | LogosSkeleton
 export type PageSkeleton = BaseSkeleton<'page', PageFields>
 export type PageFields = {
   icon: IconType

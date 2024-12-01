@@ -15,7 +15,6 @@ interface FileSelectorProps {
 
 const FileSelector: React.FC<FileSelectorProps> = ({ files }) => {
   const [selectedFile, setSelectedFile] = React.useState(files[0])
-  console.log('🚀 || selectedFile:', selectedFile.fields.file.fileName.includes('.mxl'))
 
   const options = files.map((file) => file.fields.file.fileName)
 
@@ -25,7 +24,7 @@ const FileSelector: React.FC<FileSelectorProps> = ({ files }) => {
   }
 
   return (
-    <div className='container mx-auto flex flex-col justify-center items-center gap-6'>
+    <div className='w-full mx-auto flex flex-col justify-center items-center gap-6'>
       <div className="w-full">
         <Select
           options={options}

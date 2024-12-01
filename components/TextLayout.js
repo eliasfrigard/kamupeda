@@ -24,6 +24,7 @@ const options = {
       return (
         <Image
           src={`https:${url}`}
+          className='rounded-md shadow-md m-0'
           alt={fileName}
           width={node.data.target.fields.file.details.image.width}
           height={node.data.target.fields.file.details.image.height}

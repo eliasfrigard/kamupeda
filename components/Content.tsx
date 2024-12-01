@@ -3,9 +3,11 @@ import React from 'react'
 import Hero from '@/components/ImageHero'
 import TextLayout from '@/components/TextLayout'
 import Video from '@/components/Video'
+import Logos from '@/components/Logos'
 
 import type { 
-  TextBlockSkeleton, 
+  TextBlockSkeleton,
+  LogosSkeleton,
   VideoSkeleton,
   HeroSkeleton,
   PageContent,
@@ -23,6 +25,11 @@ const ContentBlock: React.FC<{ block: PageContent, index: number }> = ({ block, 
   if (contentTypeId === 'textBlock') {
     const contentBlock = block as TextBlockSkeleton
     return <TextLayout className="" key={contentBlock.sys.id} text={contentBlock.fields.textContent} />
+  }
+
+  if (contentTypeId === 'logos') {
+    const contentBlock = block as LogosSkeleton
+    return <Logos logos={contentBlock.fields.logos} />
   }
   
   if (contentTypeId === 'video') {
