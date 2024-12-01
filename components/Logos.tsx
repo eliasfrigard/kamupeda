@@ -15,7 +15,7 @@ const Logos = ({
           if (!logo.fields.file) return null
 
           return (
-            <div className='relative h-full aspect-video'>
+            <div key={logo.sys.id} className='relative h-full aspect-video'>
               <Image
                 key={logo.sys.id}
                 src={`https:${logo.fields.file.url}`}

@@ -56,17 +56,11 @@ export default function Blog() {
         const styleField = data.fields.find((field) => field.id === 'style')
         const originField = data.fields.find((field) => field.id === 'origin')
 
-        // @ts-expect-error TODO: Need to fix.
         setKeyValues(keyField?.validations[0]?.in)
-        // @ts-expect-error TODO: Need to fix.
         setModeValues(modeField?.validations[0]?.in)
-        // @ts-expect-error TODO: Need to fix.
         setDifficultyValues(difficultyField?.validations[0]?.in)
-        // @ts-expect-error TODO: Need to fix.
         setInstrumentValues(instrumentField?.validations[0]?.in)
-        // @ts-expect-error TODO: Need to fix.
         setOriginValues(originField?.validations[0]?.in)
-        // @ts-expect-error TODO: Need to fix.
         setStyleValues(styleField?.validations[0]?.in)
       } catch (error) {
         console.error('Error fetching material data:', error)
