@@ -10,7 +10,7 @@ import Content from "@/components/Content"
 export const generateStaticParams = async () => {
   const pages = await getPageData()
 
-  return pages.map((page) => ({
+  return pages?.map((page) => ({
     slug: [normalizeSlug(page.fields.title)]
   }))
 }
@@ -32,7 +32,7 @@ export default async function Page({ params }: { params: { slug?: string[] } }) 
   }
 
   const pageContent = Array.isArray(page.fields.content)
-    ? page.fields.content.map((entry) => ({
+    ? page.fields.content?.map((entry) => ({
         ...entry
       }))
     : []
