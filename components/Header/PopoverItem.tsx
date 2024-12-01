@@ -56,65 +56,56 @@ const DisclosureButtonComponent = ({
     };
 
     loadItems();
-  }, [pages]);
+  }, [pages])
 
   return (
     <Popover className="relative">
-      <PopoverButton className="flex items-center gap-x-1 text-sm font-semibold leading-6 -mr-3">
+      <PopoverButton className="flex items-center gap-x-1 text-sm font-semibold leading-6 -mr-3 outline-none">
         {title}
         <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
       </PopoverButton>
-
-      <Transition
-        enter="transition duration-100 ease-out"
-        enterFrom="transform scale-95 opacity-0"
-        enterTo="transform scale-100 opacity-100"
-        leave="transition duration-75 ease-out"
-        leaveFrom="transform scale-100 opacity-100"
-        leaveTo="transform scale-95 opacity-0"
-      >
-        <PopoverPanel
-          className="absolute -left-16 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5"
-          >
-          <div className="p-4">
-            {items.map((page) => (
-              <div
-              key={page.title}
-              className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
-              >
-                <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                  {page.icon?.fields?.file?.url && (
-                    <Image
-                      src={`https:${page.icon.fields.file.url}`}
-                      alt="call to action" // TODO: Use icon text.
-                      width={44}
-                      height={44}
-                      />
-                    )}
-                </div>
-                <div className="flex-auto">
-                  <Link href={`/${parent}/${normalizeSlug(page.title)}`} className="block font-semibold text-gray-900">
-                    {page.title}
-                    <span className="absolute inset-0" />
-                  </Link>
-                  <p className="mt-1 text-gray-600">{page.description}</p>
-                </div>
+      <PopoverPanel
+        transition
+        className="absolute -left-16 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5 flex origin-top flex-col transition duration-200 ease-out data-[closed]:scale-95 data-[closed]:opacity-0"
+        >
+        <div className="p-4">
+          {items.map((page) => (
+            <div
+            key={page.title}
+            className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
+            >
+              <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                {page.icon?.fields?.file?.url && (
+                  <Image
+                    src={`https:${page.icon.fields.file.url}`}
+                    alt="call to action" // TODO: Use icon text.
+                    width={44}
+                    height={44}
+                    />
+                  )}
               </div>
-            ))}
-          </div>
-          <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
-            {callsToAction.map((item) => (
-              <Link
-              key={item.name}
-              href={item.href}
-              className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
-              >
-                {item.name}
-              </Link>
-            ))}
-          </div>
-        </PopoverPanel>
-      </Transition>
+              <div className="flex-auto">
+                <Link href={`/${parent}/${normalizeSlug(page.title)}`} className="block font-semibold text-gray-900">
+                  {page.title}
+                  <span className="absolute inset-0" />
+                </Link>
+                <p className="mt-1 text-gray-600">{page.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
+          {callsToAction.map((item) => (
+            <Link
+            key={item.name}
+            href={item.href}
+            className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
+            >
+              {item.name}
+            </Link>
+          ))}
+        </div>
+      </PopoverPanel>
     </Popover>
   );
 };

@@ -8,7 +8,6 @@ const Logos = ({
 } : {
   logos: Asset[]
 }) => {
-  console.log(logos)
   return (
     <div className='max-w-4xl grid grid-cols-3 gap-3 px-6 lg:px-4 w-full bg-primary-800 p-8 rounded-xl shadow-xl'>
       {

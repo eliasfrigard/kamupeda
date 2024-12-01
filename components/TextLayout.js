@@ -8,7 +8,6 @@ import { BLOCKS } from '@contentful/rich-text-types'
 const options = {
   renderNode: {
     // [BLOCKS.EMBEDDED_ENTRY]: (node) => {
-    //   //TODO: What the fuck is going on?
     //   if (node.data.target.sys.contentType.sys.id === "video") {
     //     return (
     //       <Video
@@ -25,7 +24,6 @@ const options = {
       return (
         <Image
           src={`https:${url}`}
-          className='rounded-md shadow-md m-0'
           alt={fileName}
           width={node.data.target.fields.file.details.image.width}
           height={node.data.target.fields.file.details.image.height}
