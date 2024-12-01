@@ -4,6 +4,7 @@ import type { Metadata } from "next"
 import "./globals.css"
 // import { getPages } from "@/utils/contentful"
 import { Montserrat, Inter } from "next/font/google"
+import { navMapWithIcons } from "@/components/NavMap"
 
 import Header from "../components/Header"
 
@@ -42,12 +43,13 @@ export default async function RootLayout({
   const FOOTER_HEIGHT = 84
 
   // const pages: Page[] = await getPages()
+  const navMap = await navMapWithIcons()
 
   return (
     <html lang="en">
       <body className={`${inter.className} ${mont.className} font-mont`}>
         <div>
-          <Header slug={params.slug} height={HEADER_HEIGHT} />
+          <Header navMap={navMap} slug={params.slug} height={HEADER_HEIGHT} />
         </div>
         <div style={{ paddingTop: HEADER_HEIGHT + 'px', minHeight: `calc(100vh - ${FOOTER_HEIGHT}px)` }}>
           <div className="py-8 lg:py-12 overflow-x-hidden content-height flex flex-col bg-gray-100">

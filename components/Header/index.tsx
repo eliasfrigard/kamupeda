@@ -3,7 +3,7 @@
 import DisclosureButtonComponent from './DisclosureButton'
 import PopoverItem from './PopoverItem'
 import Link from 'next/link'
-import { navMap } from '../NavMap'
+import type { NavItem } from '../NavMap'
 
 import { useState } from 'react'
 import {
@@ -37,10 +37,12 @@ const callsToAction = [
 
 export default function Example({ 
   slug,
-  height
+  height,
+  navMap
 } : { 
   slug: string
   height: number
+  navMap: NavItem[]
 }) {
   const isActive = (page: string) => {
     const normalizedPageSlug = normalizeSlug(page)

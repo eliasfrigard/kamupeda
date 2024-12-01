@@ -20,17 +20,30 @@ const options = {
     //   }
     // },
     [BLOCKS.EMBEDDED_ASSET]: (node) => {
-      const { url, fileName } = node.data.target.fields.file
-      return (
-        <Image
-          src={`https:${url}`}
-          alt={fileName}
-          width={node.data.target.fields.file.details.image.width}
-          height={node.data.target.fields.file.details.image.height}
-        />
-      )
+      const { url, fileName, contentType } = node.data.target.fields.file
+
+      if (contentType.includes('audio')) {
+        return (
+          <audio
+            controls
+            className="w-full"
+            src={`https:${url}`}
+            alt={fileName}
+          />
+        )
+      }
+      if (contentType.includes('image')) {
+        return (
+          <Image
+            src={`https:${url}`}
+            alt={fileName}
+            width={node.data.target.fields.file.details.image.width}
+            height={node.data.target.fields.file.details.image.height}
+          />
+        )
+      }
     },
-  },
+  }
 }
 
 const TextLayout = ({ text, className }) => {

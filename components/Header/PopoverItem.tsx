@@ -15,7 +15,7 @@ import type { NavItem } from '../NavMap';
 import { normalizeSlug } from '../../utils/normalizeSlug';
 
 export type PageChild = {
-  icon: Asset | undefined
+  icon: string
   title: string
   description: string
 }
@@ -28,7 +28,7 @@ export type CallToAction = {
 // Helper function to transform `NavItem` to `PageChild`
 const pagesToItems = (pages: NavItem[]): PageChild[] => {
   return pages.map((page) => ({
-    icon: undefined, // Update this logic to fetch icons if necessary
+    icon: page.icon, // Update this logic to fetch icons if necessary
     title: page.title,
     description: '', // Placeholder or fetched description
   }));
@@ -46,15 +46,15 @@ const DisclosureButtonComponent = ({
   callsToAction: CallToAction[]
 }) => {
   const [items, setItems] = useState<PageChild[]>([])
+  console.log('🚀 || items:', items)
 
   useEffect(() => {
-    // Simulate fetching or transforming data
     const loadItems = async () => {
-      const transformedItems = pagesToItems(pages);
-      setItems(transformedItems);
-    };
+      const transformedItems = pagesToItems(pages)
+      setItems(transformedItems)
+    }
 
-    loadItems();
+    loadItems()
   }, [pages])
 
   return (
@@ -73,14 +73,14 @@ const DisclosureButtonComponent = ({
             key={page.title}
             className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
             >
-              <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                {page.icon?.fields?.file?.url && (
+              <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg">
+                {page.icon && (
                   <Image
-                    src={`https:${page.icon.fields.file.url}`}
-                    alt="call to action" // TODO: Use icon text.
+                    src={page.icon}
+                    alt={page.icon} // TODO: Use icon text
                     width={44}
                     height={44}
-                    />
+                  />
                   )}
               </div>
               <div className="flex-auto">
