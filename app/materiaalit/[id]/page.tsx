@@ -11,7 +11,7 @@ import type {
 export const generateStaticParams = async () => {
   const material = await getMaterialData()
 
-  return material.map((m) => ({
+  return material?.map((m) => ({
     id: normalizeSlug(m.sys.id)
   }))
 }
