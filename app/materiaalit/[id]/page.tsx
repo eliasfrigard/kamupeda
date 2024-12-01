@@ -41,7 +41,11 @@ export default async function Page({ params }: { params: { id: string } }) {
           <FileSelector files={page.fields.files} />
         </div>
 
-        <TextLayout className="text-center" text={page.fields.description} />
+        {
+          page.fields.description && (
+            <TextLayout className="text-center" text={page.fields.description} />
+          )
+        }
       </div>
     </div>
   )
