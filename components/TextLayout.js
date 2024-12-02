@@ -37,6 +37,7 @@ const options = {
           <Image
             src={`https:${url}`}
             alt={fileName}
+            className='m-0'
             width={node.data.target.fields.file.details.image.width}
             height={node.data.target.fields.file.details.image.height}
           />
