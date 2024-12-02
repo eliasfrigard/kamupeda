@@ -8,7 +8,6 @@ function truncateText(text: string, maxLength: number) {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mapBlogPost = (post: any) => {
-  console.log('🚀 || mapBlogPost || post:', post)
   return {
     sys: post.sys,
     fields: {
