@@ -135,12 +135,12 @@ export default function Blog() {
           />
           <IconButton
             icon={<IoFilterSharp />}
-            className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 text-white rounded-full shadow-lg hover:scale-105 active:scale-95 focus:ring-2 focus:ring-primary-400 transition-transform duration-300"
+            className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 text-white rounded-full shadow-lg hover:scale-105 active:scale-95 focus:ring-2 focus:ring-primary-400 transition-transform duration-300"
             onClick={() => setFiltersOpen(!filtersOpen)}
           />
           <IconButton
             icon={<FaRegTrashAlt />}
-            className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-700 text-white rounded-full shadow-lg hover:scale-105 active:scale-95 focus:ring-2 focus:ring-accent-400 transition-transform duration-300"
+            className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 text-white rounded-full shadow-lg hover:scale-105 active:scale-95 focus:ring-2 focus:ring-accent-400 transition-transform duration-300"
             onClick={() => resetSearch()}
           />
         </div>
@@ -148,7 +148,7 @@ export default function Blog() {
         {/* Filter options */}
 
         <div
-          className={`grid grid-cols-2 gap-4 bg-accent-800 bg-opacity-80 rounded-md shadow-md transition-all duration-200 ease-in-out ${filtersOpen ? 'max-h-screen opacity-100 mt-4 pt-7 pb-10 px-8' : 'max-h-0 opacity-0 overflow-hidden'}`}
+          className={`grid md:grid-cols-2 gap-y-2 gap-x-4 bg-opacity-80 px-2 transition-all duration-200 ease-in-out ${filtersOpen ? 'max-h-screen opacity-100 mt-4' : 'max-h-0 opacity-0 overflow-hidden'}`}
         >
           <Select
             selected={filters.key}

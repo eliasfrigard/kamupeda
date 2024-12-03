@@ -85,7 +85,7 @@ export default function Example({
         open={mobileMenuOpen}
         onClose={setMobileMenuOpen}
         transition
-        className="lg:hidden fixed inset-0 flex w-screen items-center justify-center bg-black/30 transition duration-300 ease-out data-[closed]:opacity-0"
+        className="lg:hidden fixed inset-0 flex w-screen items-center justify-center bg-black/30 transition duration-300 ease-out data-[closed]:opacity-0 z-50"
       >
         <DialogPanel className="px-6 fixed top-[84px] inset-y-0 right-0 z-10 w-full overflow-y-auto bg-primary-800 text-white sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="mt-6 flow-root">
