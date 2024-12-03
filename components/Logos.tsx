@@ -9,13 +9,13 @@ const Logos = ({
   logos: Asset[]
 }) => {
   return (
-    <div className='max-w-4xl grid grid-cols-3 gap-3 px-6 lg:px-4 w-full bg-primary-800 p-8 rounded-xl shadow-xl'>
+    <div className='max-w-4xl grid md:grid-cols-2 md:gap-16 px-6 lg:px-0 w-full'>
       {
         logos.map((logo) => {
           if (!logo.fields.file) return null
 
           return (
-            <div key={logo.sys.id} className='relative h-full aspect-video'>
+            <div key={logo.sys.id} className='relative w-full aspect-video'>
               <Image
                 key={logo.sys.id}
                 src={`https:${logo.fields.file.url}`}
