@@ -6,6 +6,7 @@ import {
   DisclosurePanel,
 } from '@headlessui/react'
 
+import Link from 'next/link'
 import { NavItem } from '../NavMap'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { normalizeSlug } from '@/utils/normalizeSlug'
@@ -35,7 +36,7 @@ const DisclosureButtonComponent = ({
         {[...pages].map((item) => (
           <DisclosureButton
             key={item.title}
-            as="a"
+            as={Link}
             href={`/${parent}/${normalizeSlug(item.title)}`}
             className={`block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 ${textColor} hover:bg-gray-50`}
           >

@@ -5,6 +5,7 @@ import PopoverItem from './PopoverItem'
 import Hamburger from '../Hamburger'
 import Link from 'next/link'
 import type { NavItem } from '../NavMap'
+import { dancingScript } from '@/app/fonts'
 
 import { useState } from 'react'
 import {
@@ -42,10 +43,10 @@ export default function Example({
       className={`bg-primary-800 text-white backdrop-blur-lg w-full fixed z-30 shadow-lg lg:bg-opacity-95 duration-100 ${mobileMenuOpen ? 'shadow-none' : 'shadow-lg'}`}
       style={{ height: height + 'px' }}
     >
-      <nav aria-label="Global" className="flex mx-auto h-full max-w-7xl items-center justify-between p-6 lg:px-8">
+      <nav aria-label="Global" className="flex mx-auto h-full max-w-7xl items-center justify-between p-6 lg:px-8 tracking-wide">
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5">
-            <span className="text-2xl font-mont">KamuPeda</span>
+            <span className={`text-3xl font-mont ${dancingScript.className}`}>KamuPeda</span>
           </Link>
         </div>
         <div className="flex lg:hidden">
@@ -66,7 +67,7 @@ export default function Example({
                 <Link
                   key={normalizedPageSlug}
                   href={'/' + normalizedPageSlug}
-                  className="text-sm font-semibold leading-6"
+                  className="text-sm font-medium leading-6"
                 >
                   {page.title}
                 </Link>

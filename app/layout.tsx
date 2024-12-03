@@ -1,23 +1,11 @@
 import React from "react"
 import type { Metadata } from "next"
+import { mont } from "@/app/fonts"
 
 import "./globals.css"
-import { Montserrat, Inter } from "next/font/google"
 import { navMapWithIcons } from "@/components/NavMap"
 
 import Header from "../components/Header"
-
-const mont = Montserrat({
-  subsets: ['latin'],
-  weight: ['400', '500', '700'],
-  style: ['normal', 'italic'],
-  variable: '--font-mont',
-})
-
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-})
 
 export const metadata: Metadata = {
   title: "Kamupeda",
@@ -37,8 +25,8 @@ export default async function RootLayout({
   const navMap = await navMapWithIcons()
 
   return (
-    <html lang="en">
-      <body className={`${inter.className} ${mont.className} font-mont`}>
+    <html lang="en" className={mont.className}>
+      <body>
         <div>
           <Header navMap={navMap} slug={params.slug} height={HEADER_HEIGHT} />
         </div>
@@ -48,8 +36,8 @@ export default async function RootLayout({
           </div>
         </div>
         <div style={{ height: FOOTER_HEIGHT + 'px' }}>
-          <div className="container mx-auto h-full flex flex-col items-center justify-center text-black opacity-50 gap-1">
-            <p className="text-sm">Copyright © 2024 Kamupeda</p>
+          <div className={`container mx-auto h-full flex flex-col items-center justify-center text-black opacity-50 gap-1`}>
+            <p className="text-sm font-caveat">Copyright © 2024 Kamupeda</p>
             <p className="text-xs">Website by Elias Frigård</p>
           </div>
         </div>
