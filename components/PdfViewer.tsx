@@ -65,9 +65,9 @@ function PdfViewer({
           />
         </Document>
       </div>
-      <div className='flex justify-between mt-4 gap-14'>
+      <div className='w-full lg:w-fit flex justify-between mt-4 gap-3 lg:gap-14'>
         <Button onClick={() => setPage(page - 1)} disabled={page <= 1}>Edellinen</Button>
-        <div className='flex justify-center items-center gap-2 '>
+        <div className='hidden lg:block justify-center items-center gap-2 '>
           <p className='font-semibold'>{page}</p>
           <p className='text-xs opacity-60 mt-[1px]'>({pages})</p>
         </div>
