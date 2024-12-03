@@ -146,10 +146,8 @@ export const getMaterialById = async (id: string) => {
   return pages.find((p) => normalizeSlug(p.sys.id) === normalizeSlug(id))
 }
 
-export const getMediaById = async (id: string) => {
+export const getAssetById = async (id: string) => {
   const client = getContentfulClient()
 
-  const media = await client.getEntry(id)
-
-  return media
+  return await client.getAsset(id)
 }
