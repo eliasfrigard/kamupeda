@@ -84,7 +84,7 @@ export default function Blog() {
 
   useEffect(() => {
     setLoading(true)
-    
+
     const fetchData = async () => {
       try {
         const data = await searchMaterialData({
@@ -131,20 +131,20 @@ export default function Blog() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Hae materiaalia..."
-            className="border text-black p-3 px-4 rounded-md shadow w-full h-12"
+            className="w-full h-12 px-5 text-white bg-primary-600 rounded-full shadow-inner focus:outline-none focus:ring-2 focus:ring-primary-300 placeholder-white/50 transition-all duration-300"
           />
-          <IconButton 
-            icon={<IoFilterSharp />} 
-            className='bg-primary-500'
-            onClick={() => setFiltersOpen(!filtersOpen)} 
+          <IconButton
+            icon={<IoFilterSharp />}
+            className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 text-white rounded-full shadow-lg hover:scale-105 active:scale-95 focus:ring-2 focus:ring-primary-400 transition-transform duration-300"
+            onClick={() => setFiltersOpen(!filtersOpen)}
           />
-          <IconButton 
-            icon={<FaRegTrashAlt />} 
-            className='bg-accent-500'
+          <IconButton
+            icon={<FaRegTrashAlt />}
+            className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-700 text-white rounded-full shadow-lg hover:scale-105 active:scale-95 focus:ring-2 focus:ring-accent-400 transition-transform duration-300"
             onClick={() => resetSearch()}
           />
         </div>
-        
+
         {/* Filter options */}
 
         <div
