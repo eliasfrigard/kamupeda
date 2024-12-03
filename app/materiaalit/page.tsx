@@ -24,6 +24,7 @@ export default function Blog() {
   const [instrumentValues, setInstrumentValues] = useState([])
   const [styleValues, setStyleValues] = useState([])
   const [originValues, setOriginValues] = useState([])
+  const [ensembleValues, setEnsembleValues] = useState([])
 
   const [filterIsSelected, setFilterIsSelected] = useState(false)
   console.log('🚀 || Blog || filterIsSelected:', filterIsSelected)
@@ -36,7 +37,7 @@ export default function Blog() {
     instrument: '',
     style: '',
     origin: '',
-    forEnsemble: '',
+    ensemble: '',
   })
 
   useEffect(() => {
@@ -56,6 +57,7 @@ export default function Blog() {
 
         const styleField = data.fields.find((field) => field.id === 'style')
         const originField = data.fields.find((field) => field.id === 'origin')
+        const ensembleField = data.fields.find((field) => field.id === 'ensemble')
 
         setKeyValues(keyField?.validations[0]?.in)
         setModeValues(modeField?.validations[0]?.in)
@@ -63,6 +65,7 @@ export default function Blog() {
         setInstrumentValues(instrumentField?.validations[0]?.in)
         setOriginValues(originField?.validations[0]?.in)
         setStyleValues(styleField?.validations[0]?.in)
+        setEnsembleValues(ensembleField?.validations[0]?.in)
       } catch (error) {
         console.error('Error fetching material data:', error)
       }
@@ -115,7 +118,7 @@ export default function Blog() {
       instrument: '',
       style: '',
       origin: '',
-      forEnsemble: '',
+      ensemble: '',
     })
   }
 
@@ -182,12 +185,12 @@ export default function Blog() {
             setSelected={(value) => handleFilterChange('origin', value)}
             options={originValues}
             placeholder='Valitse Alkuperämaa'
-          />
+            />
           <Select
-            selected={filters.forEnsemble}
-            setSelected={(value) => handleFilterChange('forEnsemble', value)}
-            options={['Kyllä', 'Ei']}
-            placeholder='Yhteissoittoon'
+            selected={filters.ensemble}
+            setSelected={(value) => handleFilterChange('ensemble', value)}
+            options={ensembleValues}
+            placeholder='Valitse yhteissoiton vaikeustaso'
           />
         </div>
       </div>

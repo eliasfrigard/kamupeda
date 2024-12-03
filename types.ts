@@ -52,7 +52,7 @@ export type Material = {
   instrument: string
   difficulty: number
   style: string
-  forEnsemble: boolean
+  ensemble: string
   origin: string
   description?: EntryFieldTypes.RichText
 }

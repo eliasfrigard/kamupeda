@@ -8,7 +8,6 @@ import type {
   BlogPostSkeleton, 
   DisclosureSkeleton,
   DisclosureGroupSkeleton,
-  TextBlockSkeleton
 } from "@/types"
 
 export const getContentfulClient = () =>
@@ -83,9 +82,8 @@ export const searchMaterialData = async ({
   if (filters.origin) {
     query['fields.origin'] = filters.origin
   }
-  
-  if (filters.forEnsemble !== undefined && filters.forEnsemble !== '') {
-    query['fields.forEnsemble'] = filters.forEnsemble === 'Kyllä'
+  if (filters.ensemble) {
+    query['fields.ensemble'] = filters.ensemble
   }
 
   if (searchQuery) {
@@ -100,7 +98,7 @@ const getDisclosures = async (disclosureIds: string[]) => {
   const client = getContentfulClient()
 
   const disclosures = await client.getEntries<DisclosureSkeleton>({
-    // @ts-expect-error
+    // @ts-expect-error TODO:
     'sys.id[in]': disclosureIds.join(','),
   })
 
@@ -114,7 +112,7 @@ export const getPageBySlug = async (slug: string) => {
   const page = pages.find((p) => normalizeSlug(p.fields.title) === normalizeSlug(slug))
   
   if (page?.fields.content) {
-    // @ts-expect-error
+    // @ts-expect-error TODO:
     for (const contentBlock of page.fields.content) {
       if (contentBlock.sys.contentType.sys.id === 'disclosureGroup') {
         const disclosureGroup = contentBlock as DisclosureGroupSkeleton
@@ -123,7 +121,7 @@ export const getPageBySlug = async (slug: string) => {
         
         // Fetch disclosures asynchronously
         const disclosureIds = disclosures.map((disclosure: DisclosureSkeleton) => disclosure.sys.id)
-        // @ts-expect-error
+        // @ts-expect-error TODO:
         disclosureGroup.fields.disclosures = await getDisclosures(disclosureIds)
       }
     }

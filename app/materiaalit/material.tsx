@@ -17,7 +17,7 @@ const SkeletonToMaterial = (skeleton: any) => {
     instrument: skeleton.fields.instrument,
     difficulty: skeleton.fields.difficulty,
     style: skeleton.fields.style,
-    forEnsemble: false,
+    ensemble: skeleton.fields.ensemble,
     origin: skeleton.fields.origin,
   }
 
@@ -106,6 +106,7 @@ const Material = ({
               <Chip>{material.mode}</Chip>
               <Chip>{material.style}</Chip>
               <Chip>{material.origin}</Chip>
+              <Chip>{material.ensemble}</Chip>
             </div>
           </Link>
         )
