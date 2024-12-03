@@ -26,7 +26,18 @@ export default async function Page({ params }: { params: { postId: string } }) {
 
   return (
     <div className="w-screen">
-      <div className="container mx-auto text-black flex flex-col justify-center items-center px-6 lg:px-4 max-w-4xl">
+      <div className="container mx-auto text-black flex flex-col justify-center items-center gap-10 px-6 lg:px-4 max-w-4xl">
+        <div className="bg-primary-800 w-full p-8 rounded-lg text-white shadow-lg tracking-wide flex flex-col gap-3">
+          <h1 className="text-3xl font-bold">{page.fields.title}</h1>
+          <div className="w-full h-[1px] bg-white/20 rounded-full" />
+          <div>
+            <p className="text-sm font-medium">
+              {/* @ts-expect-error TODO: */}
+              {page.fields.author.fields.name}
+            </p>
+          </div>
+        </div>
+
         <TextLayout className="" text={page.fields.textContent} />
       </div>
     </div>
