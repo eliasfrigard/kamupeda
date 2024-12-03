@@ -20,6 +20,9 @@ export default async function Page({ params }: { params: { postId: string } }) {
 
   const page = await getPostById(normalizedId) as BlogPostSkeleton
 
+  // @ts-expect-error TODO: Fix this
+  const author = page.fields.author?.fields.name
+
   if (!page) {
     return (<div>BLOG POST not found</div>)
   }
@@ -31,10 +34,7 @@ export default async function Page({ params }: { params: { postId: string } }) {
           <h1 className="text-3xl font-bold">{page.fields.title}</h1>
           <div className="w-full h-[1px] bg-white/20 rounded-full" />
           <div>
-            <p className="text-sm font-medium">
-              {/* @ts-expect-error TODO: */}
-              {page.fields.author.fields.name}
-            </p>
+            <p className="text-sm font-medium">{author}</p>
           </div>
         </div>
 

@@ -1,10 +1,48 @@
 import { Asset, EntryFieldTypes } from 'contentful'
 import { ForwardRefExoticComponent, RefAttributes, SVGProps } from 'react'
 
-type IconType = ForwardRefExoticComponent<Omit<SVGProps<SVGSVGElement>, 'ref'> & {
-  title?: string
-  titleId?: string
-} & RefAttributes<SVGSVGElement>>
+// Contentful types.
+
+export type BaseSkeleton<T extends string, F> = {
+  contentTypeId: T
+  sys: Sys<T>
+  fields: F
+}
+
+export type Sys<T extends string> = {
+  id: string
+  createdAt: string
+  updatedAt: string
+  contentType: {
+    sys: {
+      id: T
+    }
+  }
+}
+
+// Contentful type fields.
+
+export type Human = {
+  name: string
+  image: Asset
+}
+
+export type Page = {
+  icon: IconType
+  title: string
+  description: string
+  content: EntryFieldTypes.Array<
+    EntryFieldTypes.EntryLink<PageContent>
+  >
+}
+
+export type BlogPost = {
+  title: string
+  textContent: EntryFieldTypes.RichText
+  previewDescription: string
+  previewImage: Asset
+  author?: EntryFieldTypes.EntryLink<HumanSkeleton>
+}
 
 export type Material = {
   title: string
@@ -19,91 +57,69 @@ export type Material = {
   description?: EntryFieldTypes.RichText
 }
 
-export type BlogPost = {
+export type Hero = {
   title: string
-  textContent: EntryFieldTypes.RichText
-  previewDescription: string
-  previewImage: Asset
+  hero: Asset
+  mobileHero: Asset
 }
 
-export type Sys<T extends string> = {
-  id: string
-  createdAt: string
-  updatedAt: string
-  contentType: {
-    sys: {
-      id: T
-    }
-  }
+export type HeroImage = {
+  url: string
+  altText: string
+  blur?: string
 }
 
-export type BaseSkeleton<T extends string, F> = {
-  contentTypeId: T
-  sys: Sys<T>
-  fields: F
-}
-
-export type TextBlockFields = {
+export type TextBlock = {
   title: string
   textContent: EntryFieldTypes.RichText
 }
 
-export type DisclosureGroupFields = {
+export type Video = {
+  title: string
+  youTubeLink: string
+}
+
+
+export type Logos = {
+  title: string
+  logos: Asset[]
+}
+
+export type DisclosureGroup = {
   title: string
   disclosures: EntryFieldTypes.Array<
     EntryFieldTypes.EntryLink<DisclosureSkeleton>
   >
 }
 
-export type LogosFields = {
-  title: string
-  logos: Asset[]
-}
+export type IconType = ForwardRefExoticComponent<Omit<SVGProps<SVGSVGElement>, 'ref'> & {
+  title?: string
+  titleId?: string
+} & RefAttributes<SVGSVGElement>>
 
-export type VideoFields = {
-  title: string
-  youTubeLink: string
-}
+// Combine contentful base type with fields into skeletons.
 
-export type HeroFields = {
-  title: string
-  hero: Asset
-  mobileHero: Asset
-}
-
-export type TextBlockSkeleton = BaseSkeleton<'textBlock', TextBlockFields>
-export type DisclosureSkeleton = BaseSkeleton<'disclosure', TextBlockFields>
-export type DisclosureGroupSkeleton = BaseSkeleton<'disclosureGroup', DisclosureGroupFields>
-export type VideoSkeleton = BaseSkeleton<'video', VideoFields>
-export type HeroSkeleton = BaseSkeleton<'hero', HeroFields>
+export type HeroSkeleton = BaseSkeleton<'hero', Hero>
+export type LogosSkeleton = BaseSkeleton<'logos', Logos>
+export type VideoSkeleton = BaseSkeleton<'video', Video>
+export type HumanSkeleton = BaseSkeleton<'human', Human>
+export type PageSkeleton = BaseSkeleton<'page', Page>
 export type MaterialSkeleton = BaseSkeleton<'material', Material>
 export type BlogPostSkeleton = BaseSkeleton<'blogPost', BlogPost>
-export type LogosSkeleton = BaseSkeleton<'logos', LogosFields>
+export type TextBlockSkeleton = BaseSkeleton<'textBlock', TextBlock>
+export type DisclosureSkeleton = BaseSkeleton<'disclosure', TextBlock>
+export type DisclosureGroupSkeleton = BaseSkeleton<'disclosureGroup', DisclosureGroup>
 
-export type PageContent = TextBlockSkeleton | VideoSkeleton | HeroSkeleton | MaterialSkeleton | LogosSkeleton | DisclosureSkeleton | DisclosureGroupSkeleton
-export type PageSkeleton = BaseSkeleton<'page', PageFields>
-export type PageFields = {
-  icon: IconType
-  title: string
-  description: string
-  // pageChildren: EntryFieldTypes.Array<
-  //   EntryFieldTypes.EntryLink<PageSkeleton>
-  // >
-  content: EntryFieldTypes.Array<
-    EntryFieldTypes.EntryLink<PageContent>
-  >
-}
+/**
+ * Page content type.
+ * The content field can contain any of the content types.
+ */
 
-export type Page = {
-  id: string
-  icon: string
-  title: string
-  description: string
-  children: Page[]
-}
-
-export type HeroImageType = {
-  url: string
-  altText: string
-  blur?: string
-}
+export type PageContent = 
+  | TextBlockSkeleton
+  | VideoSkeleton
+  | HeroSkeleton
+  | MaterialSkeleton
+  | LogosSkeleton
+  | DisclosureSkeleton
+  | DisclosureGroupSkeleton

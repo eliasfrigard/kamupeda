@@ -15,7 +15,7 @@ import type {
   VideoSkeleton,
   HeroSkeleton,
   PageContent,
-  HeroImageType
+  HeroImage
 } from "@/types"
 
 interface PageContentProps {
@@ -77,7 +77,7 @@ const ContentBlock: React.FC<{ block: PageContent, index: number }> = ({ block, 
     const contentBlock = block as HeroSkeleton
     const desktopFields = contentBlock.fields.hero.fields
 
-    const desktopHero: HeroImageType = {
+    const desktopHero: HeroImage = {
       url: 'https:' + desktopFields?.file?.url,
       altText: typeof desktopFields?.title === 'string' ? desktopFields.title : '',
     }

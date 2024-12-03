@@ -2,7 +2,6 @@ import React from "react"
 import type { Metadata } from "next"
 
 import "./globals.css"
-// import { getPages } from "@/utils/contentful"
 import { Montserrat, Inter } from "next/font/google"
 import { navMapWithIcons } from "@/components/NavMap"
 
@@ -14,13 +13,6 @@ const mont = Montserrat({
   style: ['normal', 'italic'],
   variable: '--font-mont',
 })
-
-// const dancing = Dancing_Script({
-//   subsets: ['latin'],
-//   weight: ['400', '500', '700'],
-//   style: ['normal'],
-//   variable: '--font-dancing',
-// })
 
 const inter = Inter({
   subsets: ['latin'],
@@ -42,7 +34,6 @@ export default async function RootLayout({
   const HEADER_HEIGHT = 84
   const FOOTER_HEIGHT = 84
 
-  // const pages: Page[] = await getPages()
   const navMap = await navMapWithIcons()
 
   return (
