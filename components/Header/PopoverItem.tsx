@@ -45,7 +45,6 @@ const DisclosureButtonComponent = ({
   callsToAction: CallToAction[]
 }) => {
   const [items, setItems] = useState<PageChild[]>([])
-  console.log('🚀 || items:', items)
 
   useEffect(() => {
     const loadItems = async () => {

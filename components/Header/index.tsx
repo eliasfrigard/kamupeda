@@ -96,7 +96,13 @@ export default function Example({
 
                     if (page?.children?.length) {
                       return (
-                        <DisclosureButtonComponent key={normalizedPageSlug} pages={page.children} textColor="text-white" />
+                        <DisclosureButtonComponent 
+                          key={normalizedPageSlug}
+                          title={page.title} 
+                          parent={normalizedPageSlug} 
+                          pages={page.children}
+                          textColor="text-white"
+                        />
                       )
                     }
 
