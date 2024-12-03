@@ -65,7 +65,7 @@ function PdfViewer({
           />
         </Document>
       </div>
-      <div className='w-full lg:w-fit flex justify-between mt-4 gap-3 lg:gap-14'>
+      <div className='w-full lg:w-fit flex justify-between lg:mt-4 gap-3 lg:gap-14'>
         <Button onClick={() => setPage(page - 1)} disabled={page <= 1}>Edellinen</Button>
         <div className='hidden lg:block justify-center items-center gap-2 '>
           <p className='font-semibold'>{page}</p>
