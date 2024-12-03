@@ -21,11 +21,11 @@ const callsToAction = [
   { name: 'Contact sales', href: '#', icon: PhoneIcon },
 ]
 
-export default function Example({ 
+export default function Example({
   slug,
   height,
   navMap
-} : { 
+} : {
   slug: string
   height: number
   navMap: NavItem[]
@@ -40,13 +40,13 @@ export default function Example({
 
   return (
     <header
-      className={`bg-primary-800 text-white backdrop-blur-lg w-full fixed z-30 shadow-lg lg:bg-opacity-95 duration-100 ${mobileMenuOpen ? 'shadow-none' : 'shadow-lg'}`}
+      className={`bg-gradient-to-br from-primary-600 to-primary-700 text-white backdrop-blur-lg w-full fixed z-30 shadow-lg lg:bg-opacity-95 duration-100 ${mobileMenuOpen ? 'shadow-none' : 'shadow-lg'}`}
       style={{ height: height + 'px' }}
     >
       <nav aria-label="Global" className="flex mx-auto h-full max-w-7xl items-center justify-between p-6 lg:px-8 tracking-wide">
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5">
-            <span className={`text-3xl font-mont ${dancingScript.className}`}>KamuPeda</span>
+            <span className={`text-3xl drop-shadow font-mont ${dancingScript.className}`}>kamupeda.fi</span>
           </Link>
         </div>
         <div className="flex lg:hidden">
@@ -81,8 +81,8 @@ export default function Example({
 
       {/* Mobile menu */}
 
-      <Dialog 
-        open={mobileMenuOpen} 
+      <Dialog
+        open={mobileMenuOpen}
         onClose={setMobileMenuOpen}
         transition
         className="lg:hidden fixed inset-0 flex w-screen items-center justify-center bg-black/30 transition duration-300 ease-out data-[closed]:opacity-0"
@@ -97,10 +97,10 @@ export default function Example({
 
                     if (page?.children?.length) {
                       return (
-                        <DisclosureButtonComponent 
+                        <DisclosureButtonComponent
                           key={normalizedPageSlug}
-                          title={page.title} 
-                          parent={normalizedPageSlug} 
+                          title={page.title}
+                          parent={normalizedPageSlug}
                           pages={page.children}
                           textColor="text-white"
                         />

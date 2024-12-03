@@ -1,7 +1,7 @@
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
-export default function Example({ 
+export default function Example({
   title,
   children,
   defaultOpen = true,
@@ -15,9 +15,9 @@ export default function Example({
   rounded?: boolean
 }) {
   return (
-    <div className={`mx-auto overflow-hidden w-full divide-y divide-black/5 bg-primary-500/5 text-white shadow-md ${className} ${rounded ? 'rounded-xl' : 'rounded-none'}`}>
+    <div className={`mx-auto overflow-hidden w-full divide-y divide-black/5 bg-primary-500/5 text-white shadow ${className} ${rounded ? 'rounded-xl' : 'rounded-none'}`}>
       <Disclosure as="div" defaultOpen={defaultOpen}>
-        <DisclosureButton className="p-4 group flex w-full items-center justify-between hover:bg-primary-600 bg-primary-500 duration-100">
+        <DisclosureButton className="p-4 group flex w-full items-center justify-between bg-gradient-to-br from-primary-500 to-primary-700 hover:bg-primary-600 duration-100">
           <span className="text-sm/6 font-semibold tracking-wide">
             {title}
           </span>
