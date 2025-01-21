@@ -150,49 +150,49 @@ export default function Blog() {
         {/* Filter options */}
 
         <div
-          className={`grid md:grid-cols-2 gap-y-2 gap-x-4 bg-opacity-80 px-2 transition-all duration-200 ease-in-out ${filtersOpen ? 'max-h-screen opacity-100 mt-4' : 'max-h-0 opacity-0 overflow-hidden'}`}
+          className={`grid md:grid-cols-2 gap-y-2 gap-x-4 bg-opacity-80 transition-all duration-200 ease-in-out ${filtersOpen ? 'max-h-screen opacity-100 mt-4' : 'max-h-0 opacity-0 overflow-hidden'}`}
         >
           <Select
             selected={filters.key}
             setSelected={(value) => handleFilterChange('key', value)}
             options={keyValues}
-            placeholder='Valitse Perussävel'
+            placeholder='Perussävel'
           />
           <Select
             selected={filters.mode}
             setSelected={(value) => handleFilterChange('mode', value)}
             options={modeValues}
-            placeholder='Valitse Asteikko'
+            placeholder='Asteikko'
           />
           <Select
             selected={filters.difficulty}
             setSelected={(value) => handleFilterChange('difficulty', value)}
             options={difficultyValues}
-            placeholder='Valitse Vaikeustaso'
+            placeholder='Vaikeustaso'
           />
           <Select
             selected={filters.instrument}
             setSelected={(value) => handleFilterChange('instrument', value)}
             options={instrumentValues}
-            placeholder='Valitse Soitin'
+            placeholder='Soitin'
           />
           <Select
             selected={filters.style}
             setSelected={(value) => handleFilterChange('style', value)}
             options={styleValues}
-            placeholder='Valitse Tyyli'
+            placeholder='Tyyli'
           />
           <Select
             selected={filters.origin}
             setSelected={(value) => handleFilterChange('origin', value)}
             options={originValues}
-            placeholder='Valitse Alkuperämaa'
+            placeholder='Alkuperämaa'
           />
           <Select
             selected={filters.ensemble}
             setSelected={(value) => handleFilterChange('ensemble', value)}
             options={ensembleValues}
-            placeholder='Valitse yhteissoiton vaikeustaso'
+            placeholder='Yhteissoiton vaikeustaso'
           />
         </div>
 

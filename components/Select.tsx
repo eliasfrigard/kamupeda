@@ -18,7 +18,7 @@ export default function Select({
     <Listbox value={selected} onChange={setSelected}>
       <div className="relative mt-2">
         {/* Button */}
-        <ListboxButton className="relative w-full cursor-pointer rounded-lg bg-white py-3 pl-4 pr-10 text-left text-black shadow-md ring-1 ring-black/10 focus:outline-none focus:ring-2 focus:ring-primary-400 sm:text-sm transition-transform duration-200 active:scale-100">
+        <ListboxButton className="relative w-full cursor-pointer rounded-lg bg-white py-2 pl-1 pr-10 text-left text-black shadow ring-1 ring-black/10 focus:outline-none focus:ring-2 focus:ring-primary-400 sm:text-sm transition-transform duration-200 active:scale-100">
           <span className="flex items-center">
             {selected ? (
               <span className="ml-3 block truncate">{selected}</span>
@@ -36,7 +36,7 @@ export default function Select({
 
         {/* Options */}
         <ListboxOptions
-          className="absolute z-10 mt-2 w-full max-h-56 overflow-auto rounded-lg bg-white py-1 text-base text-black shadow-lg ring-1 ring-primary-500 focus:outline-none sm:text-sm"
+          className="absolute mt-2 w-full max-h-56 overflow-auto rounded-lg bg-white py-1 text-base text-black shadow-lg ring-1 ring-primary-500 focus:outline-none sm:text-sm z-50"
         >
           {options?.map((option) => (
             <ListboxOption

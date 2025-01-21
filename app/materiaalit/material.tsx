@@ -15,11 +15,7 @@ import OpenSheetMusicDisplay from '../../lib/OpenSheetMusicDisplay'
 const SkeletonToMaterial = (skeleton: any) => {
   const m: Material = {
     title: skeleton.fields.title,
-    files: skeleton.fields.files.map((file) => ({
-      url: file.fields.file.url,
-      contentType: file.fields.file.contentType,
-      filename: file.fields.file.fileName,
-    })),
+    files: skeleton.fields.files,
     key: skeleton.fields.key,
     mode: skeleton.fields.mode,
     instrument: skeleton.fields.instrument,
@@ -33,20 +29,7 @@ const SkeletonToMaterial = (skeleton: any) => {
 
 // Skeleton Card
 const SkeletonCard = () => (
-  <div className="bg-white border p-4 shadow-md rounded-lg flex flex-col text-black items-center gap-4 animate-pulse">
-    <div className="h-6 w-2/3 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-400 rounded-md"></div>
-    <div className="flex gap-1">
-      {Array.from({ length: 5 }).map((_, index) => (
-        <div key={index} className="h-5 w-5 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-400 rounded-full"></div>
-      ))}
-    </div>
-    <div className="h-[1px] bg-gradient-to-r from-gray-200 via-gray-300 to-gray-400 w-2/3 rounded-full"></div>
-    <div className="flex flex-wrap gap-2 justify-center items-center">
-      <div className="h-6 w-16 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-400 rounded-md"></div>
-      <div className="h-6 w-16 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-400 rounded-md"></div>
-      <div className="h-6 w-16 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-400 rounded-md"></div>
-      <div className="h-6 w-16 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-400 rounded-md"></div>
-    </div>
+  <div className="bg-white border p-4 rounded-lg flex flex-col text-black items-center gap-4 animate-pulse h-[230px] bg-gradient-to-br from-primary-600/70 to-primary-700/70">
   </div>
 )
 
@@ -80,7 +63,7 @@ const Material = ({
 }) => {
   if (loading) {
     return (
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start px-4 py-6">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start px-4">
         {Array.from({ length: 3 }).map((_, index) => (
           <SkeletonCard key={index} />
         ))}
@@ -129,7 +112,15 @@ const Material = ({
 
             {
               (() => {
-                const file = material.files.find(file => file.filename.includes(".mxl") || file.contentType === 'application/xml')
+                const file = material.files.find((file) => {
+                  const contentType = file.fields.file.contentType
+                  const fileName = file.fields.file.fileName as string
+
+                  if (fileName.includes(".mxl") || contentType === 'application/xml') {
+                    return true
+                  }
+                })
+
                 return file ? (
                   <div className="w-full mx-auto text-white -my-10">
                     <OpenSheetMusicDisplay
@@ -146,7 +137,7 @@ const Material = ({
                     drawMeasureNumbersOnlyAtSystemStart={false}
                     drawTimeSignatures={false}
                     drawUpToMeasureNumber={1}
-                    file={file.url}
+                    file={file.fields.file.url}
                   />
                   </div>
                 ) : null;
