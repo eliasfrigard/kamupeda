@@ -18,7 +18,7 @@ export default function Select({
     <Listbox value={selected} onChange={setSelected}>
       <div className="relative mt-2">
         {/* Button */}
-        <ListboxButton className="relative w-full cursor-pointer rounded-lg bg-gradient-to-br from-primary-500 to-primary-600 py-3 pl-4 pr-10 text-left text-white shadow-md ring-1 ring-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-400 sm:text-sm transition-transform duration-200 active:scale-100">
+        <ListboxButton className="relative w-full cursor-pointer rounded-lg bg-white py-3 pl-4 pr-10 text-left text-black shadow-md ring-1 ring-black/10 focus:outline-none focus:ring-2 focus:ring-primary-400 sm:text-sm transition-transform duration-200 active:scale-100">
           <span className="flex items-center">
             {selected ? (
               <span className="ml-3 block truncate">{selected}</span>
@@ -36,20 +36,20 @@ export default function Select({
 
         {/* Options */}
         <ListboxOptions
-          className="absolute z-10 mt-2 w-full max-h-56 overflow-auto rounded-lg bg-gradient-to-br from-primary-600 to-primary-700 py-1 text-base text-white shadow-lg ring-1 ring-primary-500 focus:outline-none sm:text-sm"
+          className="absolute z-10 mt-2 w-full max-h-56 overflow-auto rounded-lg bg-white py-1 text-base text-black shadow-lg ring-1 ring-primary-500 focus:outline-none sm:text-sm"
         >
           {options?.map((option) => (
             <ListboxOption
               key={option}
               value={option}
-              className="group relative cursor-pointer select-none py-2 pl-4 pr-9 hover:bg-primary-500 focus:bg-primary-500 transition-colors duration-200 ease-in-out"
+              className="group relative cursor-pointer select-none py-2 pl-4 pr-9 hover:bg-primary-500 focus:bg-primary-500 transition-colors ease-in-out hover:text-white"
             >
               <div className="flex items-center">
                 <span className="ml-3 block truncate font-normal group-data-[selected]:font-semibold">
                   {option}
                 </span>
               </div>
-              <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-primary-300 group-data-[selected]:text-white group-data-[focus]:text-white">
+              <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-transparent group-data-[selected]:text-primary-500 group-data-[focus]:text-white">
                 <CheckIcon aria-hidden="true" className="size-5" />
               </span>
             </ListboxOption>

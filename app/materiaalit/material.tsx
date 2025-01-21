@@ -2,9 +2,9 @@
 
 import Link from 'next/link'
 import React from 'react'
-import type { ReactNode } from 'react'
 import { BsFillPeopleFill } from "react-icons/bs"
 import { GiViolin } from "react-icons/gi";
+import Chip from '@/components/Chip'
 
 import type { Material, MaterialSkeleton } from '@/types'
 import type { Entry } from 'contentful'
@@ -29,17 +29,6 @@ const SkeletonToMaterial = (skeleton: any) => {
     origin: skeleton.fields.origin,
   }
   return m
-}
-
-// Chip Component
-const Chip = ({ children } : { children: ReactNode }) => {
-  if (!children) return null
-
-  return (
-    <div className="bg-gradient-to-r from-primary-500 to-primary-600 p-3 px-4 text-white text-xs rounded-full shadow font-semibold tracking-wider">
-      {children}
-    </div>
-  )
 }
 
 // Skeleton Card
@@ -103,13 +92,12 @@ const Material = ({
     <div className="container mx-auto grid lg:grid-cols-3 gap-6 items-stretch">
       {materialWithInfo.map((m) => {
         const material = SkeletonToMaterial(m)
-        console.log('🚀 || {materialWithInfo.map || material:', material)
 
         return (
           <Link
             key={m.sys.id}
             href={`/materiaalit/${m.sys.id}`}
-            className="relative group bg-gradient-to-br from-primary-600 to-primary-700 focus:outline-accent-500 active:scale-95 px-6 py-7 shadow-lg rounded-lg flex flex-col text-white items-center gap-5 hover:scale-[1.05] transition-transform duration-150 overflow-hidden"
+            className="relative group bg-gradient-to-br from-primary-600 to-primary-700 focus:outline-accent-500 active:scale-95 py-7 shadow-lg rounded-lg flex flex-col text-white items-center gap-5 hover:scale-[1.05] transition-transform duration-150 overflow-hidden px-4"
             >
             <div className='w-full h-full top-0 absolute group-hover:bg-black/20 duration-300' />
 
@@ -126,7 +114,7 @@ const Material = ({
 
             <div className="h-[1px] bg-primary-50 bg-opacity-20 w-2/3 rounded-full mb-1 z-10" />
 
-            <div className="flex flex-wrap gap-3 justify-center items-center px-4 z-10">
+            <div className="flex flex-wrap gap-3 justify-center items-center z-10">
               <Chip>{difficultyToHuman(material.difficulty)}</Chip>
               <Chip>{material.instrument}</Chip>
               <Chip>
@@ -139,34 +127,31 @@ const Material = ({
               <Chip>{material.ensemble}</Chip>
             </div>
 
-            <div className='w-full'>
-              {
-                (() => {
-                  const file = material.files.find(file => file.filename.includes(".mxl") || file.contentType === 'application/xml')
-                  return file ? (
-                    <div className="mx-auto text-white -my-10 p-0">
-                      <OpenSheetMusicDisplay
-                      drawTitle={false}
-                      drawSubtitle={false}
-                      drawPartNames={false}
-                      drawPartAbbreviations={false}
-                      defaultColorMusic="#FFFFFF"
-                      drawCredits={false}
-                      drawComposer={false}
-                      drawLyricist={false}
-                      drawMetronomeMarks={false}
-                      drawMeasureNumbers={false}
-                      drawMeasureNumbersOnlyAtSystemStart={false}
-                      drawTimeSignatures={false}
-                      drawUpToMeasureNumber={1}
-                      backend='SVG'
-                      file={file.url}
-                    />
-                    </div>
-                  ) : null;
-                })()
-              }
-            </div>
+            {
+              (() => {
+                const file = material.files.find(file => file.filename.includes(".mxl") || file.contentType === 'application/xml')
+                return file ? (
+                  <div className="w-full mx-auto text-white -my-10">
+                    <OpenSheetMusicDisplay
+                    drawTitle={false}
+                    drawSubtitle={false}
+                    drawPartNames={false}
+                    drawPartAbbreviations={false}
+                    defaultColorMusic="#FFFFFF"
+                    drawCredits={false}
+                    drawComposer={false}
+                    drawLyricist={false}
+                    drawMetronomeMarks={false}
+                    drawMeasureNumbers={false}
+                    drawMeasureNumbersOnlyAtSystemStart={false}
+                    drawTimeSignatures={false}
+                    drawUpToMeasureNumber={1}
+                    file={file.url}
+                  />
+                  </div>
+                ) : null;
+              })()
+            }
           </Link>
         )
       })}

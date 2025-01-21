@@ -10,6 +10,7 @@ import { IoFilterSharp } from "react-icons/io5"
 import { FaRegTrashAlt } from "react-icons/fa"
 import Select from '@/components/Select'
 import IconButton from '@/components/IconButton'
+import Chip from '@/components/Chip'
 
 export default function Blog() {
   const [query, setQuery] = useState('')
@@ -124,7 +125,7 @@ export default function Blog() {
   }
 
   return (
-    <div className='container mx-auto flex flex-col gap-8 px-6 lg:px-0'>
+    <div className='container mx-auto flex flex-col gap-6 px-6 lg:px-0'>
       <div className='flex flex-col'>
         <div className="relative flex items-center gap-2">
           <input
@@ -194,6 +195,20 @@ export default function Blog() {
             placeholder='Valitse yhteissoiton vaikeustaso'
           />
         </div>
+
+      </div>
+
+      {/* Selected Filter Chips */}
+      <div className="flex flex-wrap gap-2">
+        {Object.entries(filters).map(([key, value]) => {
+          if (!value) return null
+
+          return (
+            <Chip key={key} onDelete={() => handleFilterChange(key, '')}>
+              {value}
+            </Chip>
+          )
+        })}
       </div>
 
       <Material loading={loading} materialWithInfo={material} />
