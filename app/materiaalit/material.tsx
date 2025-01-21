@@ -3,15 +3,23 @@
 import Link from 'next/link'
 import React from 'react'
 import type { ReactNode } from 'react'
-import { BsMusicNoteList } from "react-icons/bs"
+import { BsFillPeopleFill } from "react-icons/bs"
+import { GiViolin } from "react-icons/gi";
+
 import type { Material, MaterialSkeleton } from '@/types'
 import type { Entry } from 'contentful'
+
+import OpenSheetMusicDisplay from '../../lib/OpenSheetMusicDisplay'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const SkeletonToMaterial = (skeleton: any) => {
   const m: Material = {
     title: skeleton.fields.title,
-    files: [],
+    files: skeleton.fields.files.map((file) => ({
+      url: file.fields.file.url,
+      contentType: file.fields.file.contentType,
+      filename: file.fields.file.fileName,
+    })),
     key: skeleton.fields.key,
     mode: skeleton.fields.mode,
     instrument: skeleton.fields.instrument,
@@ -28,7 +36,7 @@ const Chip = ({ children } : { children: ReactNode }) => {
   if (!children) return null
 
   return (
-    <div className="bg-gradient-to-r from-primary-50 to-primary-100 p-2 text-primary-800 text-xs rounded-full shadow font-medium tracking-wide">
+    <div className="bg-gradient-to-r from-primary-500 to-primary-600 p-3 px-4 text-white text-xs rounded-full shadow font-semibold tracking-wider">
       {children}
     </div>
   )
@@ -67,6 +75,13 @@ const difficultyToHuman = (difficulty: number) => {
   }
 }
 
+// const DetailRow = ({ label, value }) => (
+//   <div className="flex gap-1 flex-col text-center">
+//     <p className="text-primary-200/50 font-medium text-xs italic">{label}</p>
+//     <p className="font-bold text-sm">{value}</p>
+//   </div>
+// )
+
 const Material = ({
   materialWithInfo,
   loading
@@ -88,27 +103,69 @@ const Material = ({
     <div className="container mx-auto grid lg:grid-cols-3 gap-6 items-stretch">
       {materialWithInfo.map((m) => {
         const material = SkeletonToMaterial(m)
+        console.log('🚀 || {materialWithInfo.map || material:', material)
 
         return (
           <Link
             key={m.sys.id}
             href={`/materiaalit/${m.sys.id}`}
-            className="relative group bg-gradient-to-br from-primary-500 to-primary-700 focus:outline-accent-500 active:scale-95 px-6 py-7 shadow-lg rounded-lg flex flex-col text-white items-center gap-5 hover:scale-[1.03] transition-transform duration-300 overflow-hidden"
+            className="relative group bg-gradient-to-br from-primary-600 to-primary-700 focus:outline-accent-500 active:scale-95 px-6 py-7 shadow-lg rounded-lg flex flex-col text-white items-center gap-5 hover:scale-[1.05] transition-transform duration-150 overflow-hidden"
             >
             <div className='w-full h-full top-0 absolute group-hover:bg-black/20 duration-300' />
-            <div className='flex gap-3 justify-center items-center z-10'>
-              <BsMusicNoteList className="text-2xl text-primary-100" />
-              <h3 className="text-xl font-semibold text-center">{material.title}</h3>
+
+            <div className='flex gap-2 justify-center items-center z-10'>
+              {
+                material.ensemble ? (
+                  <BsFillPeopleFill className="text-2xl text-primary-100" />
+                ) : (
+                  <GiViolin className="text-3xl text-primary-100" />
+                )
+              }
+              <h3 className="text-xl font-semibold text-center -mb-1">{material.title}</h3>
             </div>
+
             <div className="h-[1px] bg-primary-50 bg-opacity-20 w-2/3 rounded-full mb-1 z-10" />
+
             <div className="flex flex-wrap gap-3 justify-center items-center px-4 z-10">
               <Chip>{difficultyToHuman(material.difficulty)}</Chip>
               <Chip>{material.instrument}</Chip>
-              <Chip>{material.key}</Chip>
-              <Chip>{material.mode}</Chip>
+              <Chip>
+                {material.key && material.mode
+                  ? `${material.key}-${material.mode}`
+                  : material.key || material.mode || ""}
+              </Chip>
               <Chip>{material.style}</Chip>
               <Chip>{material.origin}</Chip>
               <Chip>{material.ensemble}</Chip>
+            </div>
+
+            <div className='w-full'>
+              {
+                (() => {
+                  const file = material.files.find(file => file.filename.includes(".mxl") || file.contentType === 'application/xml')
+                  return file ? (
+                    <div className="mx-auto text-white -my-10 p-0">
+                      <OpenSheetMusicDisplay
+                      drawTitle={false}
+                      drawSubtitle={false}
+                      drawPartNames={false}
+                      drawPartAbbreviations={false}
+                      defaultColorMusic="#FFFFFF"
+                      drawCredits={false}
+                      drawComposer={false}
+                      drawLyricist={false}
+                      drawMetronomeMarks={false}
+                      drawMeasureNumbers={false}
+                      drawMeasureNumbersOnlyAtSystemStart={false}
+                      drawTimeSignatures={false}
+                      drawUpToMeasureNumber={1}
+                      backend='SVG'
+                      file={file.url}
+                    />
+                    </div>
+                  ) : null;
+                })()
+              }
             </div>
           </Link>
         )

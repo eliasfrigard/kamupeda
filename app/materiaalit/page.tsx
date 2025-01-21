@@ -84,7 +84,7 @@ export default function Blog() {
 
   useEffect(() => {
     setLoading(true)
-    
+
     const fetchData = async () => {
       try {
         const data = await searchMaterialData({
@@ -133,18 +133,18 @@ export default function Blog() {
             placeholder="Hae materiaalia..."
             className="border text-black p-3 px-4 rounded-md shadow w-full h-12"
           />
-          <IconButton 
-            icon={<IoFilterSharp />} 
+          <IconButton
+            icon={<IoFilterSharp />}
             className='bg-primary-500'
-            onClick={() => setFiltersOpen(!filtersOpen)} 
+            onClick={() => setFiltersOpen(!filtersOpen)}
           />
-          <IconButton 
-            icon={<FaRegTrashAlt />} 
+          <IconButton
+            icon={<FaRegTrashAlt />}
             className='bg-accent-500'
             onClick={() => resetSearch()}
           />
         </div>
-        
+
         {/* Filter options */}
 
         <div

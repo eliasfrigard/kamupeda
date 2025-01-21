@@ -14,6 +14,7 @@ import IconButton from '@/components/IconButton'
 export default function Blog() {
   const [query, setQuery] = useState('')
   const [material, setMaterial] = useState<Entry<MaterialSkeleton>[]>([])
+
   const [debouncedQuery, setDebouncedQuery] = useState(query)
   const [loading, setLoading] = useState(true)
   const [filtersOpen, setFiltersOpen] = useState(false)
@@ -131,7 +132,7 @@ export default function Blog() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Hae materiaalia..."
-            className="w-full h-12 px-5 text-white bg-primary-600 rounded-full shadow-inner focus:outline-none focus:ring-2 focus:ring-primary-300 placeholder-white/50 transition-all duration-300"
+            className="w-full h-12 px-5 text-black placeholder-black/50 bg-white rounded-full shadow-inner focus:outline-none focus:ring-2 focus:ring-primary-300 ring-black/10 ring-1 transition-all duration-300"
           />
           <IconButton
             icon={<IoFilterSharp />}

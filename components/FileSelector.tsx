@@ -53,7 +53,7 @@ const FileSelector: React.FC<FileSelectorProps> = ({ files }) => {
       }
 
       {
-        (selectedFile.fields.file.fileName.includes('.mxl') 
+        (selectedFile.fields.file.fileName.includes('.mxl')
         || selectedFile.fields.file.contentType === 'application/xml') && (
           <div className='w-full'>
             <OpenSheetMusicDisplay file={`https://${selectedFile.fields.file.url}`} />
