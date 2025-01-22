@@ -3,9 +3,9 @@ import { createClient } from 'contentful'
 import { normalizeSlug } from './normalizeSlug'
 
 import type {
-  PageSkeleton, 
-  MaterialSkeleton, 
-  BlogPostSkeleton, 
+  PageSkeleton,
+  MaterialSkeleton,
+  BlogPostSkeleton,
   DisclosureSkeleton,
   DisclosureGroupSkeleton,
 } from "@/types"
@@ -108,9 +108,9 @@ const getDisclosures = async (disclosureIds: string[]) => {
 export const getPageBySlug = async (slug: string) => {
   // @ts-expect-error TODO: Don't know how to handle yet.
   const pages: PageSkeleton[] = await getPageData()
-  
+
   const page = pages.find((p) => normalizeSlug(p.fields.title) === normalizeSlug(slug))
-  
+
   if (page?.fields.content) {
     // @ts-expect-error TODO:
     for (const contentBlock of page.fields.content) {
@@ -118,7 +118,7 @@ export const getPageBySlug = async (slug: string) => {
         const disclosureGroup = contentBlock as DisclosureGroupSkeleton
 
         const disclosures = Array.isArray(disclosureGroup.fields.disclosures) ? disclosureGroup.fields.disclosures : []
-        
+
         // Fetch disclosures asynchronously
         const disclosureIds = disclosures.map((disclosure: DisclosureSkeleton) => disclosure.sys.id)
         // @ts-expect-error TODO:

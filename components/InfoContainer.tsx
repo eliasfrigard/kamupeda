@@ -13,9 +13,9 @@ interface InfoContainerProps {
 
 const InfoItem = ({ title, content }: { title: string; content: string }) =>
   content ? (
-    <div className='flex flex-col leading-loose tracking-wide border-primary-500/20 border-b py-1'>
-      <h2 className='text-black/30 text-xs font-medium'>{title}</h2>
-      <p className='font-semibold text-black/70'>{content}</p>
+    <div className='flex flex-col leading-loose tracking-wide border-white/20 border-b py-1'>
+      <h2 className='text-white/30 text-xs font-medium'>{title}</h2>
+      <p className='font-semibold text-white/70'>{content}</p>
     </div>
   ) : null;
 

@@ -144,7 +144,7 @@ const Search: React.FC = () => {
           />
           <IconButton
             icon={<IoFilterSharp />}
-            className='flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-900 to-primary-600 text-white rounded-full shadow-lg hover:scale-105 active:scale-95 focus:ring-2 focus:ring-primary-400 transition-transform duration-300'
+            className='flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 text-white rounded-full shadow-lg hover:scale-105 active:scale-95 focus:ring-2 focus:ring-primary-400 transition-transform duration-300'
             onClick={() => setFiltersOpen(!filtersOpen)}
           />
           <IconButton

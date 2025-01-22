@@ -1,9 +1,9 @@
-import React from 'react'
-import Image from 'next/image'
+import React from "react";
+import Image from "next/image";
 // import Video from './Video'
 
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
-import { BLOCKS } from '@contentful/rich-text-types'
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { BLOCKS } from "@contentful/rich-text-types";
 
 const options = {
   renderNode: {
@@ -20,19 +20,19 @@ const options = {
     //   }
     // },
     [BLOCKS.EMBEDDED_ASSET]: (node) => {
-      const { url, fileName, contentType } = node.data.target.fields.file
+      const { url, fileName, contentType } = node.data.target.fields.file;
 
-      if (contentType.includes('audio')) {
+      if (contentType.includes("audio")) {
         return (
           <audio
             controls
-            className="w-full"
+            className='w-full'
             src={`https:${url}`}
             alt={fileName}
           />
-        )
+        );
       }
-      if (contentType.includes('image')) {
+      if (contentType.includes("image")) {
         return (
           <Image
             src={`https:${url}`}
@@ -41,37 +41,37 @@ const options = {
             width={node.data.target.fields.file.details.image.width}
             height={node.data.target.fields.file.details.image.height}
           />
-        )
+        );
       }
     },
-  }
-}
+  },
+};
 
 const TextLayout = ({ text, className }) => {
-  let textLength = 0
+  let textLength = 0;
 
   text?.content.forEach((t) => {
-    if (t?.nodeType !== 'paragraph') return
+    if (t?.nodeType !== "paragraph") return;
 
     t?.content.forEach((v) => {
-      const value = v?.value?.length
+      const value = v?.value?.length;
 
-      if (typeof value === 'number') {
-        textLength = textLength + value
+      if (typeof value === "number") {
+        textLength = textLength + value;
       }
-    })
-  })
+    });
+  });
 
   const textContent = text?.content.filter((v) => {
-    if (v.nodeType !== 'paragraph') return true
+    if (v.nodeType !== "paragraph") return true;
 
-    return v.content[0].value.length > 0
-  })
+    return v.content[0].value.length > 0;
+  });
 
   const textDocument = {
     ...text,
     content: textContent,
-  }
+  };
 
   return (
     <div
@@ -79,7 +79,7 @@ const TextLayout = ({ text, className }) => {
     >
       {documentToReactComponents(textDocument, options)}
     </div>
-  )
-}
+  );
+};
 
-export default TextLayout
+export default TextLayout;

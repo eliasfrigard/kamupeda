@@ -73,13 +73,13 @@ const FileSelector: React.FC<FileSelectorProps> = ({
           {/* Ensure the height of the icons matches the Select component */}
           <div
             onClick={() => handleDownloadSelectedFile(selectedFile)}
-            className='h-full aspect-square rounded-full bg-primary-500 flex justify-center items-center text-white bg-gradient-to-r from-primary-500 to-primary-600 cursor-pointer hover:scale-110 duration-150'
+            className='h-full aspect-square rounded-full flex justify-center items-center text-white bg-gradient-to-br from-primary-500 to-primary-700 cursor-pointer hover:scale-110 duration-150'
           >
             <BiDownload className='text-xl' />
           </div>
           <div
             onClick={() => handleDownloadAll()}
-            className='h-full aspect-square rounded-full bg-primary-500 flex justify-center items-center text-white bg-gradient-to-r from-primary-500 to-primary-600 cursor-pointer hover:scale-110 duration-150'
+            className='h-full aspect-square rounded-full flex justify-center items-center text-white bg-gradient-to-br from-accent-500 to-accent-700 cursor-pointer hover:scale-110 duration-150'
           >
             <ImFileZip className='text-lg' />
           </div>

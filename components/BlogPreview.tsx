@@ -34,7 +34,7 @@ const BlogPreview: React.FC<BlogPreviewProps> = ({
         hover:shadow-2xl
         active:scale-100
         duration-300
-        bg-gradient-to-br from-primary-900 to-primary-700
+        bg-gradient-to-br from-primary-500 to-primary-700
         shadow-lg
         rounded-2xl
         overflow-hidden

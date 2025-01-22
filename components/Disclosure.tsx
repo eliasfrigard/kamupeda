@@ -31,7 +31,7 @@ export default function Example({
         </DisclosureButton>
         <DisclosurePanel
           transition
-          className='p-6 text-sm/5 text-black/50 origin-top transition duration-200 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0'
+          className='p-6 text-sm/5 text-white/50 origin-top bg-primary-500 transition duration-200 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0'
         >
           {children}
         </DisclosurePanel>
