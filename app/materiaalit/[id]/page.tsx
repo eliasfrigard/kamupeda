@@ -18,7 +18,13 @@ export default async function Page({ params }: { params: { id: string } }) {
   const page = (await getMaterialById(params.id)) as MaterialSkeleton;
 
   if (!page) {
-    return <div>BLOG POST not found</div>;
+    return (
+      <div className='container h-full font-extrabold text-primary-800 mx-auto px-8 flex flex-col gap-8 justify-center items-center flex-1'>
+        <h1 className='text-9xl'>404</h1>
+        <div className='w-2/3 rounded-full h-[1px] opacity-20 bg-primary-800' />
+        <h1 className='text-4xl'>Page Not Found</h1>
+      </div>
+    );
   }
 
   return (
