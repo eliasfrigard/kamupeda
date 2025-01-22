@@ -6,6 +6,8 @@ import Select from "./Select";
 import Image from "next/image";
 import OpenSheetMusicDisplay from "../lib/OpenSheetMusicDisplay";
 
+import { BiDownload } from "react-icons/bi";
+
 const PdfViewer = dynamic(() => import("./PdfViewer"), { ssr: false });
 
 interface FileSelectorProps {
@@ -25,12 +27,23 @@ const FileSelector: React.FC<FileSelectorProps> = ({ files }) => {
 
   return (
     <div className='w-full mx-auto flex flex-col justify-center items-center gap-6'>
-      <div className='w-full'>
+      <div className='w-full flex items-center justify-between flex-col md:flex-row gap-5 lg:gap-4 lg:pr-3'>
         <Select
+          className='flex-grow w-full'
           options={options}
           selected={selectedFile.fields.file.fileName}
           setSelected={(value) => handleSetSelected(value)}
         />
+
+        <div className='h-10 gap-2 flex justify-center items-center'>
+          {/* Ensure the height of the icons matches the Select component */}
+          <div className='h-full aspect-square rounded-full bg-primary-500 flex justify-center items-center text-white bg-gradient-to-r from-primary-500 to-primary-600 cursor-pointer hover:scale-110 duration-150'>
+            <BiDownload className='text-xl' />
+          </div>
+          <div className='h-full aspect-square rounded-full bg-primary-500 flex justify-center items-center text-white bg-gradient-to-r from-primary-500 to-primary-600 cursor-pointer hover:scale-110 duration-150'>
+            <BiDownload className='text-xl' />
+          </div>
+        </div>
       </div>
 
       {selectedFile.fields.file.contentType === "application/pdf" && (
