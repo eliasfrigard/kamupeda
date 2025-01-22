@@ -4,7 +4,8 @@ import React from "react";
 import { BiSolidDownload } from "react-icons/bi";
 
 interface DownloadItemsProps {
-  // Define your props here
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  files: any[];
 }
 
 const DownloadItems: React.FC<DownloadItemsProps> = ({ files }) => {

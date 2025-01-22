@@ -25,7 +25,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <div className='w-screen'>
-      <div className='container mx-auto text-black flex flex-col justify-center items-center gap-8 md:gap-12 px-6 lg:px-4 max-w-4xl'>
+      <div className='container mx-auto text-black flex flex-col justify-center items-center gap-8 px-6 lg:px-4 max-w-4xl'>
         {/* <h1 className='text-3xl lg:text-5xl font-bold text-pretty -mb-1 font'>
           {page.fields.title}
         </h1> */}
