@@ -6,23 +6,57 @@ import Select from "./Select";
 import Image from "next/image";
 import OpenSheetMusicDisplay from "../lib/OpenSheetMusicDisplay";
 
+import { downloadZip } from "client-zip";
+import { saveAs } from "file-saver";
+
 import { BiDownload } from "react-icons/bi";
+import { ImFileZip } from "react-icons/im";
 
 const PdfViewer = dynamic(() => import("./PdfViewer"), { ssr: false });
 
 interface FileSelectorProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   files: any[];
+  downloadTitle: string;
 }
 
-const FileSelector: React.FC<FileSelectorProps> = ({ files }) => {
+const FileSelector: React.FC<FileSelectorProps> = ({
+  files,
+  downloadTitle,
+}) => {
   const [selectedFile, setSelectedFile] = React.useState(files[0]);
+  console.log("🚀 || selectedFile:", selectedFile);
 
   const options = files.map((file) => file.fields.file.fileName);
 
   const handleSetSelected = (value: string) => {
     const selected = files.find((file) => file.fields.file.fileName === value);
     setSelectedFile(selected);
+  };
+
+  const handleDownloadSelectedFile = (file) => {
+    const url = "https:" + file.fields.file.url;
+
+    saveAs(url, selectedFile.fields.file.fileName);
+  };
+
+  const handleDownloadAll = async () => {
+    try {
+      const requests = files.map((file) =>
+        fetch(file.fields.file.url).then((res) => res.blob())
+      );
+      const res = await Promise.all(requests);
+
+      const zippedFiles = res.map((file, index) => ({
+        name: `${downloadTitle}/${files[index].fields.file.fileName}`,
+        input: file,
+      }));
+
+      const zipBlob = await downloadZip(zippedFiles).blob();
+      saveAs(zipBlob, `${downloadTitle}.zip`);
+    } catch (error) {
+      console.error("Error downloading files:", error);
+    }
   };
 
   return (
@@ -37,11 +71,17 @@ const FileSelector: React.FC<FileSelectorProps> = ({ files }) => {
 
         <div className='h-10 gap-2 flex justify-center items-center'>
           {/* Ensure the height of the icons matches the Select component */}
-          <div className='h-full aspect-square rounded-full bg-primary-500 flex justify-center items-center text-white bg-gradient-to-r from-primary-500 to-primary-600 cursor-pointer hover:scale-110 duration-150'>
+          <div
+            onClick={() => handleDownloadSelectedFile(selectedFile)}
+            className='h-full aspect-square rounded-full bg-primary-500 flex justify-center items-center text-white bg-gradient-to-r from-primary-500 to-primary-600 cursor-pointer hover:scale-110 duration-150'
+          >
             <BiDownload className='text-xl' />
           </div>
-          <div className='h-full aspect-square rounded-full bg-primary-500 flex justify-center items-center text-white bg-gradient-to-r from-primary-500 to-primary-600 cursor-pointer hover:scale-110 duration-150'>
-            <BiDownload className='text-xl' />
+          <div
+            onClick={() => handleDownloadAll()}
+            className='h-full aspect-square rounded-full bg-primary-500 flex justify-center items-center text-white bg-gradient-to-r from-primary-500 to-primary-600 cursor-pointer hover:scale-110 duration-150'
+          >
+            <ImFileZip className='text-lg' />
           </div>
         </div>
       </div>

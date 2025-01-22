@@ -39,7 +39,10 @@ export default async function Page({ params }: { params: { id: string } }) {
             ]}
           />
 
-          <FileSelector files={page.fields.files} />
+          <FileSelector
+            downloadTitle={page.fields.title}
+            files={page.fields.files}
+          />
         </div>
 
         {page.fields.description && (
