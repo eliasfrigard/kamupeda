@@ -49,7 +49,7 @@ class OpenSheetMusicDisplay extends Component {
     }
 
     render() {
-      return (<div ref={this.divRef} />);
+      return (<div id="OSMD" className='w-full flex justify-center items-center' ref={this.divRef} />);
     }
   }
 
