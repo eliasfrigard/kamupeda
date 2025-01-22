@@ -72,15 +72,15 @@ const Material = ({
           <Link
             key={m.sys.id}
             href={`/materiaalit/${m.sys.id}`}
-            className='relative group bg-gradient-to-br from-primary-600 to-primary-700 focus:outline-accent-500 active:scale-[1.02] py-7 shadow-lg rounded-lg flex flex-col text-white items-center gap-5 hover:scale-[1.05] transition-transform duration-150 overflow-hidden px-4'
+            className='relative group bg-gradient-to-br from-primary-900/90 to-primary-900 focus:outline-accent-500 active:scale-[1.02] py-7 shadow-lg rounded-lg flex flex-col text-secondary-500 items-center gap-5 hover:scale-[1.05] transition-transform duration-150 overflow-hidden px-4'
           >
             <div className='w-full h-full top-0 absolute group-hover:bg-black/20 duration-300' />
 
             <div className='flex gap-3 justify-center items-center z-10'>
               {material.ensemble ? (
-                <BsFillPeopleFill className='text-2xl text-primary-100' />
+                <BsFillPeopleFill className='text-2xl text-secondary-500' />
               ) : (
-                <GiViolin className='text-2xl text-primary-100' />
+                <GiViolin className='text-2xl text-secondary-500' />
               )}
               <h3 className='text-xl font-semibold text-center -mb-1'>
                 {material.title}
@@ -116,13 +116,13 @@ const Material = ({
               });
 
               return file ? (
-                <div className='w-full mx-auto text-white -my-10'>
+                <div className='w-full mx-auto text-secondary-500 -my-10'>
                   <OpenSheetMusicDisplay
                     drawTitle={false}
                     drawSubtitle={false}
                     drawPartNames={false}
                     drawPartAbbreviations={false}
-                    defaultColorMusic='#FFFFFF'
+                    defaultColorMusic='#FBF5DD'
                     drawCredits={false}
                     drawComposer={false}
                     drawLyricist={false}
