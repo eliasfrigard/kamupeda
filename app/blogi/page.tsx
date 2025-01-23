@@ -8,6 +8,7 @@ const mapBlogPost = (post: any) => {
     fields: {
       date: formatDate(post.sys.createdAt),
       title: post.fields.title,
+      authors: post.fields.authors?.map((author) => author.fields.name),
       previewImage: post.fields.previewImage,
       textContent: post.fields.textContent,
     },
@@ -36,7 +37,7 @@ export default async function Blog() {
             id={post.sys.id}
             image={post?.fields?.previewImage}
             title={post.fields.title}
-            author='Maija Karhinen-Ilo'
+            authors={post.fields.authors}
             date={post.fields.date}
             textContent={post.fields.textContent}
           />

@@ -25,7 +25,7 @@ interface BlogPreviewProps {
   id: string;
   image: Asset;
   title: string;
-  author: string;
+  authors: string[];
   date: string;
   reversed: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -36,13 +36,11 @@ const BlogPreview: React.FC<BlogPreviewProps> = ({
   id,
   image,
   title,
-  author,
+  authors,
   date,
   reversed,
   textContent,
 }) => {
-  // const firstParagraph = textContent.content
-
   let firstParagraph = null;
 
   textContent.content.some((content) => {
@@ -83,8 +81,16 @@ const BlogPreview: React.FC<BlogPreviewProps> = ({
       >
         <div className='px-2 md:px-0 flex flex-col gap-4'>
           <h2 className='text-3xl font-bold mb-1'>{title}</h2>
-          <div className='flex md:items-center text-sm text-accent-500 flex-col md:flex-row gap-2'>
-            <p className='font-medium mr-2'>{author}</p>
+          <div className='flex md:items-center text-sm text-accent-500 flex-col md:flex-row gap-1 md:gap-0'>
+            <div className='flex flex-col md:flex-row gap-1 md:gap-0'>
+              {authors &&
+                authors.map((author, index) => (
+                  <p key={index} className='font-medium mr-2'>
+                    {author}
+                    {index < authors.length - 1 && ","}
+                  </p>
+                ))}
+            </div>
             <p className='font-light'>({date})</p>
           </div>
           <TextLayout className='text-pretty' text={firstParagraph} />
