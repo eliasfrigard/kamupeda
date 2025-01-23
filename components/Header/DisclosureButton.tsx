@@ -10,6 +10,7 @@ import Link from "next/link";
 import { NavItem } from "../NavMap";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { normalizeSlug } from "@/utils/normalizeSlug";
+import { FaArrowRight } from "react-icons/fa";
 
 const DisclosureButtonComponent = ({
   title,
@@ -46,11 +47,15 @@ const DisclosureButtonComponent = ({
             key={item.title}
             as={Link}
             href={`/${parent}/${normalizeSlug(item.title)}`}
-            className={`block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 ${textColor} hover:bg-gray-50`}
+            className={`flex items-center gap-3 text-accent-500 rounded-lg py-1.5 pl-4 pr-3 text-sm font-semibold leading-7 ${textColor} hover:bg-gray-50`}
           >
+            <FaArrowRight className='text-xs inline-block' />
             {item.title}
           </DisclosureButton>
         ))}
+        <div className='w-full px-4'>
+          <div className='w-full h-[1px] bg-accent-500/50'></div>
+        </div>
       </DisclosurePanel>
     </Disclosure>
   );
