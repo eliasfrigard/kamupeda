@@ -101,7 +101,7 @@ export default function Example({
         <DialogPanel className='px-6 fixed top-[84px] inset-y-0 right-0 z-10 w-full overflow-y-auto bg-gradient-to-r from-primary-700 to-primary-800 text-white sm:max-w-sm sm:ring-1 sm:ring-gray-900/10'>
           <div className='mt-6 flow-root'>
             <div className='-my-6 divide-y divide-accent-700/50'>
-              <div className='space-y-2 py-6'>
+              <div className='space-y-2 pb-6 pt-3'>
                 {navMap.map((page) => {
                   const normalizedPageSlug = normalizeSlug(page.title);
 
