@@ -2,9 +2,22 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Asset } from "contentful";
+import TextLayout from "./TextLayout";
+import { FaArrowRight } from "react-icons/fa";
 
-function truncateText(text: string, maxLength: number) {
-  return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+function truncateText(text: string, maxLength: number): string {
+  if (text.length <= maxLength) {
+    return text;
+  }
+
+  // Find the last space within the allowed length
+  const truncated = text.slice(0, maxLength);
+  const lastSpaceIndex = truncated.lastIndexOf(" ");
+
+  // If there's a space, truncate at the space; otherwise, truncate normally
+  return lastSpaceIndex > -1
+    ? truncated.slice(0, lastSpaceIndex) + " ..."
+    : truncated + " ...";
 }
 
 interface BlogPreviewProps {
@@ -13,7 +26,9 @@ interface BlogPreviewProps {
   title: string;
   author: string;
   date: string;
-  description: string;
+  reversed: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  textContent: any;
 }
 
 const BlogPreview: React.FC<BlogPreviewProps> = ({
@@ -22,45 +37,65 @@ const BlogPreview: React.FC<BlogPreviewProps> = ({
   title,
   author,
   date,
-  description,
+  reversed,
+  textContent,
 }) => {
+  // const firstParagraph = textContent.content
+
+  let firstParagraph = null;
+
+  textContent.content.some((content) => {
+    if (content.nodeType === "paragraph") {
+      firstParagraph = content;
+
+      firstParagraph.content[0].value = truncateText(
+        firstParagraph.content[0].value,
+        480
+      );
+
+      return true;
+    }
+    return false;
+  });
+
   return (
-    <Link
-      key={id}
-      href={`/blogi/${id}`}
-      className='
-        group
-        hover:scale-[1.02]
-        hover:shadow-2xl
-        active:scale-100
-        duration-300
-        bg-gradient-to-br from-primary-500 to-primary-700
-        shadow-lg
-        rounded-2xl
-        overflow-hidden
-        ring-1 ring-white/10
-        hover:ring-2 hover:ring-primary-400'
-    >
-      <div className='relative w-full aspect-square overflow-hidden'>
+    <div className={`w-full lg:h-[600px] grid lg:grid-cols-2 overflow-hidden`}>
+      <div
+        className={`order-1 ${
+          reversed ? "lg:order-2" : "lg:order-1"
+        } h-screen lg:h-full w-full relative overflow-hidden order-2`}
+      >
         <Image
           alt={image.fields.file.fileName as string}
           src={`http:${image?.fields?.file.url}`}
           fill
-          className='object-cover group-hover:scale-105 transition-transform duration-300'
+          className='object-cover rounded-lg shadow group-hover:scale-105 transition-transform duration-300'
         />
       </div>
-      <div className='w-full flex flex-col p-6 text-white/80 gap-4 tracking-wide'>
-        <h2 className='text-xl font-bold text-white'>{title}</h2>
-        <div className='flex items-center text-sm'>
-          <p className='font-medium text-primary-300 mr-2'>{author}</p>
-          <p className='font-light text-white/60'>({date})</p>
+
+      <div
+        className={`order-2 ${
+          reversed ? "lg:order-1" : "lg:order-2"
+        } w-full flex flex-col pt-6 md:pt-10 md:px-10 lg:pb-10 text-primary-900/80 gap-5 tracking-wide justify-center`}
+      >
+        <div className='px-2 md:px-0 flex flex-col gap-4'>
+          <h2 className='text-3xl font-bold mb-1'>{title}</h2>
+          <div className='flex md:items-center text-sm text-accent-500 flex-col md:flex-row gap-2'>
+            <p className='font-medium mr-2'>{author}</p>
+            <p className='font-light'>({date})</p>
+          </div>
+          <TextLayout className='text-pretty' text={firstParagraph} />
         </div>
-        <div className='w-full h-[1px] bg-white/10 rounded-full' />
-        <p className='text-sm leading-relaxed opacity-90 text-pretty pr-2'>
-          {truncateText(description, 150)}
-        </p>
+
+        <Link
+          className='bg-accent-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-accent-600 transition-transform transform hover:scale-[1.02] duration-200 flex justify-between items-center'
+          href={`/blogi/${id}`}
+        >
+          Lue lisää!
+          <FaArrowRight />
+        </Link>
       </div>
-    </Link>
+    </div>
   );
 };
 
