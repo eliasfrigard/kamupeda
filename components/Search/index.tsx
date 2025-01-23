@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-import Material from "../../app/materiaalit/material";
+import Material from "../Material";
 import type { Entry } from "contentful";
 import type { MaterialSkeleton } from "@/types";
 import { searchMaterialData } from "@/utils/contentful";

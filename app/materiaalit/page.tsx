@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Material from "./material";
+import Material from "../../components/Material";
 import type { Entry } from "contentful";
 import type { MaterialSkeleton } from "@/types";
 import { searchMaterialData } from "@/utils/contentful";
