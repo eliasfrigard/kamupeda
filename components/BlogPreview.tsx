@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Asset } from "contentful";
 import TextLayout from "./TextLayout";
 import { FaArrowRight } from "react-icons/fa";
+import AnimateIn from "./AnimateIn";
 
 function truncateText(text: string, maxLength: number): string {
   if (text.length <= maxLength) {
@@ -59,7 +60,9 @@ const BlogPreview: React.FC<BlogPreviewProps> = ({
   });
 
   return (
-    <div className={`w-full lg:h-[600px] grid lg:grid-cols-2 overflow-hidden`}>
+    <AnimateIn
+      className={`w-full lg:h-[600px] grid lg:grid-cols-2 overflow-hidden`}
+    >
       <div
         className={`order-1 ${
           reversed ? "lg:order-2" : "lg:order-1"
@@ -95,7 +98,7 @@ const BlogPreview: React.FC<BlogPreviewProps> = ({
           <FaArrowRight />
         </Link>
       </div>
-    </div>
+    </AnimateIn>
   );
 };
 
