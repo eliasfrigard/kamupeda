@@ -94,7 +94,7 @@ export default function Example({
 
       <Dialog
         open={mobileMenuOpen}
-        onClose={setMobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
         transition
         className='lg:hidden fixed inset-0 flex w-screen items-center justify-center  transition duration-300 ease-out data-[closed]:opacity-0 z-50'
       >
@@ -113,12 +113,14 @@ export default function Example({
                         parent={normalizedPageSlug}
                         pages={page.children}
                         textColor='text-white'
+                        handleOnClick={() => setMobileMenuOpen(false)}
                       />
                     );
                   }
 
                   return (
                     <Link
+                      onClick={() => setMobileMenuOpen(false)}
                       key={normalizedPageSlug}
                       href={normalizedPageSlug}
                       className='-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 hover:bg-accent-500 lg:hover:bg-gray-50'
