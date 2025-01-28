@@ -35,7 +35,6 @@ const options = {
     },
     [BLOCKS.EMBEDDED_ASSET]: (node) => {
       const { url, fileName, contentType } = node.data.target.fields.file;
-      console.log("🚀 || url:", url);
 
       if (fileName.includes("mxl") || fileName.includes("xml")) {
         return (
