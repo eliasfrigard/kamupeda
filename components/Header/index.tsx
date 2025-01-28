@@ -36,7 +36,7 @@ export default function Example({
 
   return (
     <header
-      className={`bg-gradient-to-r from-primary-700 to-primary-800 lg:from-primary-600/90 lg:to-primary-800/90 text-white backdrop-blur-lg w-full fixed z-30 shadow-lg lg:bg-opacity-90 duration-100 ${
+      className={`bg-gradient-to-r from-primary-700 to-primary-800 lg:from-primary-600/95 lg:to-primary-800/95 text-white backdrop-blur-lg w-full fixed z-30 shadow-lg lg:bg-opacity-90 duration-100 ${
         mobileMenuOpen ? "shadow-none" : "shadow-lg"
       }`}
       style={{ height: height + "px" }}
