@@ -25,7 +25,6 @@ const FileSelector: React.FC<FileSelectorProps> = ({
   downloadTitle,
 }) => {
   const [selectedFile, setSelectedFile] = React.useState(files[0]);
-  console.log("🚀 || selectedFile:", selectedFile);
 
   const options = files.map((file) => file.fields.file.fileName);
 

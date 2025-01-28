@@ -11,7 +11,6 @@ interface DownloadItemsProps {
 const DownloadItems: React.FC<DownloadItemsProps> = ({ files }) => {
   const handleDownloadAll = () => {
     files.forEach((file) => {
-      console.log(file.fields.file.url);
       const link = document.createElement("a");
       link.href = "https:" + file.fields.file.url; // The URL of the file
       link.download = ""; // Specify a filename if you want or leave empty to use the default

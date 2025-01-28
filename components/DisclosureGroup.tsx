@@ -8,7 +8,6 @@ interface DisclosureGroupProps {
 }
 
 const DisclosureGroup: React.FC<DisclosureGroupProps> = ({ disclosures }) => {
-  console.log("🚀 || disclosures:", disclosures);
   return (
     <div className='rounded-xl overflow-hidden flex flex-col shadow-lg'>
       {disclosures.map((disclosure, i) => {

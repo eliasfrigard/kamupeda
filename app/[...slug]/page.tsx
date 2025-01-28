@@ -39,7 +39,5 @@ export default async function Page({
       }))
     : [];
 
-  console.log("hello");
-
   return <Content pageContent={pageContent} />;
 }

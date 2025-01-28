@@ -25,7 +25,6 @@ const DisclosureButtonComponent = ({
   textColor: string;
   handleOnClick?: () => void;
 }) => {
-  console.log("🚀 || pages:", pages);
   return (
     <Disclosure as='div' className='-mx-3'>
       <DisclosureButton
