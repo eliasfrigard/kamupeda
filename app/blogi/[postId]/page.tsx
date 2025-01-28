@@ -37,7 +37,6 @@ export default async function Page({ params }: { params: { postId: string } }) {
   const normalizedId = normalizeSlug(params.postId || "");
 
   const page = (await getPostById(normalizedId)) as BlogPostSkeleton;
-  console.log("🚀 || Page || page:", page.fields);
 
   // @ts-expect-error TODO: Fix this
   const authors = page.fields.authors;

@@ -1,26 +1,52 @@
 import React from "react";
 import Image from "next/image";
-// import Video from './Video'
+import Video from "./Video";
+// import DisclosureGroup from "./DisclosureGroup";
+import PdfViewer from "./PdfViewer";
+import OpenSheetMusicDisplay from "../lib/OpenSheetMusicDisplay";
 
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS } from "@contentful/rich-text-types";
 
 const options = {
   renderNode: {
-    // [BLOCKS.EMBEDDED_ENTRY]: (node) => {
-    //   if (node.data.target.sys.contentType.sys.id === "video") {
-    //     return (
-    //       <Video
-    //         className="pt-0 pb-2 md:pt-4 md:pb-5"
-    //         key={node.data.target.fields.name}
-    //         title={node.data.target.fields.name}
-    //         link={node.data.target.fields.youTubeLink}
-    //       />
-    //     );
-    //   }
-    // },
+    [BLOCKS.EMBEDDED_ENTRY]: (node) => {
+      // const fields = node.data.target.fields;
+      const contentType = node.data.target.sys.contentType.sys.id;
+
+      // if (contentType === "disclosureGroup") {
+      //   const disclosures = Array.isArray(fields.disclosures)
+      //     ? [...fields.disclosures]
+      //     : [];
+
+      //   return <DisclosureGroup disclosures={disclosures} />;
+      // }
+
+      if (contentType === "video") {
+        return (
+          <Video
+            className='pt-0 pb-2 md:pt-4 md:pb-5'
+            key={node.data.target.fields.name}
+            title={node.data.target.fields.name}
+            link={node.data.target.fields.youTubeLink}
+          />
+        );
+      }
+    },
     [BLOCKS.EMBEDDED_ASSET]: (node) => {
       const { url, fileName, contentType } = node.data.target.fields.file;
+
+      if (fileName.includes("mxl") || fileName.includes("xml")) {
+        return (
+          <div className='-mb-16'>
+            <OpenSheetMusicDisplay file={`https://${url}`} />
+          </div>
+        );
+      }
+
+      if (contentType.includes("pdf")) {
+        return <PdfViewer url={`https:${url}`} />;
+      }
 
       if (contentType.includes("audio")) {
         return (
