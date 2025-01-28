@@ -61,6 +61,7 @@ export type Hero = {
   title: string
   hero: Asset
   mobileHero: Asset
+  overlayText: string
 }
 
 export type HeroImage = {
@@ -115,7 +116,7 @@ export type DisclosureGroupSkeleton = BaseSkeleton<'disclosureGroup', Disclosure
  * The content field can contain any of the content types.
  */
 
-export type PageContent = 
+export type PageContent =
   | TextBlockSkeleton
   | VideoSkeleton
   | HeroSkeleton

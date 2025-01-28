@@ -104,6 +104,7 @@ const ContentBlock: React.FC<{ block: PageContent; index: number }> = ({
         isFirstElement={index === 0}
         key={contentBlock.sys.id}
         desktopImg={desktopHero}
+        text={contentBlock.fields.overlayText}
       />
     );
   }

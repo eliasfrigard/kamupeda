@@ -12,7 +12,7 @@ const options = {
   renderNode: {
     [BLOCKS.EMBEDDED_ENTRY]: (node) => {
       // const fields = node.data.target.fields;
-      const contentType = node.data.target.sys.contentType.sys.id;
+      const contentType = node.data.target.sys?.contentType?.sys.id;
 
       // if (contentType === "disclosureGroup") {
       //   const disclosures = Array.isArray(fields.disclosures)
