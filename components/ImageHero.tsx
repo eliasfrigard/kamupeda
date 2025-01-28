@@ -35,13 +35,15 @@ const ImageHero: React.FC<ImageHeroProps> = ({
             className='absolute object-cover w-full h-full'
           />
 
-          <AnimateIn className='absolute w-full h-full bg-gradient-to-br from-black/20 to-black/20 backdrop-blur'>
-            <div
-              className={`w-full h-full flex justify-center items-center z-10 text-8xl text-white font-bold tracking-wide shadow-lg ${dancingScript.className}`}
-            >
-              {text}
-            </div>
-          </AnimateIn>
+          {text && (
+            <AnimateIn className='absolute w-full h-full bg-gradient-to-br from-black/20 to-black/20 backdrop-blur'>
+              <div
+                className={`w-full h-full flex justify-center items-center z-10 text-4xl sm:text-6xl lg:text-8xl text-white font-bold tracking-wide shadow-lg ${dancingScript.className}`}
+              >
+                {text}
+              </div>
+            </AnimateIn>
+          )}
         </div>
       </>
     );
@@ -55,6 +57,16 @@ const ImageHero: React.FC<ImageHeroProps> = ({
         fill
         className={`object-cover w-full`}
       />
+
+      {text && (
+        <AnimateIn className='absolute w-full h-full bg-gradient-to-br from-black/20 to-black/20 backdrop-blur'>
+          <div
+            className={`w-full h-full flex justify-center items-center z-10 text-4xl sm:text-6xl lg:text-8xl text-white font-bold tracking-wide shadow-lg ${dancingScript.className}`}
+          >
+            {text}
+          </div>
+        </AnimateIn>
+      )}
     </div>
   );
 };
