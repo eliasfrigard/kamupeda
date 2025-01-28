@@ -38,7 +38,7 @@ const ImageHero: React.FC<ImageHeroProps> = ({
           {text && (
             <AnimateIn className='absolute w-full h-full bg-gradient-to-br from-black/20 to-black/20 backdrop-blur'>
               <div
-                className={`w-full h-full flex justify-center items-center z-10 text-4xl sm:text-6xl lg:text-8xl text-white font-bold tracking-wide shadow-lg ${dancingScript.className}`}
+                className={`w-full h-full flex justify-center items-center z-10 text-4xl sm:text-6xl lg:text-8xl text-white font-bold tracking-wide shadow-lg break text-pretty ${dancingScript.className}`}
               >
                 {text}
               </div>
@@ -61,7 +61,7 @@ const ImageHero: React.FC<ImageHeroProps> = ({
       {text && (
         <AnimateIn className='absolute w-full h-full bg-gradient-to-br from-black/20 to-black/20 backdrop-blur'>
           <div
-            className={`w-full h-full flex justify-center items-center z-10 text-4xl sm:text-6xl lg:text-8xl text-white font-bold tracking-wide shadow-lg ${dancingScript.className}`}
+            className={`w-full h-full flex justify-center items-center z-10 text-4xl sm:text-6xl lg:text-8xl text-white font-bold tracking-wide shadow-lg text-pretty ${dancingScript.className}`}
           >
             {text}
           </div>
