@@ -9,12 +9,13 @@ import { dancingScript } from "@/app/fonts";
 
 import { useState } from "react";
 import { Dialog, DialogPanel, PopoverGroup } from "@headlessui/react";
-import { PhoneIcon, PlayCircleIcon } from "@heroicons/react/20/solid";
 import { normalizeSlug } from "../../utils/normalizeSlug";
 
 const callsToAction = [
-  { name: "Watch demo", href: "#", icon: PlayCircleIcon },
-  { name: "Contact sales", href: "#", icon: PhoneIcon },
+  {
+    name: "Lataa Kamutaito 1",
+    href: "https://assets.ctfassets.net/nqeymplwbzvw/5kedhcDhw5FiOuhwx2YzXf/4d37715f2c09eed8d1e2d09dfd75860e/KAMUTAITO_I_pdf.pdf",
+  },
 ];
 
 export default function Example({
