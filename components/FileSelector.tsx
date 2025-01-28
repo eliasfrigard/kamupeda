@@ -69,7 +69,7 @@ const FileSelector: React.FC<FileSelectorProps> = ({
           setSelected={(value) => handleSetSelected(value)}
         />
 
-        <div className='h-10 gap-2 flex justify-center items-center'>
+        <div className='h-12 gap-2 flex justify-center items-center'>
           {/* Ensure the height of the icons matches the Select component */}
           <div
             onClick={() => handleDownloadSelectedFile(selectedFile)}

@@ -25,13 +25,13 @@ export default function Example({
       }`}
     >
       <Disclosure as='div' defaultOpen={defaultOpen}>
-        <DisclosureButton className='p-4 group flex w-full items-center justify-between bg-gradient-to-br from-primary-500 to-primary-700 hover:bg-primary-600 duration-100'>
+        <DisclosureButton className='p-4 lg:p-5 group flex w-full items-center justify-between bg-gradient-to-br from-primary-500/95 to-primary-700/95 hover:bg-primary-600 duration-150'>
           <span className='text-sm/6 font-semibold tracking-wide'>{title}</span>
           <ChevronDownIcon className='size-6 fill-white/60 group-data-[hover]:fill-white group-data-[open]:rotate-180' />
         </DisclosureButton>
         <DisclosurePanel
           transition
-          className='p-6 text-sm/5 text-white/50 origin-top bg-primary-500 transition duration-200 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0'
+          className='p-5 text-sm/5 text-white/50 origin-top bg-primary-500/95 transition duration-200 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0'
         >
           {children}
         </DisclosurePanel>

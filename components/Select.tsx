@@ -25,7 +25,7 @@ export default function Select({
     <Listbox value={selected} onChange={setSelected}>
       <div className={`relative ${className}`}>
         {/* Button */}
-        <ListboxButton className='relative w-full h-10 cursor-pointer rounded-lg bg-white py-2 pl-1 pr-10 text-left text-black shadow ring-1 ring-black/10 focus:outline-none focus:ring-2 focus:ring-primary-400 sm:text-sm transition-transform duration-200 active:scale-100'>
+        <ListboxButton className='relative w-full h-10 cursor-pointer rounded-lg bg-white py-2 pl-1 pr-10 text-left text-black shadow ring-1 ring-black/10 focus:outline-none focus:ring-2 focus:ring-primary-400 sm:text-sm transition-transform duration-150 active:scale-100'>
           <span className='flex items-center'>
             {selected ? (
               <span className='ml-3 block truncate'>{selected}</span>
