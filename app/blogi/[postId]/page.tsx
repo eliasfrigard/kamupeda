@@ -61,7 +61,7 @@ export default async function Page({ params }: { params: { postId: string } }) {
           <InfoItem label='Viimeksi Päivitetty' value={formattedUpdatedAt} />
           <InfoItem
             label='Kirjoittaja'
-            value={authors.map((author) => author.fields.name).join(", ")}
+            value={authors?.map((author) => author.fields.name).join(", ")}
           />
         </div>
       </div>

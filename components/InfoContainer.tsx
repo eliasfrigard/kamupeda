@@ -26,15 +26,16 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
   return (
     <Disclosure title={title} defaultOpen={false}>
       <div className='grid gap-y-3 lg:grid-cols-2'>
-        {items
-          .filter((item) => item.value) // Filter out empty values
-          .map((item) => (
-            <InfoItem
-              key={item.title}
-              title={item.title}
-              content={item.value}
-            />
-          ))}
+        {items &&
+          items
+            .filter((item) => item.value) // Filter out empty values
+            ?.map((item) => (
+              <InfoItem
+                key={item.title}
+                title={item.title}
+                content={item.value}
+              />
+            ))}
       </div>
     </Disclosure>
   );

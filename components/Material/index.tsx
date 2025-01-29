@@ -27,9 +27,10 @@ const Material = ({
 
   return (
     <div className='container mx-auto grid lg:grid-cols-3 gap-6 items-stretch'>
-      {materialWithInfo.map((m) => {
-        return <MaterialPreview key={m.sys.id} material={m} />;
-      })}
+      {materialWithInfo &&
+        materialWithInfo.map((m) => {
+          return <MaterialPreview key={m.sys.id} material={m} />;
+        })}
     </div>
   );
 };

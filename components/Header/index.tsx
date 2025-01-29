@@ -62,7 +62,7 @@ export default function Example({
           />
         </div>
         <PopoverGroup className='hidden lg:flex lg:gap-x-10'>
-          {navMap.map((page) => {
+          {navMap?.map((page) => {
             const normalizedPageSlug = normalizeSlug(page.title);
 
             if (page?.children?.length) {
@@ -103,7 +103,7 @@ export default function Example({
           <div className='mt-6 flow-root'>
             <div className='-my-6 divide-y divide-accent-700/50'>
               <div className='space-y-2 pb-6 pt-3'>
-                {navMap.map((page) => {
+                {navMap?.map((page) => {
                   const normalizedPageSlug = normalizeSlug(page.title);
 
                   if (page?.children?.length) {

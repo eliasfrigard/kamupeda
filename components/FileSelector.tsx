@@ -26,7 +26,7 @@ const FileSelector: React.FC<FileSelectorProps> = ({
 }) => {
   const [selectedFile, setSelectedFile] = React.useState(files[0]);
 
-  const options = files.map((file) => file.fields.file.fileName);
+  const options = files?.map((file) => file.fields.file.fileName);
 
   const handleSetSelected = (value: string) => {
     const selected = files.find((file) => file.fields.file.fileName === value);
@@ -41,12 +41,12 @@ const FileSelector: React.FC<FileSelectorProps> = ({
 
   const handleDownloadAll = async () => {
     try {
-      const requests = files.map((file) =>
+      const requests = files?.map((file) =>
         fetch(file.fields.file.url).then((res) => res.blob())
       );
       const res = await Promise.all(requests);
 
-      const zippedFiles = res.map((file, index) => ({
+      const zippedFiles = res?.map((file, index) => ({
         name: `${downloadTitle}/${files[index].fields.file.fileName}`,
         input: file,
       }));

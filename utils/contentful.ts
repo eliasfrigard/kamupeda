@@ -120,7 +120,7 @@ export const getPageBySlug = async (slug: string) => {
         const disclosures = Array.isArray(disclosureGroup.fields.disclosures) ? disclosureGroup.fields.disclosures : []
 
         // Fetch disclosures asynchronously
-        const disclosureIds = disclosures.map((disclosure: DisclosureSkeleton) => disclosure.sys.id)
+        const disclosureIds = disclosures?.map((disclosure: DisclosureSkeleton) => disclosure.sys.id)
         // @ts-expect-error TODO:
         disclosureGroup.fields.disclosures = await getDisclosures(disclosureIds)
       }

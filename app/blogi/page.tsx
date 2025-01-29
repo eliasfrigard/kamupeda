@@ -25,11 +25,11 @@ const formatDate = (date: string) => {
 
 export default async function Blog() {
   const blogPosts = await getBlogPostData();
-  const mappedPosts = blogPosts.map(mapBlogPost);
+  const mappedPosts = blogPosts?.map(mapBlogPost);
 
   return (
     <div className='w-screen container grid grid-cols-1 gap-y-12 mx-auto px-4 md:px-6'>
-      {mappedPosts.length &&
+      {mappedPosts?.length &&
         mappedPosts.map((post, index) => (
           <BlogPreview
             reversed={index % 2 === 1}

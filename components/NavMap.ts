@@ -84,8 +84,8 @@ const getIconUrl = async (title: string) => {
 }
 
 export const navMapWithIcons = async () => {
-  const updatedNavMap = await Promise.all(navMap.map(async (item) => {
-    const childrenWithIcons = item.children 
+  const updatedNavMap = await Promise.all(navMap?.map(async (item) => {
+    const childrenWithIcons = item.children
       ? await Promise.all(item.children.map(async (child) => ({
           ...child,
           icon: await getIconUrl(child.title)

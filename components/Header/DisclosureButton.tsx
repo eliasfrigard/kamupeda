@@ -40,7 +40,7 @@ const DisclosureButtonComponent = ({
         className='mt-2 space-y-2 origin-top transition duration-200 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0'
         transition
       >
-        {[...pages].map((item) => (
+        {[...pages]?.map((item) => (
           <DisclosureButton
             onClick={handleOnClick}
             key={item.title}

@@ -210,7 +210,7 @@ const Search: React.FC = () => {
 
       {/* Selected Filter Chips */}
       <div className='flex flex-wrap gap-2'>
-        {Object.entries(filters).map(([key, value]) => {
+        {Object.entries(filters)?.map(([key, value]) => {
           if (!value) return null;
 
           return (
