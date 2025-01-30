@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { mont } from "@/app/fonts";
 
 import "./globals.css";
-import { navMapWithIcons } from "@/components/NavMap";
+// import { navMapWithIcons } from "@/components/NavMap";
 
 // import Header from "../components/Header";
 
@@ -23,8 +23,8 @@ export default async function RootLayout({
   const HEADER_HEIGHT = 84;
   const FOOTER_HEIGHT = 84;
 
-  const navMap = await navMapWithIcons();
-  console.log("🚀 || navMap:", navMap);
+  // const navMap = await navMapWithIcons();
+  // console.log("🚀 || navMap:", navMap);
 
   return (
     <html lang='en' className={mont.className}>
