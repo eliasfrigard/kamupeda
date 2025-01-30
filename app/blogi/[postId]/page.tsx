@@ -1,7 +1,7 @@
 import { normalizeSlug } from "@/utils/normalizeSlug";
-import { getBlogPostData, getPostById } from "@/utils/contentful";
+import { getBlogPostData } from "@/utils/contentful";
 
-import type { BlogPostSkeleton } from "@/types";
+// import type { BlogPostSkeleton } from "@/types";
 
 // import TextLayout from "@/components/TextLayout";
 
@@ -34,15 +34,16 @@ export const generateStaticParams = async () => {
 // };
 
 export default async function Page({ params }: { params: { postId: string } }) {
-  const normalizedId = normalizeSlug(params.postId || "");
+  console.log("🚀 || Page || params:", params);
+  // const normalizedId = normalizeSlug(params.postId || "");
 
-  const page = (await getPostById(normalizedId)) as BlogPostSkeleton;
+  // const page = (await getPostById(normalizedId)) as BlogPostSkeleton;
 
   // const authors = page.fields.authors;
 
-  if (!page) {
-    return <div>BLOG POST not found</div>;
-  }
+  // if (!page) {
+  //   return <div>BLOG POST not found</div>;
+  // }
 
   // const formattedCreatedAt = formatDate(page.sys.createdAt);
   // const formattedUpdatedAt = formatDate(page.sys.updatedAt);
