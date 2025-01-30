@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import { mont } from "@/app/fonts";
 
 import "./globals.css";
-// import { navMapWithIcons } from "@/components/NavMap";
+import { navMapWithIcons } from "@/components/NavMap";
 
-// import Header from "../components/Header";
+import Header from "../components/Header";
 
 export const metadata: Metadata = {
   title: "Kamupeda",
@@ -19,18 +19,16 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { slug: string };
 }>) {
-  console.log("🚀 || params:", params);
   const HEADER_HEIGHT = 84;
   const FOOTER_HEIGHT = 84;
 
-  // const navMap = await navMapWithIcons();
-  // console.log("🚀 || navMap:", navMap);
+  const navMap = await navMapWithIcons();
 
   return (
     <html lang='en' className={mont.className}>
       <body>
         <div>
-          {/* <Header navMap={navMap} slug={params.slug} height={HEADER_HEIGHT} /> */}
+          <Header navMap={navMap} slug={params.slug} height={HEADER_HEIGHT} />
         </div>
         <div
           style={{
