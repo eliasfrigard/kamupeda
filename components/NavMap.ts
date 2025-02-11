@@ -69,6 +69,10 @@ export const navMap: NavItem[] = [
     href: '',
   },
   {
+    title: 'Julkaisut',
+    href: '',
+  },
+  {
     title: 'Yhteystiedot',
     href: '',
   },

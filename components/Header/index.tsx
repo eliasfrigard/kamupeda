@@ -61,7 +61,7 @@ export default function Example({
             handleClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           />
         </div>
-        <PopoverGroup className='hidden lg:flex lg:gap-x-10'>
+        <PopoverGroup className='hidden lg:flex lg:gap-x-7'>
           {navMap?.map((page) => {
             const normalizedPageSlug = normalizeSlug(page.title);
 
