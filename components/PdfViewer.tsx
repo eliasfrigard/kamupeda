@@ -44,7 +44,7 @@ function PdfViewer({ url }: { url: string }) {
         <Document
           file={url}
           onLoadSuccess={onDocumentLoadSuccess}
-          renderMode='canvas' // using canvas render mode
+          renderMode='canvas'
           onLoadError={() => {
             console.log("PDF load error");
           }}
@@ -52,8 +52,8 @@ function PdfViewer({ url }: { url: string }) {
           <Page
             width={divWidth}
             pageNumber={page}
-            renderTextLayer={false} // Disable the text layer
-            renderAnnotationLayer={false} // Disable the annotation layer
+            renderTextLayer={false}
+            renderAnnotationLayer={false}
           />
         </Document>
       </div>
@@ -62,20 +62,6 @@ function PdfViewer({ url }: { url: string }) {
         currentPage={page}
         onPageChange={(newPage) => setPage(newPage)}
       />
-      {/* {!(page <= 1 && page >= pages) && (
-        <div className='w-full lg:w-fit flex justify-between lg:mt-4 gap-3 lg:gap-12'>
-          <Button onClick={() => setPage(page - 1)} disabled={page <= 1}>
-            Edellinen
-          </Button>
-          <div className='hidden lg:flex justify-center items-center gap-2 '>
-            <p className='font-semibold'>{page}</p>
-            <p className='text-xs opacity-60 mb-[2px]'>({pages})</p>
-          </div>
-          <Button onClick={() => setPage(page + 1)} disabled={page >= pages}>
-            Seuraava
-          </Button>
-        </div>
-      )} */}
     </>
   );
 }
