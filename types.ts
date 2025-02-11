@@ -49,6 +49,7 @@ export type Material = {
   files: Asset[]
   key: string
   mode: string
+  timeSignature: string
   instrument: string
   difficulty: number
   style: string

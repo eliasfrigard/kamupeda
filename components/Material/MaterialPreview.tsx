@@ -41,6 +41,7 @@ const MaterialPreview: React.FC<MaterialPreviewProps> = ({ material }) => {
         <Chip>
           {m.key && m.mode ? `${m.key}-${m.mode}` : m.key || m.mode || ""}
         </Chip>
+        <Chip>{m.timeSignature}</Chip>
         <Chip>{m.style}</Chip>
         <Chip>{m.origin}</Chip>
         <Chip>{m.ensemble}</Chip>

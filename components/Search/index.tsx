@@ -24,6 +24,7 @@ const Search: React.FC = () => {
 
   const [keyValues, setKeyValues] = useState([]);
   const [modeValues, setModeValues] = useState([]);
+  const [timeSignatureValues, setTimeSignatureValues] = useState([]);
   const [difficultyValues, setDifficultyValues] = useState([]);
   const [instrumentValues, setInstrumentValues] = useState([]);
   const [styleValues, setStyleValues] = useState([]);
@@ -37,6 +38,7 @@ const Search: React.FC = () => {
   const [filters, setFilters] = useState({
     key: "",
     mode: "",
+    timeSignature: "",
     difficulty: "",
     instrument: "",
     style: "",
@@ -56,6 +58,9 @@ const Search: React.FC = () => {
 
         const keyField = data.fields.find((field) => field.id === "key");
         const modeField = data.fields.find((field) => field.id === "mode");
+        const timeSignatureField = data.fields.find(
+          (field) => field.id === "timeSignature"
+        );
         const difficultyField = data.fields.find(
           (field) => field.id === "difficulty"
         );
@@ -71,6 +76,7 @@ const Search: React.FC = () => {
 
         setKeyValues(keyField?.validations[0]?.in);
         setModeValues(modeField?.validations[0]?.in);
+        setTimeSignatureValues(timeSignatureField?.validations[0]?.in);
         setDifficultyValues(difficultyField?.validations[0]?.in);
         setInstrumentValues(instrumentField?.validations[0]?.in);
         setOriginValues(originField?.validations[0]?.in);
@@ -124,6 +130,7 @@ const Search: React.FC = () => {
     setFilters({
       key: "",
       mode: "",
+      timeSignature: "",
       difficulty: "",
       instrument: "",
       style: "",
@@ -175,6 +182,12 @@ const Search: React.FC = () => {
             setSelected={(value) => handleFilterChange("mode", value)}
             options={modeValues}
             placeholder='Asteikko'
+          />
+          <Select
+            selected={filters.timeSignature}
+            setSelected={(value) => handleFilterChange("timeSignature", value)}
+            options={timeSignatureValues}
+            placeholder='Tahtilaji'
           />
           <Select
             selected={filters.difficulty}

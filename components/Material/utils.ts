@@ -7,6 +7,7 @@ export const skeletonToMaterial = (skeleton: any) => {
     files: skeleton.fields.files,
     key: skeleton.fields.key,
     mode: skeleton.fields.mode,
+    timeSignature: skeleton.fields.timeSignature,
     instrument: skeleton.fields.instrument,
     difficulty: skeleton.fields.difficulty,
     style: skeleton.fields.style,

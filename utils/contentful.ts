@@ -106,6 +106,9 @@ export const searchMaterialData = async ({
   if (filters.ensemble) {
     query['fields.ensemble'] = filters.ensemble
   }
+  if (filters.timeSignature) {
+    query['fields.timeSignature'] = filters.timeSignature
+  }
 
   if (searchQuery) {
     query.query = searchQuery
