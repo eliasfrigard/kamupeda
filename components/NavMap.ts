@@ -54,6 +54,10 @@ export const navMap: NavItem[] = [
         title: 'Tanssi',
         href: '',
       },
+      {
+        title: 'Haku',
+        href: '',
+      },
     ]
   },
   {

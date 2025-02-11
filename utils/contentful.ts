@@ -39,17 +39,38 @@ export const getBlogPostData = async (): Promise<Entry<BlogPostSkeleton>[]> => {
   return pageRes.items
 }
 
-export const getMaterialData = async (): Promise<Entry<MaterialSkeleton>[]> => {
-  const client = getContentfulClient()
+type GetMaterialDataParams = {
+  sortByInstrument?: boolean; // Optional parameter
+  forEnsemble?: boolean; // Optional parameter to filter based on 'forEnsemble' field
+  forDance?: boolean; // Optional parameter to filter based on 'forDance' field
+};
 
-  const response = await client.getEntries<MaterialSkeleton>({
+export const getMaterialData = async ({
+  sortByInstrument = false, // Default value is false if not provided
+  forEnsemble, // The filter value, optional
+  forDance, // The filter value, optional
+}: GetMaterialDataParams = {}): Promise<Entry<MaterialSkeleton>[]> => {
+  const client = getContentfulClient();
+
+  const query: Record<string, unknown> = {
     content_type: 'material',
-    // @ts-expect-error TODO: Don't know how to handle yet.
-    order: '-sys.createdAt',
-  })
+    // Apply dynamic sorting
+    order: sortByInstrument ? "fields.instrument" : "-sys.createdAt",
+  };
 
-  return response.items
-}
+  // Apply filter for 'ensemble' field having a value
+  if (forEnsemble !== undefined) {
+    query['fields.ensemble[exists]'] = true; // Filter where 'ensemble' field exists
+  }
+
+  // Apply filter for 'forDance' being set to true
+  if (forDance !== undefined) {
+    query['fields.forDance'] = true; // Filter where 'forDance' is explicitly true
+  }
+
+  const { items } = await client.getEntries<MaterialSkeleton>(query);
+  return items;
+};
 
 export const searchMaterialData = async ({
   searchQuery,

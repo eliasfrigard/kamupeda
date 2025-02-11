@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import useStickyState from "../../hooks/useStickyState";
 
 import Material from "../Material";
 import type { Entry } from "contentful";
@@ -19,7 +20,7 @@ const Search: React.FC = () => {
 
   const [debouncedQuery, setDebouncedQuery] = useState(query);
   const [loading, setLoading] = useState(true);
-  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useStickyState(false, "filtersOpen");
 
   const [keyValues, setKeyValues] = useState([]);
   const [modeValues, setModeValues] = useState([]);
