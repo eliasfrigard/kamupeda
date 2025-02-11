@@ -11,7 +11,7 @@ import { useState } from "react";
 import { Dialog, DialogPanel, PopoverGroup } from "@headlessui/react";
 import { normalizeSlug } from "../../utils/normalizeSlug";
 
-const callsToAction = [
+const materialCallsToAction = [
   {
     name: "Lataa Kamutaito 1",
     href: "https://assets.ctfassets.net/nqeymplwbzvw/5kedhcDhw5FiOuhwx2YzXf/4d37715f2c09eed8d1e2d09dfd75860e/KAMUTAITO_I_pdf.pdf",
@@ -72,7 +72,11 @@ export default function Example({
                   title={page.title}
                   pages={page.children}
                   parent={normalizedPageSlug}
-                  callsToAction={callsToAction}
+                  callsToAction={
+                    normalizedPageSlug === "materiaalit"
+                      ? materialCallsToAction
+                      : undefined
+                  }
                 />
               );
             }

@@ -34,12 +34,12 @@ const DisclosureButtonComponent = ({
   title,
   pages,
   parent,
-  callsToAction,
+  callsToAction = [],
 }: {
   title: string;
   pages: NavItem[];
   parent: string;
-  callsToAction: CallToAction[];
+  callsToAction?: CallToAction[];
 }) => {
   const [items, setItems] = useState<PageChild[]>([]);
 
