@@ -10,7 +10,7 @@ import {
   DisclosurePanel,
 } from "@headlessui/react";
 
-import { FaChevronCircleUp } from "react-icons/fa";
+import { FaChevronUp } from "react-icons/fa";
 
 type InstrumentSectionProps = {
   category: string;
@@ -19,7 +19,7 @@ type InstrumentSectionProps = {
 
 const InstrumentSection = ({ category, materials }: InstrumentSectionProps) => {
   return (
-    <Disclosure defaultOpen>
+    <Disclosure defaultOpen={false}>
       {({ open }) => (
         <>
           <DisclosureButton className='flex flex-col'>
@@ -27,7 +27,7 @@ const InstrumentSection = ({ category, materials }: InstrumentSectionProps) => {
               <h3 className='text-2xl text-primary-700 font-semibold tracking-wide'>
                 {category}
               </h3>
-              <FaChevronCircleUp
+              <FaChevronUp
                 className={`text-2xl text-primary-700 transition-transform duration-300 ease-in-out transform ${
                   !open ? "rotate-180" : ""
                 }`}
