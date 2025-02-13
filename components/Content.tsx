@@ -114,7 +114,7 @@ const ContentBlock: React.FC<{ block: PageContent; index: number }> = ({
 
 const Content: React.FC<PageContentProps> = ({ pageContent }) => {
   return (
-    <div className='container mx-auto w-full min-h-screen flex flex-col items-center gap-8 md:gap-12 text-black px-6 lg:px-4'>
+    <div className='container mx-auto w-full flex flex-col items-center gap-8 md:gap-12 text-black px-6 lg:px-4'>
       {pageContent &&
         pageContent.map((block, index) => {
           // Pass block and index as an object to ContentBlock

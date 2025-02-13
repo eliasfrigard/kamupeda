@@ -88,15 +88,21 @@ const TextLayout = ({ text, className }) => {
     });
   });
 
-  const textContent = text?.content.filter((v) => {
-    if (v.nodeType !== "paragraph") return true;
+  text?.content.forEach((t) => {
+    if (t?.nodeType !== "paragraph") return;
 
-    return v.content[0].value.length > 0;
+    t.content = t?.content.filter((v) => {
+      if (v.value?.length <= 0) {
+        return false;
+      }
+
+      return true;
+    });
   });
 
   const textDocument = {
     ...text,
-    content: textContent,
+    content: text.content,
   };
 
   return (
