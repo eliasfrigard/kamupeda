@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import useStickyState from "../../hooks/useStickyState";
+import { PiMusicNoteSimpleFill } from "react-icons/pi";
 
 import Material from "../Material";
 import type { Entry } from "contentful";
@@ -148,16 +149,16 @@ const Search: React.FC = () => {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder='Hae materiaalia...'
-            className='w-full h-12 px-5 text-black placeholder-black/50 bg-white rounded-full shadow-inner focus:outline-none focus:ring-2 focus:ring-primary-300 ring-black/10 ring-1 transition-all duration-300'
+            className='w-full h-12 px-5 text-black placeholder-black/50 bg-white rounded-full shadow-inner focus:outline-none focus:ring-2 focus:ring-accent-500 ring-primary-700/10 ring-1 transition-all duration-300'
           />
           <IconButton
             icon={<IoFilterSharp />}
-            className='flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 text-white rounded-full shadow-lg hover:scale-105 active:scale-95 focus:ring-2 focus:ring-primary-400 transition-transform duration-300'
+            className='flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 text-white rounded-full shadow-lg hover:scale-105 active:scale-95 focus:ring-2 focus:ring-accent-500 transition-transform duration-300'
             onClick={() => setFiltersOpen(!filtersOpen)}
           />
           <IconButton
             icon={<FaRegTrashAlt />}
-            className='flex items-center justify-center w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 text-white rounded-full shadow-lg hover:scale-105 active:scale-95 focus:ring-2 focus:ring-accent-400 transition-transform duration-300'
+            className='flex items-center justify-center w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 text-white rounded-full shadow-lg hover:scale-105 active:scale-95 focus:ring-2 focus:ring-accent-500 transition-transform duration-300'
             onClick={() => resetSearch()}
           />
         </div>
@@ -165,9 +166,9 @@ const Search: React.FC = () => {
         {/* Filter options */}
 
         <div
-          className={`grid md:grid-cols-2 gap-y-2 gap-x-4 bg-opacity-80 transition-all duration-200 ease-in-out ${
+          className={`grid lg:grid-cols-3 gap-4 mx-3 bg-opacity-80 transition-all duration-200 ease-in-out ${
             filtersOpen
-              ? "max-h-screen opacity-100 mt-4"
+              ? "max-h-screen opacity-100 mt-6"
               : "max-h-0 opacity-0 overflow-hidden"
           }`}
         >
@@ -229,7 +230,11 @@ const Search: React.FC = () => {
 
           return (
             <Chip key={key} onDelete={() => handleFilterChange(key, "")}>
-              {value}
+              {key === "difficulty"
+                ? Array.from({ length: parseInt(value) }, (_, i) => (
+                    <PiMusicNoteSimpleFill key={i} className='text-xl' />
+                  ))
+                : value}
             </Chip>
           );
         })}
