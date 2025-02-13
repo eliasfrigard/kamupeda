@@ -36,7 +36,7 @@ export default async function RootLayout({
             minHeight: `calc(100vh - ${FOOTER_HEIGHT}px)`,
           }}
         >
-          <div className='py-8 lg:py-12 overflow-x-hidden content-height flex flex-col bg-gray-50/70'>
+          <div className='py-8 lg:py-16 overflow-x-hidden content-height flex flex-col bg-gray-50/70'>
             {children}
           </div>
         </div>
