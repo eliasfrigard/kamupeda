@@ -39,7 +39,7 @@ const InstrumentSection = ({ category, materials }: InstrumentSectionProps) => {
             transition
             className='origin-top transition duration-200 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0'
           >
-            {open && <Material materialWithInfo={materials} loading={false} />}
+            <Material materialWithInfo={materials} loading={false} />
           </DisclosurePanel>
         </>
       )}
