@@ -15,10 +15,8 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-  params,
 }: Readonly<{
   children: React.ReactNode;
-  params: { slug: string };
 }>) {
   const HEADER_HEIGHT = 84;
   const FOOTER_HEIGHT = 84;
@@ -29,7 +27,7 @@ export default async function RootLayout({
     <html lang='en' className={mont.className}>
       <body>
         <div>
-          <Header navMap={navMap} slug={params.slug} height={HEADER_HEIGHT} />
+          <Header navMap={navMap} height={HEADER_HEIGHT} />
         </div>
         <div
           style={{

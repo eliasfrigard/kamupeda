@@ -3,10 +3,11 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
+import { FaChevronDown } from "react-icons/fa";
 
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import type { NavItem } from "../NavMap";
 import { normalizeSlug } from "../../utils/normalizeSlug";
 
@@ -46,6 +47,8 @@ const DisclosureButtonComponent = ({
   const hasCallToAction = callsToAction.length > 0;
   const hasOneCallToAction = callsToAction.length === 1;
 
+  const pathname = usePathname();
+
   useEffect(() => {
     const loadItems = async () => {
       const transformedItems = pagesToItems(pages);
@@ -55,15 +58,25 @@ const DisclosureButtonComponent = ({
     loadItems();
   }, [pages]);
 
+  const isActivePath = pathname.includes(normalizeSlug(title));
+
   return (
-    <Popover className='relative'>
+    <Popover className='relative group'>
       {({ close }) => (
         <>
-          <PopoverButton className='flex items-center gap-x-1 text-sm font-medium leading-6 -mr-3 outline-none'>
+          <PopoverButton
+            className={`flex group items-center gap-x-1.5 text-sm font-medium leading-6 -mr-3 outline-none hover:text-accent-500 duration-100 ${
+              isActivePath
+                ? "text-accent-500 font-semibold"
+                : "text-secondary-400"
+            }`}
+          >
             {title}
-            <ChevronDownIcon
+            <FaChevronDown
               aria-hidden='true'
-              className='h-5 w-5 flex-none text-gray-400'
+              className={`text-sm flex-none -mb-[1px] group-hover:text-accent-500 duration-100 group-data-[open]:rotate-180 ${
+                isActivePath ? "text-accent-500" : "text-secondary-400"
+              }`}
             />
           </PopoverButton>
           <PopoverPanel
@@ -74,7 +87,11 @@ const DisclosureButtonComponent = ({
               {items?.map((page) => (
                 <div
                   key={page.title}
-                  className='group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-accent-500 duration-150 text-gray-900 hover:text-white'
+                  className={`group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gradient-to-r hover:from-primary-500 hover:to-primary-600 duration-150 text-gray-900 hover:text-white ${
+                    pathname.includes(normalizeSlug(page.title))
+                      ? "bg-gradient-to-r from-accent-500 to-accent-600 text-secondary-500"
+                      : ""
+                  }`}
                 >
                   <div className='flex h-11 w-11 flex-none items-center justify-center rounded-lg'>
                     {page.icon && (
@@ -90,7 +107,7 @@ const DisclosureButtonComponent = ({
                     <Link
                       onClick={() => close()}
                       href={`/${parent}/${normalizeSlug(page.title)}`}
-                      className='block font-medium'
+                      className={`block font-medium tracking-wide`}
                     >
                       {page.title}
                       <span className='absolute inset-0' />

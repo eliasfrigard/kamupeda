@@ -12,6 +12,7 @@ import { Dialog, DialogPanel, PopoverGroup } from "@headlessui/react";
 import { normalizeSlug } from "../../utils/normalizeSlug";
 import Divider from "../Divider";
 import { copyright, creator } from "@/utils/texts";
+import { usePathname } from "next/navigation";
 
 const materialCallsToAction = [
   {
@@ -21,19 +22,18 @@ const materialCallsToAction = [
 ];
 
 export default function Example({
-  slug,
   height,
   navMap,
 }: {
-  slug: string;
   height: number;
   navMap: NavItem[];
 }) {
+  const currentPath = usePathname();
+
   const isActive = (page: string) => {
     const normalizedPageSlug = normalizeSlug(page);
-    return normalizedPageSlug === slug;
+    return currentPath.includes(normalizedPageSlug);
   };
-  isActive("Koti");
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -66,6 +66,7 @@ export default function Example({
         <PopoverGroup className='hidden lg:flex lg:gap-x-7'>
           {navMap?.map((page) => {
             const normalizedPageSlug = normalizeSlug(page.title);
+            const activePath = isActive(page.title);
 
             if (page?.children?.length) {
               return (
@@ -87,7 +88,11 @@ export default function Example({
               <Link
                 key={normalizedPageSlug}
                 href={"/" + normalizedPageSlug}
-                className='text-sm font-medium leading-6'
+                className={`text-sm font-medium leading-6 ${
+                  activePath
+                    ? "text-accent-500 font-semibold"
+                    : "text-secondary-400"
+                } hover:text-accent-500 duration-100`}
               >
                 {page.title}
               </Link>
