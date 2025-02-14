@@ -6,6 +6,7 @@ import "./globals.css";
 import { navMapWithIcons } from "@/components/NavMap";
 
 import Header from "../components/Header";
+import { copyright, creator } from "../utils/texts";
 
 export const metadata: Metadata = {
   title: "Kamupeda",
@@ -44,8 +45,8 @@ export default async function RootLayout({
           <div
             className={`container mx-auto h-full flex flex-col items-center justify-center text-black opacity-50 gap-1`}
           >
-            <p className='text-sm font-caveat'>Copyright © 2024 Kamupeda</p>
-            <p className='text-xs'>Website by Elias Frigård</p>
+            <p className='text-sm font-caveat'>{copyright()}</p>
+            <p className='text-xs'>{creator}</p>
           </div>
         </div>
       </body>

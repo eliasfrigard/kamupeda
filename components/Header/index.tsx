@@ -10,6 +10,8 @@ import { dancingScript } from "@/app/fonts";
 import { useState } from "react";
 import { Dialog, DialogPanel, PopoverGroup } from "@headlessui/react";
 import { normalizeSlug } from "../../utils/normalizeSlug";
+import Divider from "../Divider";
+import { copyright, creator } from "@/utils/texts";
 
 const materialCallsToAction = [
   {
@@ -104,38 +106,41 @@ export default function Example({
         className='lg:hidden fixed inset-0 flex w-screen items-center justify-center  transition duration-300 ease-out data-[closed]:opacity-0 z-50'
       >
         <DialogPanel className='px-6 fixed top-[84px] inset-y-0 right-0 z-10 w-full overflow-y-auto bg-gradient-to-r from-primary-700 to-primary-800 text-white sm:max-w-sm sm:ring-1 sm:ring-gray-900/10'>
-          <div className='mt-6 flow-root'>
-            <div className='-my-6 divide-y divide-accent-700/50'>
-              <div className='space-y-2 pb-6 pt-3'>
-                {navMap?.map((page) => {
-                  const normalizedPageSlug = normalizeSlug(page.title);
+          <div className='mt-3 flow-root'>
+            <div className='space-y-2 pb-6 pt-3'>
+              {navMap?.map((page) => {
+                const normalizedPageSlug = normalizeSlug(page.title);
 
-                  if (page?.children?.length) {
-                    return (
-                      <DisclosureButtonComponent
-                        key={normalizedPageSlug}
-                        title={page.title}
-                        parent={normalizedPageSlug}
-                        pages={page.children}
-                        textColor='text-white'
-                        handleOnClick={() => setMobileMenuOpen(false)}
-                      />
-                    );
-                  }
-
+                if (page?.children?.length) {
                   return (
-                    <Link
-                      onClick={() => setMobileMenuOpen(false)}
+                    <DisclosureButtonComponent
                       key={normalizedPageSlug}
-                      href={normalizedPageSlug}
-                      className='-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 hover:bg-accent-500 lg:hover:bg-gray-50'
-                    >
-                      {page.title}
-                    </Link>
+                      title={page.title}
+                      parent={normalizedPageSlug}
+                      pages={page.children}
+                      textColor='text-white'
+                      handleOnClick={() => setMobileMenuOpen(false)}
+                    />
                   );
-                })}
-              </div>
-              <div className='py-6'></div>
+                }
+
+                return (
+                  <Link
+                    onClick={() => setMobileMenuOpen(false)}
+                    key={normalizedPageSlug}
+                    href={normalizedPageSlug}
+                    className='-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 hover:bg-accent-500 lg:hover:bg-gray-50'
+                  >
+                    {page.title}
+                  </Link>
+                );
+              })}
+            </div>
+            <Divider />
+
+            <div className='flex flex-col gap-2 py-4 opacity-60'>
+              <p className='text-sm font-semibold'>{copyright()}</p>
+              <p className='text-xs font-medium'>{creator}</p>
             </div>
           </div>
         </DialogPanel>

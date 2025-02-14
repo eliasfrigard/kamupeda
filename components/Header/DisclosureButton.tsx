@@ -7,6 +7,7 @@ import {
 } from "@headlessui/react";
 
 import Link from "next/link";
+import Divider from "../Divider";
 import { NavItem } from "../NavMap";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { normalizeSlug } from "@/utils/normalizeSlug";
@@ -53,7 +54,7 @@ const DisclosureButtonComponent = ({
           </DisclosureButton>
         ))}
         <div className='w-full px-4'>
-          <div className='w-full h-[1px] bg-accent-500/50'></div>
+          <Divider />
         </div>
       </DisclosurePanel>
     </Disclosure>
