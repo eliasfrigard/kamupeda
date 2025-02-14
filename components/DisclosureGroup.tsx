@@ -27,7 +27,7 @@ const DisclosureGroup: React.FC<DisclosureGroupProps> = ({ disclosures }) => {
                 />
               </Disclosure>
               {i < disclosures.length - 1 && (
-                <hr className='w-full border border-black/5' />
+                <hr className='w-full border border-black/5 my-0 py-0' />
               )}
             </>
           );
