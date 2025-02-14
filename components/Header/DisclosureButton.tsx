@@ -47,7 +47,7 @@ const DisclosureButtonComponent = ({
             key={item.title}
             as={Link}
             href={`/${parent}/${normalizeSlug(item.title)}`}
-            className={`flex items-center gap-3 text-accent-500 rounded-lg py-1.5 pl-4 pr-3 text-sm font-semibold leading-7 ${textColor} hover:bg-gray-50`}
+            className={`flex items-center gap-3 text-accent-500 rounded-lg py-1.5 pl-4 pr-3 text-sm font-semibold leading-7 ${textColor} hover:bg-accent-500`}
           >
             <FaArrowRight className='text-xs inline-block' />
             {item.title}
