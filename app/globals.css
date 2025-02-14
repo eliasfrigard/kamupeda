@@ -8,6 +8,11 @@
   box-sizing: border-box;
 }
 
+::selection {
+  background-color: theme('colors.accent.500');
+  color: theme('colors.secondary.500');
+}
+
 h1,
 h2,
 h3,
