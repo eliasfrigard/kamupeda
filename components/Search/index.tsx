@@ -44,10 +44,8 @@ const Search: React.FC = () => {
   const [originValues, setOriginValues] = useState<(string | number)[]>([]);
   const [ensembleValues, setEnsembleValues] = useState<(string | number)[]>([]);
 
-  const [filtersOpen, setFiltersOpen] = useStickyState(false, "filtersOpen");
   const [layout, setLayout] = useStickyState("grid", "layout");
   const [order, setOrder] = useStickyState("fields.title", "order");
-  const [sortAsc, setSortAsc] = useStickyState(true, "sortOption");
 
   const [filterIsSelected, setFilterIsSelected] = useState(false);
   console.log("🚀 || Blog || filterIsSelected:", filterIsSelected);
