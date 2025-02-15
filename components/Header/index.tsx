@@ -141,7 +141,7 @@ export default function Example({
                   <Link
                     onClick={() => setMobileMenuOpen(false)}
                     key={normalizedPageSlug}
-                    href={normalizedPageSlug}
+                    href={"/" + normalizedPageSlug}
                     className={`-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 hover:bg-accent-500 xl:hover:bg-gray-50 ${
                       activePath ? "bg-accent-500" : ""
                     }`}
