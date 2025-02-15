@@ -18,17 +18,21 @@ const GridListSelector: React.FC<GridListSelectorProps> = ({
       <IconButton
         icon={<IoGrid />}
         onClick={() => onSelect("grid")}
-        className={`${
-          selected === "grid" ? "bg-accent-500" : "bg-primary-500"
+        className={`bg-gradient-to-br duration-100 ${
+          selected === "grid"
+            ? "from-primary-400 to-primary-600"
+            : "from-accent-400 to-accent-600 opacity-60 hover:opacity-100"
         }`}
-      ></IconButton>
+      />
       <IconButton
         icon={<FaList />}
         onClick={() => onSelect("list")}
-        className={`${
-          selected === "list" ? "bg-accent-500" : "bg-primary-500"
+        className={`bg-gradient-to-br duration-100 ${
+          selected === "list"
+            ? "from-primary-400 to-primary-600"
+            : "from-accent-400 to-accent-600 opacity-60 hover:opacity-100"
         }`}
-      ></IconButton>
+      />
     </div>
   );
 };

@@ -75,9 +75,11 @@ export const getMaterialData = async ({
 export const searchMaterialData = async ({
   searchQuery,
   filters,
+  sort = 'fields.title', // Default sorting parameter
 }: {
   searchQuery: string
   filters: Record<string, string>
+  sort?: string // Optional sorting parameter
 }): Promise<Entry<MaterialSkeleton>[]> => {
   const client = getContentfulClient()
 
@@ -112,6 +114,10 @@ export const searchMaterialData = async ({
 
   if (searchQuery) {
     query.query = searchQuery
+  }
+
+  if (sort) {
+    query.order = sort // Contentful uses "order" for sorting
   }
 
   const { items } = await client.getEntries<MaterialSkeleton>(query)

@@ -29,17 +29,25 @@ const Search: React.FC = () => {
   const [debouncedQuery, setDebouncedQuery] = useState(query);
   const [loading, setLoading] = useState(true);
 
-  const [keyValues, setKeyValues] = useState([]);
-  const [modeValues, setModeValues] = useState([]);
-  const [timeSignatureValues, setTimeSignatureValues] = useState([]);
-  const [difficultyValues, setDifficultyValues] = useState([]);
-  const [instrumentValues, setInstrumentValues] = useState([]);
-  const [styleValues, setStyleValues] = useState([]);
-  const [originValues, setOriginValues] = useState([]);
-  const [ensembleValues, setEnsembleValues] = useState([]);
+  const [keyValues, setKeyValues] = useState<(string | number)[]>([]);
+  const [modeValues, setModeValues] = useState<(string | number)[]>([]);
+  const [timeSignatureValues, setTimeSignatureValues] = useState<
+    (string | number)[]
+  >([]);
+  const [difficultyValues, setDifficultyValues] = useState<(string | number)[]>(
+    []
+  );
+  const [instrumentValues, setInstrumentValues] = useState<(string | number)[]>(
+    []
+  );
+  const [styleValues, setStyleValues] = useState<(string | number)[]>([]);
+  const [originValues, setOriginValues] = useState<(string | number)[]>([]);
+  const [ensembleValues, setEnsembleValues] = useState<(string | number)[]>([]);
 
   const [filtersOpen, setFiltersOpen] = useStickyState(false, "filtersOpen");
   const [layout, setLayout] = useStickyState("grid", "layout");
+  const [order, setOrder] = useStickyState("fields.title", "order");
+  const [sortAsc, setSortAsc] = useStickyState(true, "sortOption");
 
   const [filterIsSelected, setFilterIsSelected] = useState(false);
   console.log("🚀 || Blog || filterIsSelected:", filterIsSelected);
@@ -114,6 +122,7 @@ const Search: React.FC = () => {
     const fetchData = async () => {
       try {
         const data = await searchMaterialData({
+          sort: order,
           searchQuery: debouncedQuery.trim(),
           filters,
         });
@@ -126,7 +135,7 @@ const Search: React.FC = () => {
     };
 
     fetchData();
-  }, [debouncedQuery, filters]);
+  }, [debouncedQuery, filters, order]);
 
   const handleFilterChange = (filterKey: string, value: string) => {
     setFilters((prevFilters) => ({
@@ -164,13 +173,13 @@ const Search: React.FC = () => {
             <DisclosureButton>
               <IconButton
                 icon={<IoFilterSharp />}
-                className='flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 text-white rounded-full shadow-lg hover:scale-105 active:scale-95 focus:ring-2 focus:ring-accent-500 transition-transform duration-300'
+                className='flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-400 to-primary-600 text-white rounded-full shadow-lg hover:scale-105 active:scale-95 focus:ring-2 focus:ring-accent-500 transition-transform duration-300'
                 onClick={() => console.log("Filter clicked")}
               />
             </DisclosureButton>
             <IconButton
               icon={<FaRegTrashAlt />}
-              className='flex items-center justify-center w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 text-white rounded-full shadow-lg hover:scale-105 active:scale-95 focus:ring-2 focus:ring-accent-500 transition-transform duration-300'
+              className='flex items-center justify-center w-12 h-12 bg-gradient-to-br from-accent-400 to-accent-600 text-white rounded-full shadow-lg hover:scale-105 active:scale-95 focus:ring-2 focus:ring-accent-500 transition-transform duration-300'
               onClick={() => resetSearch()}
             />
           </div>
@@ -251,10 +260,33 @@ const Search: React.FC = () => {
           })}
         </div>
 
-        <GridListSelector
-          selected={layout}
-          onSelect={(item) => setLayout(item)}
-        />
+        <div className='flex gap-2'>
+          <div className='flex gap-2 border-r border-primary-700/20 pr-2'>
+            <Select
+              className='w-[350px]'
+              selected={order}
+              setSelected={(order) => setOrder(order)}
+              options={[
+                { label: "Otsikko A-Ö", value: "fields.title" },
+                { label: "Otsikko Ö-A", value: "-fields.title" },
+                { label: "Vaikeustaso", value: "fields.difficulty" },
+                { label: "Luontiaika (uusin ensin)", value: "-sys.createdAt" },
+                { label: "Luontiaika (vanhin ensin)", value: "sys.createdAt" },
+              ]}
+            />
+
+            {/* <IconButton
+              icon={sortAsc ? <FaSortAmountDown /> : <FaSortAmountUp />}
+              className={`${filtersOpen ? "bg-primary-500" : "bg-primary-500"}`}
+              onClick={() => setSortAsc(!sortAsc)}
+            /> */}
+          </div>
+
+          <GridListSelector
+            selected={layout}
+            onSelect={(item) => setLayout(item)}
+          />
+        </div>
       </div>
 
       <Material layout={layout} loading={loading} materialWithInfo={material} />

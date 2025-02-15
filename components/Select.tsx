@@ -9,6 +9,8 @@ import {
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { PiMusicNoteSimpleFill } from "react-icons/pi";
 
+export type SelectOption = { label: string; value: string };
+
 export default function Select({
   options,
   selected,
@@ -16,12 +18,22 @@ export default function Select({
   placeholder = "Select an option",
   className,
 }: {
-  options: string[];
+  options: SelectOption[] | (string | number)[];
   selected: string;
   setSelected: (value: string) => void;
   placeholder?: string;
   className?: string;
 }) {
+  const normalizedOptions: SelectOption[] = options.map((option) =>
+    typeof option === "string" || typeof option === "number"
+      ? { label: option, value: option }
+      : option
+  );
+
+  const selectedLabel = normalizedOptions.find(
+    (option) => option.value === selected
+  )?.label;
+
   return (
     <Listbox value={selected} onChange={setSelected}>
       <div className={`relative ${className}`}>
@@ -29,7 +41,7 @@ export default function Select({
         <ListboxButton className='relative w-full h-10 cursor-pointer rounded-lg bg-white py-2 pl-1 pr-10 text-left text-black shadow ring-1 ring-primary-700/10 focus:outline-none focus:ring-2 focus:ring-accent-500 sm:text-sm transition-transform duration-150 active:scale-100'>
           <span className='flex items-center'>
             {selected ? (
-              <span className='ml-3 block truncate'>{selected}</span>
+              <span className='ml-3 block truncate'>{selectedLabel}</span>
             ) : (
               <span className='ml-3 block truncate opacity-50'>
                 {placeholder}
@@ -45,16 +57,16 @@ export default function Select({
         </ListboxButton>
 
         <ListboxOptions className='absolute mt-2 w-full max-h-56 overflow-auto rounded-lg bg-white py-1 text-base text-black shadow-lg ring-1 ring-primary-700/10 focus:outline-none sm:text-sm z-50'>
-          {options?.map((option) => (
+          {normalizedOptions?.map((option) => (
             <ListboxOption
-              key={option}
-              value={option}
+              key={option.label}
+              value={option.value}
               className='group relative cursor-pointer select-none py-2 pl-4 pr-9 hover:bg-primary-500 focus:bg-primary-500 transition-colors ease-in-out hover:text-white'
             >
               <div className='flex items-center'>
                 {placeholder === "Vaikeustaso" ? (
                   <span className='truncate py-1 font-normal group-data-[selected]:font-semibold flex'>
-                    {Array.from({ length: parseInt(option) }, (_, i) => (
+                    {Array.from({ length: parseInt(option.value) }, (_, i) => (
                       <PiMusicNoteSimpleFill
                         key={i}
                         className='text-accent-500 text-xl'
@@ -63,7 +75,7 @@ export default function Select({
                   </span>
                 ) : (
                   <span className='py-1 block truncate font-normal group-data-[selected]:font-semibold'>
-                    {option}
+                    {option.label}
                   </span>
                 )}
               </div>
