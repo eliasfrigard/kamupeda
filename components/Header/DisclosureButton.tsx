@@ -50,7 +50,7 @@ const DisclosureButtonComponent = ({
   const isActivePath = pathname.includes(normalizeSlug(title));
 
   return (
-    <Disclosure as='div' className='-mx-3'>
+    <Disclosure defaultOpen={isActivePath} as='div' className='-mx-3'>
       <DisclosureButton
         className={`group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 hover:bg-accent-500 lg:hover:bg-gray-50 ${
           isActivePath ? "bg-accent-500" : ""
@@ -76,7 +76,7 @@ const DisclosureButtonComponent = ({
               as={Link}
               href={`/${parent}/${normalizeSlug(item.title)}`}
               className={`flex items-center gap-3 text-accent-500 rounded-lg py-1.5 pl-4 pr-3 text-sm font-semibold leading-7 ${textColor} hover:bg-accent-500 ${
-                isActiveSubPath ? "bg-accent-500" : ""
+                isActiveSubPath ? "bg-accent-500 font-bold" : ""
               }`}
             >
               {item.icon ? (

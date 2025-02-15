@@ -122,6 +122,7 @@ export default function Example({
             <div className='space-y-2 pb-6 pt-3'>
               {navMap?.map((page) => {
                 const normalizedPageSlug = normalizeSlug(page.title);
+                const activePath = isActive(page.title);
 
                 if (page?.children?.length) {
                   return (
@@ -141,7 +142,9 @@ export default function Example({
                     onClick={() => setMobileMenuOpen(false)}
                     key={normalizedPageSlug}
                     href={normalizedPageSlug}
-                    className='-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 hover:bg-accent-500 xl:hover:bg-gray-50'
+                    className={`-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 hover:bg-accent-500 xl:hover:bg-gray-50 ${
+                      activePath ? "bg-accent-500" : ""
+                    }`}
                   >
                     {page.title}
                   </Link>
