@@ -8,10 +8,25 @@ const PdfViewer = dynamic(() => import("./PdfViewer"), { ssr: false });
 import OpenSheetMusicDisplay from "../lib/OpenSheetMusicDisplay";
 
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { BLOCKS } from "@contentful/rich-text-types";
+import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 
 const options = {
   renderNode: {
+    [INLINES.ASSET_HYPERLINK]: (node) => {
+      const { url, fileName } = node.data.target.fields.file;
+      const displayName = node.content[0]?.value || fileName;
+
+      return (
+        <a
+          href={`https:${url}`}
+          target='_blank'
+          rel='noopener noreferrer'
+          className='text-accent-500 underline font-medium'
+        >
+          {displayName}
+        </a>
+      );
+    },
     [BLOCKS.EMBEDDED_ENTRY]: (node) => {
       // const fields = node.data.target.fields;
       const contentType = node.data.target.sys?.contentType?.sys.id;
