@@ -68,7 +68,7 @@ const BlogPreview: React.FC<BlogPreviewProps> = ({
       >
         <Image
           alt={image.fields.file.fileName as string}
-          src={`http:${image?.fields?.file.url}`}
+          src={`https:${image?.fields?.file.url}`}
           fill
           className='object-cover rounded-lg shadow group-hover:scale-105 transition-transform duration-300'
         />
