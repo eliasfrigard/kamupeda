@@ -47,10 +47,14 @@ const DisclosureButtonComponent = ({
     loadItems();
   }, [pages]);
 
+  const isActivePath = pathname.includes(normalizeSlug(title));
+
   return (
     <Disclosure as='div' className='-mx-3'>
       <DisclosureButton
-        className={`group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 hover:bg-accent-500 lg:hover:bg-gray-50 ${textColor}`}
+        className={`group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 hover:bg-accent-500 lg:hover:bg-gray-50 ${
+          isActivePath ? "bg-accent-500" : ""
+        } ${textColor}`}
       >
         {title}
         <ChevronDownIcon
@@ -62,27 +66,33 @@ const DisclosureButtonComponent = ({
         className='mt-2 space-y-2 origin-top transition duration-200 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0'
         transition
       >
-        {[...items]?.map((item) => (
-          <DisclosureButton
-            onClick={handleOnClick}
-            key={item.title}
-            as={Link}
-            href={`/${parent}/${normalizeSlug(item.title)}`}
-            className={`flex items-center gap-3 text-accent-500 rounded-lg py-1.5 pl-4 pr-3 text-sm font-semibold leading-7 ${textColor} hover:bg-accent-500`}
-          >
-            {item.icon ? (
-              <Image
-                src={item.icon}
-                alt={item.icon} // TODO: Use icon text
-                width={30}
-                height={30}
-              />
-            ) : (
-              <FaArrowRight className='text-xs inline-block' />
-            )}
-            {item.title}
-          </DisclosureButton>
-        ))}
+        {[...items]?.map((item) => {
+          const isActiveSubPath = pathname.includes(normalizeSlug(item.title));
+
+          return (
+            <DisclosureButton
+              onClick={handleOnClick}
+              key={item.title}
+              as={Link}
+              href={`/${parent}/${normalizeSlug(item.title)}`}
+              className={`flex items-center gap-3 text-accent-500 rounded-lg py-1.5 pl-4 pr-3 text-sm font-semibold leading-7 ${textColor} hover:bg-accent-500 ${
+                isActiveSubPath ? "bg-accent-500" : ""
+              }`}
+            >
+              {item.icon ? (
+                <Image
+                  src={item.icon}
+                  alt={item.icon} // TODO: Use icon text
+                  width={30}
+                  height={30}
+                />
+              ) : (
+                <FaArrowRight className='text-xs inline-block' />
+              )}
+              {item.title}
+            </DisclosureButton>
+          );
+        })}
         <div className='w-full px-4'>
           <Divider />
         </div>
