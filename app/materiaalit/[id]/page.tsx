@@ -36,7 +36,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             items={[
               {
                 title: "Vaikeusaste",
-                value: page.fields.difficulty.toString(),
+                value: page.fields.difficulty?.toString(),
               },
               { title: "Tyyli", value: page.fields.style },
               { title: "Moodi", value: page.fields.mode },
