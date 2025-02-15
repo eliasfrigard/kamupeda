@@ -130,6 +130,7 @@ const DisclosureButtonComponent = ({
                     key={item.name}
                     href={item.href}
                     onClick={() => close()}
+                    target='_blank'
                     className='flex items-center justify-center gap-x-2.5 p-3 text-sm font-medium leading-6 text-gray-900 hover:bg-accent-500 hover:text-white duration-100'
                   >
                     {item.name}
