@@ -23,7 +23,7 @@ export type CallToAction = {
 };
 
 // Helper function to transform `NavItem` to `PageChild`
-const pagesToItems = (pages: NavItem[]): PageChild[] => {
+export const pagesToItems = (pages: NavItem[]): PageChild[] => {
   return pages?.map((page) => ({
     icon: page.icon, // Update this logic to fetch icons if necessary
     title: page.title,

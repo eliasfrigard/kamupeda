@@ -18,7 +18,6 @@ type InstrumentSectionProps = {
 };
 
 const InstrumentSection = ({ category, materials }: InstrumentSectionProps) => {
-  console.log("🚀 || InstrumentSection || materials:", materials.length);
   return (
     <Disclosure defaultOpen={false}>
       {({ open }) => (

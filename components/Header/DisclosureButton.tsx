@@ -6,12 +6,20 @@ import {
   DisclosurePanel,
 } from "@headlessui/react";
 
+import Image from "next/image";
+
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+
 import Link from "next/link";
 import Divider from "../Divider";
 import { NavItem } from "../NavMap";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { normalizeSlug } from "@/utils/normalizeSlug";
 import { FaArrowRight } from "react-icons/fa";
+
+import { pagesToItems } from "./PopoverItem";
+import type { PageChild } from "./PopoverItem";
 
 const DisclosureButtonComponent = ({
   title,
@@ -26,6 +34,19 @@ const DisclosureButtonComponent = ({
   textColor: string;
   handleOnClick?: () => void;
 }) => {
+  const [items, setItems] = useState<PageChild[]>([]);
+
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const loadItems = async () => {
+      const transformedItems = pagesToItems(pages);
+      setItems(transformedItems);
+    };
+
+    loadItems();
+  }, [pages]);
+
   return (
     <Disclosure as='div' className='-mx-3'>
       <DisclosureButton
@@ -41,7 +62,7 @@ const DisclosureButtonComponent = ({
         className='mt-2 space-y-2 origin-top transition duration-200 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0'
         transition
       >
-        {[...pages]?.map((item) => (
+        {[...items]?.map((item) => (
           <DisclosureButton
             onClick={handleOnClick}
             key={item.title}
@@ -49,7 +70,16 @@ const DisclosureButtonComponent = ({
             href={`/${parent}/${normalizeSlug(item.title)}`}
             className={`flex items-center gap-3 text-accent-500 rounded-lg py-1.5 pl-4 pr-3 text-sm font-semibold leading-7 ${textColor} hover:bg-accent-500`}
           >
-            <FaArrowRight className='text-xs inline-block' />
+            {item.icon ? (
+              <Image
+                src={item.icon}
+                alt={item.icon} // TODO: Use icon text
+                width={30}
+                height={30}
+              />
+            ) : (
+              <FaArrowRight className='text-xs inline-block' />
+            )}
             {item.title}
           </DisclosureButton>
         ))}
