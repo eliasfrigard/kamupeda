@@ -1,23 +1,65 @@
 import React from "react";
 import Link from "next/link";
-// import { BsFillPeopleFill } from "react-icons/bs";
-// import { GiViolin } from "react-icons/gi";
 import { PiMusicNoteSimpleFill, PiMusicNoteSimpleThin } from "react-icons/pi";
 
 import Chip from "@/components/Chip";
 
-import { skeletonToMaterial, difficultyToHuman } from "./utils";
+import { skeletonToMaterial } from "./utils";
 import OpenSheetMusicDisplay from "../../lib/OpenSheetMusicDisplay";
 
 import type { Entry } from "contentful";
 import type { MaterialSkeleton } from "@/types";
 
 interface MaterialPreviewProps {
+  layout: "grid" | "list";
   material: Entry<MaterialSkeleton>;
 }
 
-const MaterialPreview: React.FC<MaterialPreviewProps> = ({ material }) => {
+const MaterialPreview: React.FC<MaterialPreviewProps> = ({
+  material,
+  layout = "grid",
+}) => {
   const m = skeletonToMaterial(material);
+  const difficultySetting = m.difficulty || 0;
+
+  if (layout === "list") {
+    return (
+      <Link
+        href={`/materiaalit/${material.sys.id}`}
+        className='relative group bg-gradient-to-br from-primary-500 to-primary-600 focus:outline-accent-500 active:scale-[1.02] py-6 shadow-lg rounded-lg flex flex-col text-secondary-400 items-center gap-6 hover:scale-[1.02] transition-transform duration-150 overflow-hidden px-6'
+      >
+        <div className='w-full flex justify-between items-center'>
+          <p className='text-lg font-semibold'>{m.title}</p>
+
+          <div className='flex gap-2 justify-center items-center z-10'>
+            <Chip>{m.instrument}</Chip>
+            <Chip>
+              {m.key && m.mode ? `${m.key}-${m.mode}` : m.key || m.mode || ""}
+            </Chip>
+            <Chip>{m.timeSignature}</Chip>
+            <Chip>{m.style}</Chip>
+            <Chip>{m.origin}</Chip>
+            <Chip>{m.ensemble}</Chip>
+
+            <div className='flex text-2xl ml-4 w-[120px]'>
+              {Array.from({ length: difficultySetting }, (_, i) => (
+                <PiMusicNoteSimpleFill
+                  key={i}
+                  className='text-accent-500 drop-shadow'
+                />
+              ))}
+              {Array.from({ length: 5 - difficultySetting }, (_, i) => (
+                <PiMusicNoteSimpleThin
+                  key={i}
+                  className='text-accent-200 opacity-50 drop-shadow'
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </Link>
+    );
+  }
 
   return (
     <Link
@@ -27,11 +69,6 @@ const MaterialPreview: React.FC<MaterialPreviewProps> = ({ material }) => {
       <div className='w-full h-full top-0 absolute group-hover:bg-black/20 duration-300' />
 
       <div className='flex gap-3 justify-center items-center z-10'>
-        {/* {m.ensemble ? (
-          <BsFillPeopleFill className='text-2xl text-secondary-500' />
-        ) : (
-          <GiViolin className='text-2xl text-secondary-500' />
-        )} */}
         <h3 className='text-xl font-semibold text-center -mb-1'>{m.title}</h3>
       </div>
 
@@ -55,7 +92,6 @@ const MaterialPreview: React.FC<MaterialPreviewProps> = ({ material }) => {
       </div>
 
       <div className='flex flex-wrap gap-3 justify-center items-center z-10'>
-        <Chip>{difficultyToHuman(m.difficulty)}</Chip>
         <Chip>{m.instrument}</Chip>
         <Chip>
           {m.key && m.mode ? `${m.key}-${m.mode}` : m.key || m.mode || ""}

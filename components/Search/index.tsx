@@ -14,6 +14,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import Select from "@/components/Select";
 import IconButton from "@/components/IconButton";
 import Chip from "@/components/Chip";
+import GridListSelector from "../GridListSelector";
 
 const Search: React.FC = () => {
   const [query, setQuery] = useState("");
@@ -21,7 +22,6 @@ const Search: React.FC = () => {
 
   const [debouncedQuery, setDebouncedQuery] = useState(query);
   const [loading, setLoading] = useState(true);
-  const [filtersOpen, setFiltersOpen] = useStickyState(false, "filtersOpen");
 
   const [keyValues, setKeyValues] = useState([]);
   const [modeValues, setModeValues] = useState([]);
@@ -31,6 +31,9 @@ const Search: React.FC = () => {
   const [styleValues, setStyleValues] = useState([]);
   const [originValues, setOriginValues] = useState([]);
   const [ensembleValues, setEnsembleValues] = useState([]);
+
+  const [filtersOpen, setFiltersOpen] = useStickyState(false, "filtersOpen");
+  const [layout, setLayout] = useStickyState("grid", "layout");
 
   const [filterIsSelected, setFilterIsSelected] = useState(false);
   console.log("🚀 || Blog || filterIsSelected:", filterIsSelected);
@@ -224,23 +227,30 @@ const Search: React.FC = () => {
       </div>
 
       {/* Selected Filter Chips */}
-      <div className='flex flex-wrap gap-2'>
-        {Object.entries(filters)?.map(([key, value]) => {
-          if (!value) return null;
+      <div className='w-full flex gap-2 justify-between'>
+        <div className='min-w-[1rem] flex gap-2'>
+          {Object.entries(filters)?.map(([key, value]) => {
+            if (!value) return null;
 
-          return (
-            <Chip key={key} onDelete={() => handleFilterChange(key, "")}>
-              {key === "difficulty"
-                ? Array.from({ length: parseInt(value) }, (_, i) => (
-                    <PiMusicNoteSimpleFill key={i} className='text-xl' />
-                  ))
-                : value}
-            </Chip>
-          );
-        })}
+            return (
+              <Chip key={key} onDelete={() => handleFilterChange(key, "")}>
+                {key === "difficulty"
+                  ? Array.from({ length: parseInt(value) }, (_, i) => (
+                      <PiMusicNoteSimpleFill key={i} className='text-xl' />
+                    ))
+                  : value}
+              </Chip>
+            );
+          })}
+        </div>
+
+        <GridListSelector
+          selected={layout}
+          onSelect={(item) => setLayout(item)}
+        />
       </div>
 
-      <Material loading={loading} materialWithInfo={material} />
+      <Material layout={layout} loading={loading} materialWithInfo={material} />
     </div>
   );
 };
