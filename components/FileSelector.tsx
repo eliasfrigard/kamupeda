@@ -101,10 +101,10 @@ const FileSelector: React.FC<FileSelectorProps> = ({
           }}
         >
           <Image
-            src={`https://${selectedFile.fields.file.url}`}
+            src={`https:${selectedFile.fields.file.url}`}
             alt={selectedFile.fields.file.fileName}
-            layout='fill'
-            objectFit='contain'
+            fill
+            style={{ objectFit: "contain" }}
           />
         </div>
       )}
