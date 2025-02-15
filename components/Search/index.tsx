@@ -4,6 +4,12 @@ import React, { useState } from "react";
 import useStickyState from "../../hooks/useStickyState";
 import { PiMusicNoteSimpleFill } from "react-icons/pi";
 
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+} from "@headlessui/react";
+
 import Material from "../Material";
 import type { Entry } from "contentful";
 import type { MaterialSkeleton } from "@/types";
@@ -32,7 +38,6 @@ const Search: React.FC = () => {
   const [originValues, setOriginValues] = useState([]);
   const [ensembleValues, setEnsembleValues] = useState([]);
 
-  const [filtersOpen, setFiltersOpen] = useStickyState(false, "filtersOpen");
   const [layout, setLayout] = useStickyState("grid", "layout");
 
   const [filterIsSelected, setFilterIsSelected] = useState(false);
@@ -145,86 +150,87 @@ const Search: React.FC = () => {
 
   return (
     <div className='container mx-auto flex flex-col gap-6 px-6 lg:px-0'>
-      <div className='flex flex-col'>
-        <div className='relative flex items-center gap-2'>
-          <input
-            type='text'
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder='Hae materiaalia...'
-            className='w-full h-12 px-5 text-black placeholder-black/50 bg-white rounded-full shadow-inner focus:outline-none focus:ring-2 focus:ring-accent-500 ring-primary-700/10 ring-1 transition-all duration-300'
-          />
-          <IconButton
-            icon={<IoFilterSharp />}
-            className='flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 text-white rounded-full shadow-lg hover:scale-105 active:scale-95 focus:ring-2 focus:ring-accent-500 transition-transform duration-300'
-            onClick={() => setFiltersOpen(!filtersOpen)}
-          />
-          <IconButton
-            icon={<FaRegTrashAlt />}
-            className='flex items-center justify-center w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 text-white rounded-full shadow-lg hover:scale-105 active:scale-95 focus:ring-2 focus:ring-accent-500 transition-transform duration-300'
-            onClick={() => resetSearch()}
-          />
-        </div>
+      <Disclosure>
+        <div className='flex flex-col'>
+          <div className='relative flex items-center gap-2'>
+            <input
+              type='text'
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder='Hae materiaalia...'
+              className='w-full h-12 px-5 text-black placeholder-black/50 bg-white rounded-full shadow-inner focus:outline-none focus:ring-2 focus:ring-accent-500 ring-primary-700/10 ring-1 transition-all duration-300'
+            />
+            <DisclosureButton>
+              <IconButton
+                icon={<IoFilterSharp />}
+                className='flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 text-white rounded-full shadow-lg hover:scale-105 active:scale-95 focus:ring-2 focus:ring-accent-500 transition-transform duration-300'
+                onClick={() => console.log("Filter button clicked")}
+              />
+            </DisclosureButton>
+            <IconButton
+              icon={<FaRegTrashAlt />}
+              className='flex items-center justify-center w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 text-white rounded-full shadow-lg hover:scale-105 active:scale-95 focus:ring-2 focus:ring-accent-500 transition-transform duration-300'
+              onClick={() => resetSearch()}
+            />
+          </div>
 
-        {/* Filter options */}
-
-        <div
-          className={`grid lg:grid-cols-3 gap-4 mx-3 bg-opacity-80 transition-all duration-200 ease-in-out ${
-            filtersOpen
-              ? "max-h-screen opacity-100 mt-6"
-              : "max-h-0 opacity-0 overflow-hidden"
-          }`}
-        >
-          <Select
-            selected={filters.key}
-            setSelected={(value) => handleFilterChange("key", value)}
-            options={keyValues}
-            placeholder='Perussävel'
-          />
-          <Select
-            selected={filters.mode}
-            setSelected={(value) => handleFilterChange("mode", value)}
-            options={modeValues}
-            placeholder='Asteikko'
-          />
-          <Select
-            selected={filters.timeSignature}
-            setSelected={(value) => handleFilterChange("timeSignature", value)}
-            options={timeSignatureValues}
-            placeholder='Tahtilaji'
-          />
-          <Select
-            selected={filters.difficulty}
-            setSelected={(value) => handleFilterChange("difficulty", value)}
-            options={difficultyValues}
-            placeholder='Vaikeustaso'
-          />
-          <Select
-            selected={filters.instrument}
-            setSelected={(value) => handleFilterChange("instrument", value)}
-            options={instrumentValues}
-            placeholder='Soitin'
-          />
-          <Select
-            selected={filters.style}
-            setSelected={(value) => handleFilterChange("style", value)}
-            options={styleValues}
-            placeholder='Tyyli'
-          />
-          <Select
-            selected={filters.origin}
-            setSelected={(value) => handleFilterChange("origin", value)}
-            options={originValues}
-            placeholder='Alkuperämaa'
-          />
-          <Select
-            selected={filters.ensemble}
-            setSelected={(value) => handleFilterChange("ensemble", value)}
-            options={ensembleValues}
-            placeholder='Yhteissoiton vaikeustaso'
-          />
+          <DisclosurePanel
+            transition
+            className='grid lg:grid-cols-3 gap-4 mx-3 mt-6 origin-top transition duration-200 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0'
+          >
+            <Select
+              selected={filters.key}
+              setSelected={(value) => handleFilterChange("key", value)}
+              options={keyValues}
+              placeholder='Perussävel'
+            />
+            <Select
+              selected={filters.mode}
+              setSelected={(value) => handleFilterChange("mode", value)}
+              options={modeValues}
+              placeholder='Asteikko'
+            />
+            <Select
+              selected={filters.timeSignature}
+              setSelected={(value) =>
+                handleFilterChange("timeSignature", value)
+              }
+              options={timeSignatureValues}
+              placeholder='Tahtilaji'
+            />
+            <Select
+              selected={filters.difficulty}
+              setSelected={(value) => handleFilterChange("difficulty", value)}
+              options={difficultyValues}
+              placeholder='Vaikeustaso'
+            />
+            <Select
+              selected={filters.instrument}
+              setSelected={(value) => handleFilterChange("instrument", value)}
+              options={instrumentValues}
+              placeholder='Soitin'
+            />
+            <Select
+              selected={filters.style}
+              setSelected={(value) => handleFilterChange("style", value)}
+              options={styleValues}
+              placeholder='Tyyli'
+            />
+            <Select
+              selected={filters.origin}
+              setSelected={(value) => handleFilterChange("origin", value)}
+              options={originValues}
+              placeholder='Alkuperämaa'
+            />
+            <Select
+              selected={filters.ensemble}
+              setSelected={(value) => handleFilterChange("ensemble", value)}
+              options={ensembleValues}
+              placeholder='Yhteissoiton vaikeustaso'
+            />
+          </DisclosurePanel>
         </div>
-      </div>
+      </Disclosure>
 
       {/* Selected Filter Chips */}
       <div className='w-full flex gap-2 justify-between'>
