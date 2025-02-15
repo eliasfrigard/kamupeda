@@ -64,31 +64,29 @@ const MaterialPreview: React.FC<MaterialPreviewProps> = ({
   return (
     <Link
       href={`/materiaalit/${material.sys.id}`}
-      className='relative group bg-gradient-to-br from-primary-500 to-primary-600 focus:outline-accent-500 active:scale-[1.02] py-8 shadow-lg rounded-lg flex flex-col text-secondary-400 items-center gap-6 hover:scale-[1.05] transition-transform duration-150 overflow-hidden px-4'
+      className='relative group bg-gradient-to-br from-primary-500 to-primary-600 focus:outline-accent-500 active:scale-[1.02] py-8 shadow-lg rounded-lg flex flex-col text-secondary-400 items-center gap-6 hover:scale-[1.05] transition-transform duration-150 overflow-hidden px-6'
     >
       <div className='w-full h-full top-0 absolute group-hover:bg-black/20 duration-300' />
 
-      <div className='flex gap-3 justify-center items-center z-10'>
+      <div className='flex justify-center items-center z-10'>
         <h3 className='text-xl font-semibold text-center -mb-1'>{m.title}</h3>
       </div>
 
       <div className='h-[1px] bg-gradient-to-r from-accent-200 to-accent-800 opacity-20 w-2/3 rounded-full mb-1 z-10' />
 
       <div className='-mt-2 flex text-2xl'>
-        {m.difficulty &&
-          Array.from({ length: m.difficulty }, (_, i) => (
-            <PiMusicNoteSimpleFill
-              key={i}
-              className='text-accent-500 drop-shadow'
-            />
-          ))}
-        {m.difficulty &&
-          Array.from({ length: 5 - m.difficulty }, (_, i) => (
-            <PiMusicNoteSimpleThin
-              key={i}
-              className='text-accent-200 opacity-50 drop-shadow'
-            />
-          ))}
+        {Array.from({ length: difficultySetting }, (_, i) => (
+          <PiMusicNoteSimpleFill
+            key={i}
+            className='text-accent-500 drop-shadow'
+          />
+        ))}
+        {Array.from({ length: 5 - difficultySetting }, (_, i) => (
+          <PiMusicNoteSimpleThin
+            key={i}
+            className='text-accent-200 opacity-50 drop-shadow'
+          />
+        ))}
       </div>
 
       <div className='flex flex-wrap gap-3 justify-center items-center z-10'>
