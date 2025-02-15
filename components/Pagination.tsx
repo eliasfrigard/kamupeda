@@ -25,7 +25,7 @@ const Pagination: React.FC<PaginationProps> = ({
   return (
     <div className='flex items-center justify-center space-x-2'>
       <button
-        className={`px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none ${
+        className={`px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-accent-500 hover:text-secondary-400 focus:outline-none duration-100 ${
           currentPage === 1 ? "cursor-not-allowed opacity-50" : ""
         }`}
         disabled={currentPage === 1}
@@ -38,10 +38,10 @@ const Pagination: React.FC<PaginationProps> = ({
         <button
           key={page}
           onClick={() => onPageChange(page)}
-          className={`px-4 py-2 text-sm font-medium rounded-md focus:outline-none ${
+          className={`px-4 py-2 text-sm font-medium rounded-md focus:outline-none duration-100 ${
             page === currentPage
-              ? "bg-primary-500 text-white"
-              : "text-gray-700 bg-gray-200 hover:bg-gray-300"
+              ? "bg-primary-500 text-secondary-400"
+              : "text-gray-700 bg-gray-200 hover:bg-accent-500 hover:text-secondary-400"
           }`}
         >
           {page}
@@ -49,7 +49,7 @@ const Pagination: React.FC<PaginationProps> = ({
       ))}
 
       <button
-        className={`px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none ${
+        className={`px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-accent-500 hover:text-secondary-400 focus:outline-none duration-100 ${
           currentPage === totalPages ? "cursor-not-allowed opacity-50" : ""
         }`}
         disabled={currentPage === totalPages}
