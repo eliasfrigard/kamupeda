@@ -27,7 +27,7 @@ const ImageHero: React.FC<ImageHeroProps> = ({
   if (isFirstElement) {
     return (
       <>
-        <div className='relative w-screen h-[calc(100vh-84px)] -mt-[32px] lg:-mt-[64px] aspect-video flex justify-center items-center'>
+        <div className='relative w-screen h-[calc(100vh-84px)] -mt-[32px] md:-mt-[48px] lg:-mt-[64px] aspect-video flex justify-center items-center'>
           <Image
             src={desktopImg.url}
             alt={desktopImg.altText}
