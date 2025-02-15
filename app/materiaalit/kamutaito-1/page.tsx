@@ -1,9 +1,8 @@
 import { normalizeSlug } from "@/utils/normalizeSlug";
 import { getPageBySlug } from "@/utils/contentful";
 
-import type { PageSkeleton } from "@/types";
-
 import Content from "@/components/Content";
+import type { PageSkeleton } from "@/types";
 
 export default async function Page() {
   const slug = "kamutaito-1";
@@ -17,6 +16,5 @@ export default async function Page() {
       }))
     : [];
 
-  return <div></div>;
   return <Content pageContent={pageContent} />;
 }

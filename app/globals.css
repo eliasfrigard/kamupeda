@@ -103,4 +103,13 @@ body {
   .font-dancing-script {
     font-family: var(--font-dancing-script);
   }
+
+  .fade-in {
+    opacity: 0;
+    transition: opacity 1s ease-in-out; /* Adjust the duration as needed */
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+  }
 }

@@ -2,7 +2,6 @@ import { normalizeSlug } from "@/utils/normalizeSlug";
 import { getPageData, getPageBySlug } from "@/utils/contentful";
 
 import type { PageSkeleton } from "@/types";
-
 import Content from "@/components/Content";
 
 export const generateStaticParams = async () => {
