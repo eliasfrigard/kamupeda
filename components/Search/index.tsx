@@ -38,6 +38,7 @@ const Search: React.FC = () => {
   const [originValues, setOriginValues] = useState([]);
   const [ensembleValues, setEnsembleValues] = useState([]);
 
+  const [filtersOpen, setFiltersOpen] = useStickyState(false, "filtersOpen");
   const [layout, setLayout] = useStickyState("grid", "layout");
 
   const [filterIsSelected, setFilterIsSelected] = useState(false);
@@ -150,7 +151,7 @@ const Search: React.FC = () => {
 
   return (
     <div className='container mx-auto flex flex-col gap-6 px-6 lg:px-0'>
-      <Disclosure>
+      <Disclosure defaultOpen={true}>
         <div className='flex flex-col'>
           <div className='relative flex items-center gap-2'>
             <input
@@ -164,7 +165,7 @@ const Search: React.FC = () => {
               <IconButton
                 icon={<IoFilterSharp />}
                 className='flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 text-white rounded-full shadow-lg hover:scale-105 active:scale-95 focus:ring-2 focus:ring-accent-500 transition-transform duration-300'
-                onClick={() => console.log("Filter button clicked")}
+                onClick={() => console.log("Filter clicked")}
               />
             </DisclosureButton>
             <IconButton
