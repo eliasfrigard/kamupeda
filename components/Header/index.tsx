@@ -13,6 +13,7 @@ import { normalizeSlug } from "../../utils/normalizeSlug";
 import Divider from "../Divider";
 import { copyright, creator } from "@/utils/texts";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const materialCallsToAction = [
   {
@@ -39,31 +40,37 @@ export default function Example({
 
   return (
     <header
-      className={`bg-gradient-to-r from-primary-700 to-primary-800 lg:from-primary-600/95 lg:to-primary-800/95 text-white backdrop-blur-lg w-full fixed z-30 shadow-lg lg:bg-opacity-90 duration-100 ${
+      className={`bg-gradient-to-r from-primary-700 to-primary-800 xl:from-primary-600/95 xl:to-primary-800/95 text-white backdrop-blur-lg w-full fixed z-30 shadow-lg xl:bg-opacity-90 duration-100 ${
         mobileMenuOpen ? "shadow-none" : "shadow-lg"
       }`}
       style={{ height: height + "px" }}
     >
       <nav
         aria-label='Global'
-        className='flex mx-auto h-full max-w-7xl items-center justify-between p-6 lg:px-8 tracking-wide'
+        className='flex mx-auto h-full max-w-7xl items-center justify-between p-6 md:p-8 xl:px-8 tracking-wide'
       >
-        <div className='flex lg:flex-1'>
+        <div className='flex xl:flex-1'>
           <Link href='/' className='-m-1.5 p-1.5'>
             <span
-              className={`text-3xl drop-shadow text-secondary-400 font-mont ${dancingScript.className}`}
+              className={`text-3xl flex justify-center items-center gap-3 drop-shadow text-secondary-400 font-mont hover:scale-[1.03] duration-150 ${dancingScript.className}`}
             >
-              kamupeda.fi
+              <p className='mb-1 underline'>kamupeda.fi</p>
+              <Image
+                src='/images/violin-svgrepo-com.svg'
+                alt='Kamupeda Violin'
+                height={32}
+                width={32}
+              />
             </span>
           </Link>
         </div>
-        <div className='flex lg:hidden'>
+        <div className='flex xl:hidden'>
           <Hamburger
             active={mobileMenuOpen}
             handleClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           />
         </div>
-        <PopoverGroup className='hidden lg:flex lg:gap-x-7'>
+        <PopoverGroup className='hidden xl:flex xl:gap-x-7 -mb-1'>
           {navMap?.map((page) => {
             const normalizedPageSlug = normalizeSlug(page.title);
             const activePath = isActive(page.title);
@@ -99,7 +106,7 @@ export default function Example({
             );
           })}
         </PopoverGroup>
-        <div className='hidden lg:flex lg:flex-1 lg:justify-end'></div>
+        <div className='hidden xl:flex xl:flex-1 xl:justify-end'></div>
       </nav>
 
       {/* Mobile menu */}
@@ -108,7 +115,7 @@ export default function Example({
         open={mobileMenuOpen}
         onClose={() => setMobileMenuOpen(false)}
         transition
-        className='lg:hidden fixed inset-0 flex w-screen items-center justify-center  transition duration-300 ease-out data-[closed]:opacity-0 z-50'
+        className='xl:hidden fixed inset-0 flex w-screen items-center justify-center  transition duration-300 ease-out data-[closed]:opacity-0 z-50'
       >
         <DialogPanel className='px-6 fixed top-[84px] inset-y-0 right-0 z-10 w-full overflow-y-auto bg-gradient-to-r from-primary-700 to-primary-800 text-white sm:max-w-sm sm:ring-1 sm:ring-gray-900/10'>
           <div className='mt-3 flow-root'>
@@ -134,7 +141,7 @@ export default function Example({
                     onClick={() => setMobileMenuOpen(false)}
                     key={normalizedPageSlug}
                     href={normalizedPageSlug}
-                    className='-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 hover:bg-accent-500 lg:hover:bg-gray-50'
+                    className='-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 hover:bg-accent-500 xl:hover:bg-gray-50'
                   >
                     {page.title}
                   </Link>
