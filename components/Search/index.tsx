@@ -157,7 +157,7 @@ const Search: React.FC = () => {
   };
 
   return (
-    <div className='container mx-auto flex flex-col gap-6 px-6 lg:px-0'>
+    <div className='container mx-auto flex flex-col gap-6 px-6 md:px-0'>
       <Disclosure defaultOpen={true}>
         <div className='flex flex-col'>
           <div className='relative flex items-center gap-2'>
@@ -184,7 +184,7 @@ const Search: React.FC = () => {
 
           <DisclosurePanel
             transition
-            className='grid lg:grid-cols-3 gap-4 mx-3 mt-6 origin-top transition duration-200 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0'
+            className='grid lg:grid-cols-3 gap-4 lg:mx-3 mt-6 origin-top transition duration-200 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0'
           >
             <Select
               selected={filters.key}
@@ -241,27 +241,31 @@ const Search: React.FC = () => {
       </Disclosure>
 
       {/* Selected Filter Chips */}
-      <div className='w-full flex gap-2 justify-between'>
-        <div className='min-w-[1rem] flex gap-2'>
-          {Object.entries(filters)?.map(([key, value]) => {
-            if (!value) return null;
+      <div className='w-full flex flex-col lg:flex-row gap-6 justify-between'>
+        {filterIsSelected ? (
+          <div className='flex gap-2'>
+            {Object.entries(filters)?.map(([key, value]) => {
+              if (!value) return null;
 
-            return (
-              <Chip key={key} onDelete={() => handleFilterChange(key, "")}>
-                {key === "difficulty"
-                  ? Array.from({ length: parseInt(value) }, (_, i) => (
-                      <PiMusicNoteSimpleFill key={i} className='text-xl' />
-                    ))
-                  : value}
-              </Chip>
-            );
-          })}
-        </div>
+              return (
+                <Chip key={key} onDelete={() => handleFilterChange(key, "")}>
+                  {key === "difficulty"
+                    ? Array.from({ length: parseInt(value) }, (_, i) => (
+                        <PiMusicNoteSimpleFill key={i} className='text-xl' />
+                      ))
+                    : value}
+                </Chip>
+              );
+            })}
+          </div>
+        ) : (
+          <div className='hidden lg:block min-w-[1rem]' />
+        )}
 
-        <div className='flex gap-2'>
-          <div className='flex gap-2 border-r border-primary-700/20 pr-2'>
+        <div className='flex gap-2 justify-between lg:min-w-[450px]'>
+          <div className='flex w-full lg:max-w-[350px] gap-2 border-r border-primary-700/20 pr-2'>
             <Select
-              className='w-[350px]'
+              className='w-full'
               selected={order}
               setSelected={(order) => setOrder(order)}
               options={[
