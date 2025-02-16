@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import React from "react";
 import DisclosureButtonComponent from "./DisclosureButton";
 import PopoverItem from "./PopoverItem";
 import Hamburger from "../Hamburger";
@@ -30,7 +30,6 @@ export default function Example({
   height: number;
   navMap: NavItem[];
 }) {
-  const router = useRouter();
   const currentPath = usePathname();
 
   const isActive = (page: string) => {
@@ -41,11 +40,13 @@ export default function Example({
   const [query, setQuery] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const handleKeyDown = (event) => {
+  const handleKeyUp = (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
       if (query.trim()) {
-        router.push(`/materiaalit/haku?search=${encodeURIComponent(query)}`);
+        window.location.href = `/materiaalit/haku?search=${encodeURIComponent(
+          query
+        )}`;
       }
     }
   };
@@ -167,7 +168,7 @@ export default function Example({
               type='text'
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              onKeyDown={handleKeyDown}
+              onKeyUp={handleKeyUp}
               placeholder='Hae materiaalia...'
               className='w-full h-12 px-5 text-black placeholder-black/50 bg-white rounded-full shadow-inner focus:outline-none focus:ring-2 focus:ring-accent-500 ring-primary-700/10 ring-1 transition-all duration-300 mb-8 mt-6'
             />
