@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import DisclosureButtonComponent from "./DisclosureButton";
 import PopoverItem from "./PopoverItem";
 import Hamburger from "../Hamburger";
@@ -29,6 +30,7 @@ export default function Example({
   height: number;
   navMap: NavItem[];
 }) {
+  const router = useRouter();
   const currentPath = usePathname();
 
   const isActive = (page: string) => {
@@ -36,7 +38,17 @@ export default function Example({
     return currentPath.includes(normalizedPageSlug);
   };
 
+  const [query, setQuery] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      if (query.trim()) {
+        router.push(`/materiaalit/haku?search=${encodeURIComponent(query)}`);
+      }
+    }
+  };
 
   return (
     <header
@@ -119,7 +131,7 @@ export default function Example({
       >
         <DialogPanel className='px-6 fixed top-[84px] inset-y-0 right-0 z-10 w-full overflow-y-auto bg-gradient-to-r from-primary-700 to-primary-800 text-white sm:max-w-sm sm:ring-1 sm:ring-gray-900/10'>
           <div className='mt-3 flow-root'>
-            <div className='space-y-2 pb-6 pt-3'>
+            <div className='space-y-2 pt-3'>
               {navMap?.map((page) => {
                 const normalizedPageSlug = normalizeSlug(page.title);
                 const activePath = isActive(page.title);
@@ -151,6 +163,15 @@ export default function Example({
                 );
               })}
             </div>
+            <input
+              type='text'
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder='Hae materiaalia...'
+              className='w-full h-12 px-5 text-black placeholder-black/50 bg-white rounded-full shadow-inner focus:outline-none focus:ring-2 focus:ring-accent-500 ring-primary-700/10 ring-1 transition-all duration-300 mb-8 mt-6'
+            />
+
             <Divider />
 
             <div className='flex flex-col gap-2 py-4 opacity-60'>

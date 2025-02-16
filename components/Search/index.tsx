@@ -10,6 +10,7 @@ import {
   DisclosurePanel,
 } from "@headlessui/react";
 
+import { useSearchParams, useRouter } from "next/navigation";
 import Material from "../Material";
 import type { Entry } from "contentful";
 import type { MaterialSkeleton } from "@/types";
@@ -23,7 +24,24 @@ import Chip from "@/components/Chip";
 import GridListSelector from "../GridListSelector";
 
 const Search: React.FC = () => {
-  const [query, setQuery] = useState("");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const queryFromUrl = searchParams.get("search") || "";
+  const filtersFromUrl = {
+    key: searchParams.get("key") || "",
+    mode: searchParams.get("mode") || "",
+    timeSignature: searchParams.get("timeSignature") || "",
+    difficulty: searchParams.get("difficulty") || "",
+    instrument: searchParams.get("instrument") || "",
+    style: searchParams.get("style") || "",
+    origin: searchParams.get("origin") || "",
+    ensemble: searchParams.get("ensemble") || "",
+  };
+
+  const [query, setQuery] = useState(queryFromUrl);
+  const [filters, setFilters] = useState(filtersFromUrl);
+
   const [material, setMaterial] = useState<Entry<MaterialSkeleton>[]>([]);
 
   const [debouncedQuery, setDebouncedQuery] = useState(query);
@@ -50,22 +68,27 @@ const Search: React.FC = () => {
   const [filterIsSelected, setFilterIsSelected] = useState(false);
   console.log("🚀 || Blog || filterIsSelected:", filterIsSelected);
 
-  // Filters state
-  const [filters, setFilters] = useState({
-    key: "",
-    mode: "",
-    timeSignature: "",
-    difficulty: "",
-    instrument: "",
-    style: "",
-    origin: "",
-    ensemble: "",
-  });
-
   React.useEffect(() => {
     const hasFilter = Object.values(filters).some((filter) => !!filter);
     setFilterIsSelected(hasFilter || !!query);
   }, [filters, query]);
+
+  React.useEffect(() => {
+    const params = new URLSearchParams();
+    if (query) params.set("q", query);
+    if (filters.key) params.set("key", filters.key);
+    if (filters.mode) params.set("mode", filters.mode);
+    if (filters.timeSignature)
+      params.set("timeSignature", filters.timeSignature);
+    if (filters.difficulty) params.set("difficulty", filters.difficulty);
+    if (filters.instrument) params.set("instrument", filters.instrument);
+    if (filters.style) params.set("style", filters.style);
+    if (filters.origin) params.set("origin", filters.origin);
+    if (filters.ensemble) params.set("ensemble", filters.ensemble);
+
+    // Using replace so that we don't create a new history entry
+    router.replace(`/materiaalit/haku?${params.toString()}`);
+  }, [query, filters, router]);
 
   React.useEffect(() => {
     const fetchData = async () => {
