@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+
 import useStickyState from "../../hooks/useStickyState";
 import { PiMusicNoteSimpleFill } from "react-icons/pi";
 
@@ -10,18 +12,20 @@ import {
   DisclosurePanel,
 } from "@headlessui/react";
 
-import { useSearchParams, useRouter } from "next/navigation";
-import Material from "../Material";
 import type { Entry } from "contentful";
 import type { MaterialSkeleton } from "@/types";
-import { searchMaterialData } from "@/utils/contentful";
+
+import Chip from "@/components/Chip";
+import Select from "@/components/Select";
+import Material from "@/components/Material";
+import IconButton from "@/components/IconButton";
+import GridListSelector from "@/components/GridListSelector";
+
 import { getContentType } from "@/utils/management";
+import { searchMaterialData } from "@/utils/contentful";
+
 import { IoFilterSharp } from "react-icons/io5";
 import { FaRegTrashAlt } from "react-icons/fa";
-import Select from "@/components/Select";
-import IconButton from "@/components/IconButton";
-import Chip from "@/components/Chip";
-import GridListSelector from "../GridListSelector";
 
 const Search: React.FC = () => {
   const router = useRouter();
@@ -75,7 +79,10 @@ const Search: React.FC = () => {
 
   React.useEffect(() => {
     const params = new URLSearchParams();
-    if (query) params.set("q", query);
+
+    if (order) params.set("order", order);
+    if (query) params.set("search", query);
+
     if (filters.key) params.set("key", filters.key);
     if (filters.mode) params.set("mode", filters.mode);
     if (filters.timeSignature)
@@ -88,7 +95,7 @@ const Search: React.FC = () => {
 
     // Using replace so that we don't create a new history entry
     router.replace(`/materiaalit/haku?${params.toString()}`);
-  }, [query, filters, router]);
+  }, [query, filters, order, router]);
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -194,71 +201,39 @@ const Search: React.FC = () => {
             <DisclosureButton>
               <IconButton
                 icon={<IoFilterSharp />}
-                className='flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-400 to-primary-600 text-white rounded-full shadow-lg hover:scale-105 active:scale-95 focus:ring-2 focus:ring-accent-500 transition-transform duration-300'
+                className='flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-400 to-primary-600 text-white rounded-full shadow-lg hover:scale-105 active:scale-95 focus:ring-2 focus:ring-accent-500 transition-transform duration-200'
                 onClick={() => console.log("Filter clicked")}
               />
             </DisclosureButton>
             <IconButton
               icon={<FaRegTrashAlt />}
-              className='flex items-center justify-center w-12 h-12 bg-gradient-to-br from-accent-400 to-accent-600 text-white rounded-full shadow-lg hover:scale-105 active:scale-95 focus:ring-2 focus:ring-accent-500 transition-transform duration-300'
+              className='flex items-center justify-center w-12 h-12 bg-gradient-to-br from-accent-400 to-accent-600 text-white rounded-full shadow-lg hover:scale-105 active:scale-95 focus:ring-2 focus:ring-accent-500 transition-transform duration-200'
               onClick={() => resetSearch()}
             />
           </div>
-
           <DisclosurePanel
             transition
-            className='grid lg:grid-cols-3 gap-4 lg:mx-3 mt-6 origin-top transition duration-200 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0'
+            className="grid lg:grid-cols-3 gap-4 lg:mx-3 mt-6 origin-top transition duration-200 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0"
           >
-            <Select
-              selected={filters.key}
-              setSelected={(value) => handleFilterChange("key", value)}
-              options={keyValues}
-              placeholder='Perussävel'
-            />
-            <Select
-              selected={filters.mode}
-              setSelected={(value) => handleFilterChange("mode", value)}
-              options={modeValues}
-              placeholder='Asteikko'
-            />
-            <Select
-              selected={filters.timeSignature}
-              setSelected={(value) =>
-                handleFilterChange("timeSignature", value)
-              }
-              options={timeSignatureValues}
-              placeholder='Tahtilaji'
-            />
-            <Select
-              selected={filters.difficulty}
-              setSelected={(value) => handleFilterChange("difficulty", value)}
-              options={difficultyValues}
-              placeholder='Vaikeustaso'
-            />
-            <Select
-              selected={filters.instrument}
-              setSelected={(value) => handleFilterChange("instrument", value)}
-              options={instrumentValues}
-              placeholder='Soitin'
-            />
-            <Select
-              selected={filters.style}
-              setSelected={(value) => handleFilterChange("style", value)}
-              options={styleValues}
-              placeholder='Tyyli'
-            />
-            <Select
-              selected={filters.origin}
-              setSelected={(value) => handleFilterChange("origin", value)}
-              options={originValues}
-              placeholder='Alkuperämaa'
-            />
-            <Select
-              selected={filters.ensemble}
-              setSelected={(value) => handleFilterChange("ensemble", value)}
-              options={ensembleValues}
-              placeholder='Yhteissoiton vaikeustaso'
-            />
+            {[
+              { key: "key", options: keyValues, placeholder: "Perussävel" },
+              { key: "mode", options: modeValues, placeholder: "Asteikko" },
+              { key: "timeSignature", options: timeSignatureValues, placeholder: "Tahtilaji" },
+              { key: "difficulty", options: difficultyValues, placeholder: "Vaikeustaso" },
+              { key: "instrument", options: instrumentValues, placeholder: "Soitin" },
+              { key: "style", options: styleValues, placeholder: "Tyyli" },
+              { key: "origin", options: originValues, placeholder: "Alkuperämaa" },
+              { key: "ensemble", options: ensembleValues, placeholder: "Yhteissoiton vaikeustaso" },
+            ].map(({ key, options, placeholder }) => (
+              <Select
+                key={key}
+                colorOnSelected
+                selected={filters[key]}
+                setSelected={(value) => handleFilterChange(key, value)}
+                options={options}
+                placeholder={placeholder}
+              />
+            ))}
           </DisclosurePanel>
         </div>
       </Disclosure>
@@ -266,7 +241,14 @@ const Search: React.FC = () => {
       {/* Selected Filter Chips */}
       <div className='w-full flex flex-col lg:flex-row gap-6 justify-between'>
         {filterIsSelected ? (
-          <div className='flex gap-2'>
+          <div className='flex gap-2 justify-center items-center'>
+            <Chip
+              onDelete={() => setQuery("")}
+              className='from-primary-500 to-primary-700'
+            >
+              {query}
+            </Chip>
+
             {Object.entries(filters)?.map(([key, value]) => {
               if (!value) return null;
 
@@ -280,6 +262,12 @@ const Search: React.FC = () => {
                 </Chip>
               );
             })}
+
+            <IconButton
+              icon={<FaRegTrashAlt />}
+              className='flex items-center justify-center w-10 h-10 bg-gradient-to-br from-red-500 to-red-700 text-white rounded-full shadow-lg hover:scale-110 active:scale-95 focus:ring-2 focus:ring-accent-500 transition-transform duration-200'
+              onClick={() => resetSearch()}
+            />
           </div>
         ) : (
           <div className='hidden lg:block min-w-[1rem]' />
@@ -299,12 +287,6 @@ const Search: React.FC = () => {
                 { label: "Luontiaika (vanhin ensin)", value: "sys.createdAt" },
               ]}
             />
-
-            {/* <IconButton
-              icon={sortAsc ? <FaSortAmountDown /> : <FaSortAmountUp />}
-              className={`${filtersOpen ? "bg-primary-500" : "bg-primary-500"}`}
-              onClick={() => setSortAsc(!sortAsc)}
-            /> */}
           </div>
 
           <GridListSelector

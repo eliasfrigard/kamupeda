@@ -18,7 +18,7 @@ const GridListSelector: React.FC<GridListSelectorProps> = ({
       <IconButton
         icon={<IoGrid />}
         onClick={() => onSelect("grid")}
-        className={`bg-gradient-to-br duration-100 ${
+        className={`bg-gradient-to-br duration-200 ${
           selected === "grid"
             ? "from-primary-400 to-primary-600"
             : "from-accent-400 to-accent-600 opacity-60 hover:opacity-100"
@@ -27,7 +27,7 @@ const GridListSelector: React.FC<GridListSelectorProps> = ({
       <IconButton
         icon={<FaList />}
         onClick={() => onSelect("list")}
-        className={`bg-gradient-to-br duration-100 ${
+        className={`bg-gradient-to-br duration-200 ${
           selected === "list"
             ? "from-primary-400 to-primary-600"
             : "from-accent-400 to-accent-600 opacity-60 hover:opacity-100"

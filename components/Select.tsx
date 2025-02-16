@@ -17,12 +17,14 @@ export default function Select({
   setSelected,
   placeholder = "Select an option",
   className,
+  colorOnSelected,
 }: {
   options: SelectOption[] | (string | number)[];
   selected: string;
   setSelected: (value: string) => void;
   placeholder?: string;
   className?: string;
+  colorOnSelected?: boolean;
 }) {
   const normalizedOptions: SelectOption[] = options.map((option) =>
     typeof option === "string" || typeof option === "number"
@@ -38,7 +40,13 @@ export default function Select({
     <Listbox value={selected} onChange={setSelected}>
       <div className={`relative ${className}`}>
         {/* Button */}
-        <ListboxButton className='relative w-full h-10 cursor-pointer rounded-lg bg-white py-2 pl-1 pr-10 text-left text-black shadow ring-1 ring-primary-700/10 focus:outline-none focus:ring-2 focus:ring-accent-500 sm:text-sm transition-transform duration-150 active:scale-100'>
+        <ListboxButton
+          className={`relative w-full h-10 cursor-pointer rounded-lg py-2 pl-1 pr-10 text-left shadow ring-1 ring-primary-700/10 focus:outline-none focus:ring-2 focus:ring-accent-500 sm:text-sm transition-transform duration-150 active:scale-100 ${
+            selected && colorOnSelected
+              ? "bg-accent-500 text-white font-bold"
+              : "bg-white text-black"
+          }`}
+        >
           <span className='flex items-center'>
             {selected ? (
               <span className='ml-3 block truncate'>{selectedLabel}</span>
