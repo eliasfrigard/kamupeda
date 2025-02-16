@@ -241,7 +241,7 @@ const Search: React.FC = () => {
       {/* Selected Filter Chips */}
       <div className='w-full flex flex-col lg:flex-row gap-6 justify-between'>
         {filterIsSelected ? (
-          <div className='flex gap-2 justify-center items-center'>
+          <div className='flex gap-2 items-center'>
             <Chip
               onDelete={() => setQuery("")}
               className='from-primary-500 to-primary-700'
