@@ -63,7 +63,7 @@ const DisclosureButtonComponent = ({
   return (
     <Popover className='relative group'>
       {({ close }) => (
-        <>
+        <div>
           <PopoverButton
             className={`flex group items-center gap-x-1.5 text-sm font-medium leading-6 -mr-3 outline-none hover:text-accent-500 duration-100 ${
               isActivePath
@@ -80,8 +80,9 @@ const DisclosureButtonComponent = ({
             />
           </PopoverButton>
           <PopoverPanel
+            onMouseLeave={() => close()}
             transition
-            className='absolute -left-16 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-gray-900/5 flex origin-top flex-col transition duration-150 ease-out data-[closed]:scale-95 data-[closed]:opacity-0'
+            className='absolute -left-16 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-gray-900/5 flex origin-top flex-col transition duration-200 ease-out data-[closed]:scale-95 data-[closed]:opacity-0'
           >
             <div className='p-4'>
               {items?.map((page) => (
@@ -138,7 +139,7 @@ const DisclosureButtonComponent = ({
                 ))}
             </div>
           </PopoverPanel>
-        </>
+        </div>
       )}
     </Popover>
   );
