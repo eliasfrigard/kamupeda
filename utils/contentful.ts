@@ -54,18 +54,19 @@ export const getMaterialData = async ({
 
   const query: Record<string, unknown> = {
     content_type: 'material',
-    // Apply dynamic sorting
     order: sortByInstrument ? "fields.instrument" : "-sys.createdAt",
   };
 
-  // Apply filter for 'ensemble' field having a value
-  if (forEnsemble !== undefined) {
-    query['fields.ensemble[exists]'] = true; // Filter where 'ensemble' field exists
+  if (sortByInstrument) {
+    query['fields.instrument[exists]'] = true;
   }
 
-  // Apply filter for 'forDance' being set to true
+  if (forEnsemble !== undefined) {
+    query['fields.ensemble[exists]'] = true;
+  }
+
   if (forDance !== undefined) {
-    query['fields.forDance'] = true; // Filter where 'forDance' is explicitly true
+    query['fields.forDance'] = true;
   }
 
   const { items } = await client.getEntries<MaterialSkeleton>(query);
