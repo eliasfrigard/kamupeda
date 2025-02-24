@@ -54,9 +54,9 @@ export default async function Page({ params }: { params: { id: string } }) {
 
           <FileSelector downloadTitle={page.fields.title} files={sheetMusic} />
 
-          <div className='mt-4'>
-            {audioFiles.length > 0 &&
-              audioFiles.map((file) => (
+          {audioFiles.length > 0 && (
+            <div className='mt-4'>
+              {audioFiles.map((file) => (
                 <audio
                   key={file.sys.id}
                   controls
@@ -64,7 +64,8 @@ export default async function Page({ params }: { params: { id: string } }) {
                   src={`https:${file.fields.file.url}`}
                 />
               ))}
-          </div>
+            </div>
+          )}
         </div>
 
         {page.fields.description && (
