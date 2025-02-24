@@ -14,8 +14,15 @@ export const generateStaticParams = async () => {
   }));
 };
 
+const isAudioFile = (file) => {
+  return file.fields.file.contentType.includes("audio");
+};
+
 export default async function Page({ params }: { params: { id: string } }) {
   const page = (await getMaterialById(params.id)) as MaterialSkeleton;
+
+  const audioFiles = page.fields.files.filter((file) => isAudioFile(file));
+  const sheetMusic = page.fields.files.filter((file) => !isAudioFile(file));
 
   if (!page) {
     return (
@@ -45,10 +52,19 @@ export default async function Page({ params }: { params: { id: string } }) {
             ]}
           />
 
-          <FileSelector
-            downloadTitle={page.fields.title}
-            files={page.fields.files}
-          />
+          <FileSelector downloadTitle={page.fields.title} files={sheetMusic} />
+
+          <div className='mt-4'>
+            {audioFiles.length > 0 &&
+              audioFiles.map((file) => (
+                <audio
+                  key={file.sys.id}
+                  controls
+                  className='w-full'
+                  src={`https:${file.fields.file.url}`}
+                />
+              ))}
+          </div>
         </div>
 
         {page.fields.description && (
